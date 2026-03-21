@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>volta.codes — Maßgeschneiderte Software, entwickelt mit KI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --white: #fafaf8;
+            --dark: #14141a;
+            --text: #3a3a3e;
+            --text-mid: #48484c;
+            --text-light: #70706e;
+            --blue: #2b5ae0;
+            --blue-bg: #2350c8;
+            --line: rgba(20,20,26,0.09);
+            --left-col: 240px;
+            --col-gap: 4rem;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            font-size: 15.5px;
+            font-weight: 400;
+            line-height: 1.72;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection { background: var(--blue); color: #fff; }
+
+        p { color: var(--text-mid); margin-bottom: 1rem; }
+        p:last-child { margin-bottom: 0; }
+
+        a { color: var(--blue); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: var(--dark); }
+
+        /* --- Highlights --- */
+        mark {
+            background: transparent;
+            color: inherit;
+            background-image: linear-gradient(var(--blue), var(--blue));
+            background-size: 0% 100%;
+            background-repeat: no-repeat;
+            background-position: left;
+            transition: background-size 0.8s ease, color 0.4s ease 0.2s;
+            padding: 0.08em 0.15em;
+            margin: -0.08em -0.15em;
+            border-radius: 2px;
+        }
+        mark.lit {
+            background-size: 100% 100%;
+            color: #fff;
+        }
+
+        /* --- Nav --- */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 1.1rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+        }
+        nav.scrolled {
+            background: rgba(250,250,248,0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 var(--line);
+        }
+        nav.scrolled.nav-dark {
+            background: rgba(20,20,26,0.85);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.08);
+        }
+        nav .logo {
+            font-weight: 600; font-size: 0.9rem;
+            letter-spacing: 0.02em; color: var(--dark);
+            transition: color 0.3s;
+        }
+        nav .nav-link {
+            font-size: 0.75rem; font-weight: 500; letter-spacing: 0.07em;
+            text-transform: uppercase; color: var(--text-light);
+            transition: color 0.3s;
+        }
+        nav .nav-link:hover { color: var(--blue); }
+        nav.nav-dark .logo { color: #fff; }
+        nav.nav-dark .nav-link { color: rgba(255,255,255,0.6); }
+        nav.nav-dark .nav-link:hover { color: #fff; }
+
+        /* --- Layout --- */
+        .w { max-width: 980px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: clamp(48px, 8vh, 80px) 0; }
+        .fade {
+            opacity: 0; transform: translateY(14px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+        .fade.visible { opacity: 1; transform: none; }
+
+        /* --- Split layout --- */
+        .split {
+            display: grid;
+            grid-template-columns: var(--left-col) 1fr;
+            gap: 0 var(--col-gap);
+        }
+        .split .s-head {
+            margin-bottom: 0;
+            padding-top: 0.2rem;
+            position: sticky;
+            top: 3.5rem;
+            align-self: start;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            padding-top: clamp(100px, 18vh, 200px);
+            padding-bottom: clamp(32px, 5vh, 56px);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 9.5vw, 8.5rem);
+            font-weight: 400;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 1.4rem;
+            color: var(--dark);
+        }
+        .hero h1 .dot { color: var(--blue); }
+
+        .hero .sub {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            font-weight: 300;
+            color: var(--text);
+            line-height: 1.55;
+            max-width: 680px;
+        }
+
+        /* --- Section heads --- */
+        .s-head {
+            font-size: clamp(1.4rem, 2.8vw, 2rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.18;
+            margin-bottom: 1.1rem;
+            color: var(--dark);
+        }
+
+        .col p { line-height: 1.82; }
+
+        /* --- Pakete (Blue Block) --- */
+        .pakete {
+            background: var(--blue-bg);
+            color: #fff;
+            padding: clamp(48px, 8vh, 80px) 0;
+        }
+        .pakete .s-head {
+            color: #fff;
+            margin-bottom: 0;
+            padding-top: 0.2rem;
+            position: sticky;
+            top: 3.5rem;
+            align-self: start;
+        }
+
+        .pkg-list { border-top: 1px solid rgba(255,255,255,0.18); }
+
+        .pkg {
+            border-bottom: 1px solid rgba(255,255,255,0.18);
+            padding: 1.8rem 0;
+        }
+
+        .pkg h3 {
+            font-size: 0.78rem; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            line-height: 1.2;
+            color: rgba(255,255,255,0.75); margin: 0 0 0.7rem 0;
+        }
+        .pkg .badge {
+            display: inline-block; margin-left: 0.8rem;
+            font-size: 0.55rem; font-weight: 600;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.25);
+            padding: 0.12rem 0.4rem; border-radius: 1px;
+            vertical-align: middle;
+        }
+        .pkg .desc {
+            font-size: 0.9rem; color: rgba(255,255,255,0.9);
+            margin-bottom: 0.6rem;
+        }
+        .pkg ul { list-style: none; }
+        .pkg li {
+            padding-left: 0.9rem; margin-bottom: 0.15rem;
+            position: relative; color: rgba(255,255,255,0.7);
+            font-size: 0.82rem;
+        }
+        .pkg li::before {
+            content: "–"; position: absolute; left: 0;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* --- Kontakt --- */
+        .kontakt {
+            background: var(--dark);
+            color: #fff;
+            padding: clamp(56px, 10vh, 100px) 0 0;
+        }
+        .kontakt .s-head { color: #fff; position: static; }
+        .kontakt p { color: rgba(255,255,255,0.7); }
+        .kontakt .email-wrap { margin-top: 0.5rem; margin-bottom: 1.2rem; }
+        .kontakt .kontakt-meta {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.65;
+        }
+        .kontakt .email {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 600; letter-spacing: -0.01em;
+            color: #fff;
+            display: inline-block; position: relative;
+        }
+        .kontakt .email::after {
+            content: ''; position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 2px;
+            background: var(--blue);
+            transition: width 0.35s ease;
+        }
+        .kontakt .email:hover { color: var(--blue); }
+        .kontakt .email:hover::after { width: 100%; }
+
+        .copy {
+            margin-top: clamp(48px, 8vh, 80px);
+            padding: 1.2rem 0;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 0.02em;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            :root {
+                --left-col: 0px;
+                --col-gap: 0rem;
+            }
+            nav { padding: 1rem 1.2rem; }
+            .w { padding: 0 1.2rem; }
+            section, .pakete { padding: clamp(36px, 6vh, 64px) 0; }
+            .kontakt { padding-bottom: 0; }
+            .hero { padding-top: 120px; }
+            .hero h1 { letter-spacing: 0.08em; }
+            .split {
+                grid-template-columns: 1fr;
+                gap: 0.6rem;
+            }
+            .split .s-head { position: static; padding-top: 0; }
+            .pkg { padding: 1.5rem 0; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.2rem; letter-spacing: 0.06em; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <span class="logo">volta.codes</span>
+    <a href="#kontakt" class="nav-link">Kontakt</a>
+</nav>
+
+<section class="hero">
+    <div class="w">
+        <div class="fade">
+            <h1>volta<span class="dot">.</span></h1>
+            <p class="sub">Maßgeschneiderte Software für Ihr Unternehmen, entwickelt mit KI. Verlässlich, smart und zukunftsfest.</p>
+        </div>
+    </div>
+</section>
+
+<section class="warum">
+    <div class="w">
+        <div class="fade split">
+            <h2 class="s-head">Warum Volta</h2>
+            <div class="col">
+                <p>Viele Unternehmen und Einrichtungen arbeiten heute mit Software, die nicht für sie gebaut wurde. Standardlösungen, die fast passen. Aber eben auch nur fast. Lizenzabhängigkeiten, die wachsen. Anbieter, deren Roadmap nichts mit Ihrer Realität zu tun hat.</p>
+                <p><mark>Maßgeschneiderte Software war bisher ein Privileg — dazu oft teuer, langsam, und fehleranfällig. KI ändert das grundlegend.</mark> Was früher ein großes Entwicklerteam und 18 Monate brauchte, ist heute präziser, schneller und erschwinglicher als je zuvor.</p>
+                <p>Volta steht an dieser Schwelle. Wir nutzen KI nicht als Produkt — sondern als Werkzeug. Um Software zu bauen, die exakt zu Ihnen passt. Die mit Ihnen wächst. Und Ihr Unternehmen zukunftssicher macht.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pakete">
+    <div class="w">
+        <div class="fade split">
+            <h2 class="s-head">Optionen</h2>
+            <div class="pkg-list">
+                <div class="pkg">
+                    <h3>Start</h3>
+                    <p class="desc">Der richtige erste Schritt. Wir analysieren Ihre Anforderungen, verstehen Ihre Abläufe und entwickeln ein konkretes Konzept mit Roadmap. Kein Code, keine Verpflichtung — aber eine klare Grundlage für alles Weitere.</p>
+                    <ul>
+                        <li>Discovery Workshop mit Ihrem Team</li>
+                        <li>Anforderungsanalyse & Prozessaufnahme</li>
+                        <li>Konzeptdokument & technische Roadmap</li>
+                        <li>Festpreis, einmalig</li>
+                    </ul>
+                </div>
+
+                <div class="pkg">
+                    <h3>Build</h3>
+                    <p class="desc">Wir entwickeln Ihre Anwendung — passgenau, sauber dokumentiert, übergabebereit. Sie erhalten eine vollständige Lösung mit allem was Sie brauchen, um selbständig weiterzuarbeiten.</p>
+                    <ul>
+                        <li>Vollständige Entwicklung Ihrer Anwendung</li>
+                        <li>DSGVO-konforme Architektur</li>
+                        <li>Technische Dokumentation & Übergabe</li>
+                        <li>Projektpreis, einmalig</li>
+                    </ul>
+                </div>
+
+                <div class="pkg">
+                    <h3>Full <span class="badge">Empfohlen</span></h3>
+                    <p class="desc">Die vollständige Partnerschaft. Wir entwickeln, begleiten, schulen und wachsen mit Ihnen. Neue Anforderungen werden zu neuen Features — schnell, günstig, ohne fremde Roadmap.</p>
+                    <ul>
+                        <li>Vollständige Entwicklung Ihrer Anwendung</li>
+                        <li>Laufende Updates & neue Features</li>
+                        <li>Support & Wartung</li>
+                        <li>Mitarbeiterschulungen</li>
+                        <li>Monatliche Pauschale, langfristig planbar</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="team">
+    <div class="w">
+        <div class="fade split">
+            <h2 class="s-head">Die Gründer</h2>
+            <div class="col">
+                <p>Dominik Bretsch und Simon Hufeisen führen seit über zehn Jahren erfolgreich ein eigenes Medien-Unternehmen. In dieser Zeit haben sie gelernt, was es bedeutet, eine Organisation am Laufen zu halten — mit knappen Ressourcen, wachsenden Anforderungen und Software, die nie ganz passt.</p>
+                <p>Als Antwort darauf haben sie ihr Unternehmen konsequent digitalisiert, KI-Tools in ihre Workflows integriert und begonnen, eigene Anwendungen zu entwickeln.</p>
+                <p>Was sie darüber hinaus einbringen, ist journalistisches Handwerk: <mark>Themenfelder schnell durchdringen, das Wesentliche herausarbeiten, komplexe Anforderungen auf den Punkt bringen.</mark> Bretsch und Hufeisen sind Konzeptentwickler, die zuhören, verstehen und daraus etwas Präzises bauen.</p>
+                <p>Begleitet werden sie von erfahrenen Software-Profis, die nach europäischen Standards arbeiten. Alle Anwendungen sind DSGVO-konform, sicher und auf Langlebigkeit ausgelegt.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="kontakt" id="kontakt">
+    <div class="w">
+        <div class="fade split">
+            <h2 class="s-head">Sprechen wir.</h2>
+            <div>
+                <p>Sie haben ein konkretes Projekt, eine Frage oder möchten einfach verstehen, was mit Ihrer Einrichtung möglich wäre? Wir freuen uns auf das Gespräch.</p>
+                <p class="email-wrap"><a href="mailto:hallo@volta.codes" class="email">hallo@volta.codes</a></p>
+                <p class="kontakt-meta">Emserstr. 124, 12051 Berlin<br>Wir antworten innerhalb von 24 Stunden.</p>
+            </div>
+        </div>
+        <p class="copy">&copy; 2026 volta.codes — Berlin</p>
+    </div>
+</section>
+
+<script>
+const n = document.querySelector('nav');
+const updateScroll = () => n.classList.toggle('scrolled', scrollY > 40);
+addEventListener('scroll', updateScroll, { passive: true });
+updateScroll();
+
+const fadeObs = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade').forEach(el => fadeObs.observe(el));
+document.querySelector('.hero .fade').classList.add('visible');
+
+const markObs = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) e.target.classList.add('lit'); });
+}, { threshold: 0.8, rootMargin: '0px 0px -20px 0px' });
+document.querySelectorAll('mark').forEach(el => markObs.observe(el));
+
+const darkSections = document.querySelectorAll('.pakete, .kontakt');
+const navObs = new IntersectionObserver(es => {
+    es.forEach(e => { e.target._navDark = e.isIntersecting; });
+    n.classList.toggle('nav-dark', [...darkSections].some(s => s._navDark));
+}, { rootMargin: '0px 0px -94% 0px' });
+darkSections.forEach(s => navObs.observe(s));
+</script>
+
+</body>
+</html>
