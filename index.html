@@ -243,14 +243,72 @@
         .kontakt .email:hover { color: var(--blue); }
         .kontakt .email:hover::after { width: 100%; }
 
+        /* --- Impressum Modal --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(14,14,20,0.72);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal {
+            background: var(--white);
+            max-width: 480px;
+            width: 100%;
+            padding: 2.4rem 2.6rem;
+            position: relative;
+            border-radius: 2px;
+        }
+        .modal h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--dark);
+            margin-bottom: 1.4rem;
+        }
+        .modal p {
+            font-size: 0.82rem;
+            color: var(--text-mid);
+            line-height: 1.75;
+            margin-bottom: 0.65rem;
+        }
+        .modal a { color: var(--blue); }
+        .modal-close {
+            position: absolute;
+            top: 1.1rem; right: 1.3rem;
+            background: none; border: none;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 1.25rem;
+            line-height: 1;
+            padding: 0.25rem;
+            transition: color 0.2s;
+        }
+        .modal-close:hover { color: var(--dark); }
+
         .copy {
-            margin-top: clamp(48px, 8vh, 80px);
+            margin-top: clamp(40px, 6vh, 64px);
             padding: 1.2rem 0;
             border-top: 1px solid rgba(255,255,255,0.08);
             font-size: 0.72rem;
             color: rgba(255,255,255,0.25);
             letter-spacing: 0.02em;
         }
+        .imprint-btn {
+            background: none; border: none; cursor: pointer;
+            color: rgba(255,255,255,0.25);
+            font: inherit; font-size: 0.72rem;
+            letter-spacing: 0.02em;
+            padding: 0;
+            transition: color 0.2s;
+        }
+        .imprint-btn:hover { color: rgba(255,255,255,0.5); }
 
         /* --- Responsive --- */
         @media (max-width: 768px) {
@@ -380,12 +438,26 @@
             <div>
                 <p>Sie haben ein konkretes Projekt, eine Frage oder möchten einfach verstehen, was mit Ihrer Einrichtung möglich wäre? Wir freuen uns auf das Gespräch.</p>
                 <p class="email-wrap"><a href="mailto:hallo@volta.codes" class="email">hallo@volta.codes</a></p>
-                <p class="kontakt-meta">Emserstr. 124, 12051 Berlin<br>Wir antworten innerhalb von 24 Stunden.</p>
+                <p class="kontakt-meta">Emserstr. 125, 12051 Berlin<br>Wir antworten innerhalb von 24 Stunden.</p>
             </div>
         </div>
-        <p class="copy">&copy; 2026 volta.codes — Berlin</p>
+        <p class="copy">&copy; 2026 volta.codes — Berlin &ensp;&middot;&ensp; <button class="imprint-btn" id="imprint-open">Impressum</button></p>
     </div>
 </section>
+
+<div class="modal-overlay" id="imprint-modal">
+    <div class="modal">
+        <button class="modal-close" id="imprint-close" aria-label="Schließen">&times;</button>
+        <h2>Impressum</h2>
+        <p>
+            volta.codes GmbH (i. Gr.)<br>
+            Emserstr. 125<br>
+            12051 Berlin
+        </p>
+        <p>Geschäftsführer: Dominik Bretsch, Simon Hufeisen</p>
+        <p><a href="mailto:hallo@volta.codes">hallo@volta.codes</a></p>
+    </div>
+</div>
 
 <script>
 const n = document.querySelector('nav');
@@ -404,6 +476,12 @@ const markObs = new IntersectionObserver(es => {
 }, { threshold: 0.8, rootMargin: '0px 0px -20px 0px' });
 document.querySelectorAll('mark').forEach(el => markObs.observe(el));
 
+const imprintModal = document.getElementById('imprint-modal');
+document.getElementById('imprint-open').addEventListener('click', () => imprintModal.classList.add('open'));
+document.getElementById('imprint-close').addEventListener('click', () => imprintModal.classList.remove('open'));
+imprintModal.addEventListener('click', e => { if (e.target === imprintModal) imprintModal.classList.remove('open'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') imprintModal.classList.remove('open'); });
+
 const darkSections = document.querySelectorAll('.pakete, .kontakt');
 const navObs = new IntersectionObserver(es => {
     es.forEach(e => { e.target._navDark = e.isIntersecting; });
@@ -411,6 +489,7 @@ const navObs = new IntersectionObserver(es => {
 }, { rootMargin: '0px 0px -94% 0px' });
 darkSections.forEach(s => navObs.observe(s));
 </script>
+
 
 </body>
 </html>
