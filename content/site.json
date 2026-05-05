@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "kontaktLabel": "Kontakt"
+  },
+  "hero": {
+    "untertitel": "Maßgeschneiderte Software für den sozialen Sektor und datensensible Unternehmen. DSGVO-konformA, verlässlich, zukunftsfest — und so gebaut, dass sie Freude macht."
+  },
+  "warum": {
+    "heading": "Warum volta.codes",
+    "absaetze": [
+      "Viele Einrichtungen und Unternehmen arbeiten heute mit Software, die nicht für sie gebaut wurde. ==Standardlösungen, die fast passen — aber eben nur fast.== Lizenzabhängigkeiten, die wachsen. Statistiktools, die nicht die richtigen Daten erfassen, komplizierte Workflows, die den Arbeitsalltag erschweren.",
+      "==Maßgeschneiderte Software war bisher ein teures Privileg. KI ändert das grundlegend.== Was früher ein großes Entwicklerteam und 18 Monate brauchte, ist heute präziser, schneller und erschwinglicher als je zuvor.",
+      "volta.codes steht an dieser Schwelle. ==Wir nutzen KI, um Software zu bauen, die exakt zu Ihnen passt. Die mit Ihnen wächst. Und die Daten dort hält, wo sie hingehören: bei Ihnen, in Deutschland, DSGVO-konform.==",
+	"==Wenn wiederkehrende Aufgaben automatisiert oder Prozesse mit KI-Systemem verbunden werden sollen,== begleiten wir Sie auf demselben Weg: Analyse, Konzept, Implementierung, Betrieb."
+    ]
+  },
+  "fuerWen": {
+    "heading": "Für wen wir bauen",
+    "gruppen": [
+      {
+        "titel": "Sozialer Sektor",
+        "text": "Beratungsstellen, soziale Träger, Einrichtungen mit komplexen Finanzierungsstrukturen und hohen Anforderungen an Dokumentation sowie Datenschutz. ==Wir kennen die Realität: knappe Ressourcen, wachsende Anforderungen, Sachberichte, die Zeit fressen.== Wir bauen Software, die diese Last verringert."
+      },
+      {
+        "titel": "Datensensible mittelständische Unternehmen",
+        "text": "Betriebe, in denen Compliance, Vertraulichkeit und regulatorische Anforderungen den Alltag prägen. Industrie mit besonderen Datenschutzanforderungen, Medizinprodukte-Hersteller, Beratungsunternehmen. ==Überall dort, wo Standardsoftware aus den USA keine Option ist.=="
+      }
+    ]
+  },
+  "wasWirMachen": {
+    "heading": "Was wir machen",
+    "intro": [
+      "**Wir betreuen den kompletten Lebenszyklus Ihrer Software — von der ersten Idee bis zum Betrieb in zehn Jahren.**",
+      "Sie bekommen bei uns nicht ein Modul aus einem Baukasten, ==sondern einen Partner, der jede Phase mitdenkt und mitträgt.=="
+    ],
+    "phasen": [
+      {
+        "titel": "Konzeption",
+        "text": "Wir hören zu, durchdringen Ihren Arbeitsalltag und formen daraus ein klares Bild dessen, was die Software leisten muss — und was bewusst nicht. ==Am Ende steht ein Konzept, das auch dann trägt, wenn Anforderungen sich ändern.=="
+      },
+      {
+        "titel": "Anforderungsanalyse",
+        "text": "Wir übersetzen Prozesse in präzise Spezifikationen. ==Wir fragen nach, bis wir die Logik hinter Ihrer Arbeit wirklich verstanden haben.== Das Resultat ist eine Software, die optimal auf Ihre Workflows passt und einen spürbaren Unterschied im Arbeitsalltag macht."
+      },
+      {
+        "titel": "Implementierung",
+        "text": "Wir entwickeln die Anwendung — DSGVO-konform, sauber dokumentiert, gehostet in deutschen Rechenzentren. ==Sie sehen Fortschritt in kurzen Zyklen, nicht erst nach sechs Monaten.== Auf Wunsch erstellen wir in kurzer Zeit Prototypen, sodass Sie die Software direkt testen können."
+      },
+      {
+        "titel": "Dauerhafte Betreuung",
+        "text": "==Software ist nicht fertig, wenn sie läuft.== Wir bleiben — pflegen, erweitern, schulen, reagieren auf neue Anforderungen. Neue Features lassen sich schnell und kostengünstig ergänzen."
+      }
+    ]
+  },
+  "wieWirArbeiten": {
+    "heading": "Wie wir arbeiten",
+    "werte": [
+      {
+        "titel": "Kommunikation auf Augenhöhe",
+        "text": "==Wir wollen, dass Sie das Gefühl haben, verstanden zu werden.== Deswegen vermeiden wir Fachjargon und kompliziertes IT-Vokabular. Zusammen ermitteln wir, was Sie benötigen, und nehmen Sie auf jedem Schritt mit."
+      },
+      {
+        "titel": "Verlässlichkeit",
+        "text": "==Was wir zusagen, halten wir — bei Terminen, bei Funktionsumfang, beim Preis.== Wir gewährleisten eine dauerhafte Wartung unserer Produkte und die Zugänglichkeit der Daten auch in vielen Jahren und Jahrzehnten, indem wir mit offenen Formaten arbeiten."
+      },
+      {
+        "titel": "Hohes Datenschutzbewusstsein",
+        "text": "==Datenschutz ist bei uns kein Häkchen am Ende des Projekts, sondern eine Grundannahme.== Wir denken in Datensparsamkeit, deutschem Hosting und sauberen Auftragsverarbeitungen — von der ersten Skizze an."
+      },
+      {
+        "titel": "Schlanke Workflows",
+        "text": "Wir halten Projektkommunikation konzentriert und Meetings kurz. ==Ihre Zeit gehört Ihrer eigentlichen Arbeit, nicht unserem Prozess.=="
+      }
+    ]
+  },
+  "wasUnsereSoftwareAuszeichnet": {
+    "heading": "Was unsere Software auszeichnet",
+    "intro": "Wir kommen nicht aus einer klassischen IT-Firma — und das merkt man.",
+    "merkmale": [
+      {
+        "titel": "Software, die Freude macht",
+        "text": "Anwendungen sollen sich leicht anfühlen. ==Bedienung soll von der Hand gehen. Eine Oberfläche, die Sie zur Arbeit motiviert statt zwischen Sie und Ihre Aufgabe zu treten.=="
+      },
+      {
+        "titel": "Komplett auf Ihre Bedürfnisse ausgerichtet",
+        "text": "==Keine Funktionen, die niemand braucht.== Keine Felder, von denen niemand weiß, wie man sie richtig füllt. Was Sie sehen, ist das, was Sie wirklich nutzen — passgenau für Ihre Abläufe."
+      },
+      {
+        "titel": "Geringe Einarbeitung",
+        "text": "Eine gute Anwendung erklärt sich weitgehend selbst. ==Die Software soll so gut sein, dass Ihre Mitarbeitenden sie intuitiv bedienen können und nur wenig Zeit für Schulungen nötig ist.=="
+      },
+      {
+        "titel": "Aussagekräftige Statistiken und Sachberichte mit minimalem Aufwand",
+        "text": "==Was Sie heute aus mehreren Tabellen mühsam zusammenfügen, soll morgen ein Klick sein.== Wir bauen die Auswertungen, die Sie brauchen — für Förderer, für Träger, für Ihre eigene Steuerung — und reduzieren den Aufwand auf das Wesentliche."
+      }
+    ]
+  },
+  "gruender": {
+    "heading": "Die Gründer",
+    "absaetze": [
+      "Dominik Bretsch und Simon Hufeisen führen seit über zehn Jahren erfolgreich ein eigenes Medien-Unternehmen. In dieser Zeit haben sie gelernt, was es bedeutet, eine Organisation am Laufen zu halten — mit knappen Ressourcen, wachsenden Anforderungen und Software, die nie ganz passt.",
+      "Als Antwort darauf haben sie ihr Unternehmen konsequent digitalisiert, KI-Tools in ihre Workflows integriert und begonnen, eigene Anwendungen zu entwickeln.",
+      "Was sie darüber hinaus einbringen, ist journalistisches Handwerk: ==Themenfelder schnell durchdringen, das Wesentliche herausarbeiten, komplexe Anforderungen auf den Punkt bringen.== Bretsch und Hufeisen sind erfahrene Konzeptentwickler, die zuhören, verstehen und daraus etwas Präzises bauen.",
+      "Eine weitere Kernfähigkeit: Teams aufzustellen, die exakt auf ein Projekt passen. ==Bei volta.codes sind das erfahrene Software-Profis, die nach europäischen Standards arbeiten. Alle Anwendungen sind DSGVO-konform, sicher und auf Langlebigkeit ausgelegt.=="
+    ]
+  },
+  "kontakt": {
+    "heading": "Sprechen wir.",
+    "text": "Sie haben ein konkretes Projekt, eine Frage oder möchten einfach verstehen, was mit Ihrer Einrichtung möglich wäre? Wir freuen uns auf das Gespräch.",
+    "email": "hallo@volta.codes",
+    "meta": "Emserstr. 125, 12051 Berlin\nWir antworten innerhalb von 24 Stunden."
+  },
+  "impressum": {
+    "heading": "Impressum",
+    "firma": "volta.codes GmbH (i. Gr.)",
+    "adresse": "Emserstr. 125\n12051 Berlin",
+    "geschaeftsfuehrer": "Geschäftsführer: Dominik Bretsch, Simon Hufeisen",
+    "email": "hallo@volta.codes"
+  }
+}
