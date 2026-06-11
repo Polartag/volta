@@ -116,5 +116,35 @@
     "adresse": "Emserstr. 125\n12051 Berlin",
     "geschaeftsfuehrer": "Geschäftsführer: Dominik Bretsch, Simon Hufeisen",
     "email": "hallo@volta.codes"
+  },
+  "datenschutz": {
+    "heading": "Datenschutzerklärung",
+    "stand": "Stand: Juni 2026",
+    "abschnitte": [
+      {
+        "titel": "1. Verantwortlicher",
+        "text": "Verantwortlich für die Datenverarbeitung auf dieser Website ist:\n\nvolta.codes GmbH\nEmserstr. 125\n12051 Berlin\n\nVertreten durch die Geschäftsführer Dominik Bretsch und Simon Hufeisen.\nE-Mail: [hallo@volta.codes](mailto:hallo@volta.codes)"
+      },
+      {
+        "titel": "2. Datensparsamkeit",
+        "text": "Diese Website ist bewusst auf das Nötigste reduziert. Sie setzt **keine Cookies**, verwendet **keine Analyse- oder Tracking-Dienste** und bindet keine Social-Media-Plugins ein. Die verwendeten Schriften sind lokal eingebunden und werden nicht von externen Servern (etwa Google Fonts) nachgeladen — es findet dadurch keine Übertragung Ihrer Daten an Dritte zu diesem Zweck statt."
+      },
+      {
+        "titel": "3. Hosting",
+        "text": "Diese Website wird bei einem spezialisierten Hosting-Dienstleister betrieben, der technisch notwendige Zugriffsdaten (insbesondere IP-Adresse, Zeitpunkt des Zugriffs, aufgerufene Ressource sowie Angaben zu Browser und Betriebssystem) in unserem Auftrag verarbeitet, um den sicheren und stabilen Betrieb der Website zu gewährleisten. Rechtsgrundlage ist unser berechtigtes Interesse an einem sicheren Betrieb (Art. 6 Abs. 1 lit. f DSGVO).\n\nDabei kann eine Verarbeitung auf Servern außerhalb der EU erfolgen. Für diese Übermittlung bestehen geeignete Garantien nach Art. 44 ff. DSGVO (Zertifizierung unter dem EU-US Data Privacy Framework sowie Standardvertragsklauseln)."
+      },
+      {
+        "titel": "4. Kontaktaufnahme",
+        "text": "Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir die von Ihnen mitgeteilten Daten (etwa Name, E-Mail-Adresse und den Inhalt Ihrer Nachricht), um Ihre Anfrage zu bearbeiten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung oder Erfüllung eines Vertrags) beziehungsweise Art. 6 Abs. 1 lit. f DSGVO (Bearbeitung Ihres Anliegens). Wir speichern diese Daten, bis Ihre Anfrage abschließend bearbeitet ist, soweit keine gesetzlichen Aufbewahrungsfristen entgegenstehen."
+      },
+      {
+        "titel": "5. Ihre Rechte",
+        "text": "Sie haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie Widerspruch gegen die Verarbeitung (Art. 21 DSGVO). Wenden Sie sich dazu an die oben genannten Kontaktdaten.\n\nUnabhängig davon haben Sie das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Für uns zuständig ist die Berliner Beauftragte für Datenschutz und Informationsfreiheit."
+      },
+      {
+        "titel": "6. Aktualität",
+        "text": "Wir passen diese Datenschutzerklärung an, sobald Änderungen an der Website oder der Rechtslage dies erforderlich machen."
+      }
+    ]
   }
 }
