@@ -492,6 +492,7 @@ async function init() {
         `<h2>${imp.heading}</h2>
          <p>${imp.firma}<br>${imp.adresse.replace(/\n/g, '<br>')}</p>
          <p>${imp.geschaeftsfuehrer}</p>
+         ${imp.handelsregister ? `<p>${imp.handelsregister}</p>` : ''}
          <p><a href="mailto:${imp.email}">${imp.email}</a></p>`;
 
     const dat = d.datenschutz;
