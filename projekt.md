@@ -10,6 +10,8 @@ Texte sind aus dem HTML in `content/site.json` ausgelagert und werden per `fetch
 
 Schriften (Space Grotesk) werden seit 2026-06-11 **lokal** aus `fonts/` ausgeliefert; die frühere Live-Einbindung von Google Fonts wurde entfernt (DSGVO). Die Seite lädt damit keinerlei Drittanbieter-Ressourcen mehr, setzt keine Cookies und kein Tracking — ein Cookie-Banner ist nicht nötig.
 
+Die Sektion „Die Gründer" zeigt seit 2026-06-16 ein **Gründer-Foto** (S/W, self-hosted in `img/gruender.jpg`, web-optimiert ~165 KB, `loading=lazy`; content-getrieben über `gruender.foto` in `content/site.json`).
+
 Impressum als Modal (Footer-Button); seit 2026-06-15 mit **Handelsregister** (Amtsgericht Charlottenburg, HRB 288375B). **Rechtlich offen:** ggf. USt-IdNr.; eine **Datenschutzerklärung fehlt komplett**. Hosting läuft auf GitHub Pages (USA) — im Spannungsverhältnis zur eigenen „Daten in Deutschland"-Positionierung.
 
 ## Nächste Schritte
@@ -45,6 +47,10 @@ Impressum als Modal (Footer-Button); seit 2026-06-15 mit **Handelsregister** (Am
 - **Impressum als Modal:** Kein eigener Seitenbereich, um den visuellen Fluss der Seite nicht zu unterbrechen.
 
 ## Logbuch
+
+### 2026-06-16
+
+**Gründer-Foto** in die Sektion „Die Gründer" eingebaut (S/W-Studioporträt der beiden Gründer). Self-hosted in `img/gruender.jpg`, von 2,47 MB/3092px auf **165 KB/1500px** web-optimiert (`sips`), `loading=lazy`, 2px-Ecken, Alt-Text. Content-getrieben über neues Feld `gruender.foto` in `content/site.json` + konditionale Render-Zeile/CSS in `index.html`. Lokal auf Mobile + Desktop gerendert/geprüft, dann committet + via GitHub Pages deployt. Full-res-Original liegt lokal als `img/gruender-original.jpg` (nicht im Repo).
 
 ### 2026-06-15
 

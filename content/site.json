@@ -97,6 +97,8 @@
   },
   "gruender": {
     "heading": "Die Gründer",
+    "foto": "gruender.jpg",
+    "fotoAlt": "Die Gründer von volta.codes: Dominik Bretsch und Simon Hufeisen",
     "absaetze": [
       "Dominik Bretsch und Simon Hufeisen führen seit über zehn Jahren erfolgreich ein eigenes Medien-Unternehmen. In dieser Zeit haben sie gelernt, was es bedeutet, eine Organisation am Laufen zu halten — mit knappen Ressourcen, wachsenden Anforderungen und Software, die nie ganz passt.",
       "Als Antwort darauf haben sie ihr Unternehmen konsequent digitalisiert, KI-Tools in ihre Workflows integriert und begonnen, eigene Anwendungen zu entwickeln.",

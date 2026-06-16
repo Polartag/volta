@@ -182,6 +182,12 @@
             margin-bottom: 1.2rem;
         }
 
+        /* --- Gründer-Foto --- */
+        .gruender-foto {
+            width: 100%; height: auto; display: block;
+            border-radius: 2px; margin-bottom: 1.6rem;
+        }
+
         /* --- Für wen (blue) --- */
         .fuerWen { background: var(--blue-bg); color: #fff; }
         .fuerWen .s-head {
@@ -545,6 +551,9 @@ async function init() {
         '</div>';
 
     document.getElementById('gruender-col').innerHTML =
+        (d.gruender.foto
+            ? `<img class="gruender-foto" src="img/${d.gruender.foto}" alt="${d.gruender.fotoAlt || 'Die Gründer'}" loading="lazy">`
+            : '') +
         d.gruender.absaetze.map((t, i) =>
             `<p${i === 0 ? ' class="lead-p"' : ''}>${md(t)}</p>`
         ).join('');
