@@ -109,7 +109,7 @@
   "kontakt": {
     "heading": "Sprechen wir.",
     "text": "Sie haben ein konkretes Projekt, eine Frage oder möchten einfach verstehen, was mit Ihrer Einrichtung möglich wäre? Wir freuen uns auf das Gespräch.",
-    "email": "hallo@volta.codes",
+    "email": "hello@volta.codes",
     "meta": "Emserstr. 125, 12051 Berlin\nWir antworten innerhalb von 24 Stunden."
   },
   "impressum": {
@@ -118,7 +118,7 @@
     "adresse": "Emserstr. 125\n12051 Berlin",
     "geschaeftsfuehrer": "Geschäftsführer: Dominik Bretsch, Simon Hufeisen",
     "handelsregister": "Handelsregister: Amtsgericht Charlottenburg, HRB 288375B",
-    "email": "hallo@volta.codes"
+    "email": "hello@volta.codes"
   },
   "datenschutz": {
     "heading": "Datenschutzerklärung",
@@ -126,7 +126,7 @@
     "abschnitte": [
       {
         "titel": "1. Verantwortlicher",
-        "text": "Verantwortlich für die Datenverarbeitung auf dieser Website ist:\n\nvolta.codes GmbH\nEmserstr. 125\n12051 Berlin\n\nVertreten durch die Geschäftsführer Dominik Bretsch und Simon Hufeisen.\nE-Mail: [hallo@volta.codes](mailto:hallo@volta.codes)"
+        "text": "Verantwortlich für die Datenverarbeitung auf dieser Website ist:\n\nvolta.codes GmbH\nEmserstr. 125\n12051 Berlin\n\nVertreten durch die Geschäftsführer Dominik Bretsch und Simon Hufeisen.\nE-Mail: [hello@volta.codes](mailto:hello@volta.codes)"
       },
       {
         "titel": "2. Datensparsamkeit",

@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Single-file static marketing site for **volta.codes**, a German-language custom-software/AI consultancy based in Berlin. The entire site lives in [index.html](index.html) — HTML, CSS (inline `<style>`), and JavaScript (inline `<script>`) in one document. No build step, no package manager, no tests, not a git repository.
 
-To preview: open `index.html` directly in a browser, or serve the directory with `python3 -m http.server`.
+To preview: open `index.html` directly in a browser. If a local server is needed, reserve a free utility port in Mission Control first; `8000` belongs to Sentinel.
 
 ## Page sections
 
@@ -34,9 +34,9 @@ Key values from `:root`:
 | `--blue` | `#2b5ae0` |
 | `--blue-bg` | `#2350c8` (`.pakete` background) |
 
-Font: **Space Grotesk** (Google Fonts), weights 300/400/500/600.
+Font: **Space Grotesk** (variable font, weights 300–600), **self-hosted** from `fonts/` (woff2, `latin` + `latin-ext` subsets). Not loaded from Google — the `@font-face` rules sit at the top of the inline `<style>`. Don't reintroduce a `<link>` to `fonts.googleapis.com`/`fonts.gstatic.com` (GDPR: avoids sending visitor IPs to Google).
 
 ## Content conventions
 
 - All user-facing copy is **German**. Preserve umlauts (ä/ö/ü/ß) and match the existing tone: sober, confident, no marketing fluff.
-- Contact email: `hallo@volta.codes`. Address: Emserstr. 125, 12051 Berlin. Footer year: 2026.
+- Contact email: `hello@volta.codes`. Address: Emserstr. 125, 12051 Berlin. Footer year: 2026.
