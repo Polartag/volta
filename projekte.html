@@ -59,6 +59,17 @@
         a { color: var(--blue); text-decoration: none; transition: color 0.2s; }
         a:hover { color: var(--dark); }
 
+        /* --- Highlights (randomisiert, wie Startseite) --- */
+        mark {
+            background: transparent; color: inherit;
+            background-image: linear-gradient(var(--blue), var(--blue));
+            background-size: 0% 100%; background-repeat: no-repeat;
+            background-position: left;
+            transition: background-size 0.8s ease, color 0.4s ease 0.2s;
+            padding: 0.08em 0.15em; margin: -0.08em -0.15em; border-radius: 2px;
+        }
+        mark.lit { background-size: 100% 100%; color: #fff; }
+
         /* --- Nav (identisch zur Startseite) --- */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -152,8 +163,8 @@
 
         /* In-place-Zoom (kein Overlay, Bild skaliert an Ort und Stelle) */
         .proj-media img.zoomed { position: relative; z-index: 60; cursor: zoom-out; }
-        .proj-media:not(.phones) > img.zoomed { transform: scale(1.12); box-shadow: 0 44px 84px -30px rgba(20,20,26,0.45); }
-        .proj-media.phones img.zoomed { transform: scale(1.15); }
+        .proj-media:not(.phones) > img.zoomed { transform: scale(1.22); box-shadow: 0 44px 84px -30px rgba(20,20,26,0.45); }
+        .proj-media.phones img.zoomed { transform: scale(1.25); }
 
         .proj-name {
             font-size: clamp(1.6rem, 3vw, 2.3rem);
@@ -161,7 +172,7 @@
             line-height: 1.1; color: var(--dark); margin-bottom: 1rem;
         }
         .proj-claim { font-size: 0.95rem; line-height: 1.8; color: var(--text-mid); margin-bottom: 1.3rem; }
-        .proj-claim strong { display: block; margin-bottom: 0.6rem; color: var(--dark); font-weight: 600; font-size: 1.06rem; line-height: 1.45; letter-spacing: -0.01em; }
+        .proj-claim strong { display: block; margin-bottom: 0.6rem; color: var(--dark); font-weight: 600; font-size: 1.06rem; line-height: 1.45; letter-spacing: -0.01em; hyphens: manual; -webkit-hyphens: manual; }
 
         .proj-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.3rem; }
         .proj-tag {
@@ -382,6 +393,35 @@ async function init() {
         es.forEach(e => n.classList.toggle('nav-dark', e.isIntersecting));
     }, { rootMargin: '0px 0px -94% 0px' });
     navObs.observe(footer);
+
+    // Farbliche Markierungen: pro Block beim Scrollen 2 zufällige Marks aufleuchten lassen,
+    // entfernen sobald der Block ganz aus dem Viewport ist (Re-Randomisierung beim nächsten Besuch).
+    const groupMarkMap = new Map();
+    document.querySelectorAll('.proj').forEach(group => {
+        const marks = Array.from(group.querySelectorAll('mark'));
+        if (marks.length) groupMarkMap.set(group, marks);
+    });
+    const litGroups = new Set();
+    const litRandom = (group, marks) => {
+        marks.slice().sort(() => Math.random() - 0.5).slice(0, 2).forEach(m => m.classList.add('lit'));
+        litGroups.add(group);
+    };
+    function updateHighlights() {
+        const sy = window.scrollY;
+        const viewBottom = sy + window.innerHeight;
+        const mid = sy + window.innerHeight * 0.5;
+        groupMarkMap.forEach((marks, group) => {
+            const top = group.offsetTop;
+            const bottom = top + group.offsetHeight;
+            if (bottom < sy || top > viewBottom) {
+                if (litGroups.has(group)) { marks.forEach(m => m.classList.remove('lit')); litGroups.delete(group); }
+            } else if (mid >= top && mid < bottom && !litGroups.has(group)) {
+                litRandom(group, marks);
+            }
+        });
+    }
+    addEventListener('scroll', updateHighlights, { passive: true });
+    updateHighlights();
 }
 
 init();

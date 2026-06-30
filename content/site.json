@@ -118,7 +118,7 @@
     "items": [
       {
         "titel": "FAMOS",
-        "claim": "**Fallmanagement- und Organisationssoftware für Erziehungs-, Familien- und Schwangerschaftskonfliktberatung.** FAMOS übernimmt den kompletten Fallweg — von der Anmeldung über die Falldokumentation bis zur statistischen Auswertung und Archivierung. Rollengerechte Eingabefelder zeigen jeder Hierarchie-Ebene nur das Notwendige, Kennzahlen werden automatisch erfasst und aufbereitet. Web-basiert und DSGVO-konform.",
+        "claim": "**Fallmanagement- und Organisationssoftware für Erziehungs-, Familien- und Schwangerschafts­konfliktberatung.** FAMOS übernimmt den ==kompletten Fallweg== — von der Anmeldung über die Falldokumentation bis zur statistischen Auswertung und Archivierung. Rollengerechte Eingabefelder zeigen ==jeder Hierarchie-Ebene nur das Notwendige==, Kennzahlen werden ==automatisch erfasst und aufbereitet==. Web-basiert und DSGVO-konform.",
         "tags": ["Soziale Träger", "Fallmanagement", "DSGVO", "Webanwendung"],
         "bild": "img/projekte/famos.png",
         "alt": "FAMOS Berater:innen-Dashboard mit Fallübersicht, Kennzahlen und Kinderschutzfällen",
@@ -128,7 +128,7 @@
       },
       {
         "titel": "VoxDrop",
-        "claim": "**Macht Dokumente barrierefrei für blinde und sehbehinderte Menschen — eine Übersetzungsleistung, kein bloßes Vorlesen.** Im Hintergrund analysieren mehrere KI-Agenten ein hochgeladenes PDF, Word- oder PowerPoint-Dokument inhaltlich und bringen es in eine verständliche Form. Schaubilder werden inhaltlich zusammengefasst statt nur per Alt-Text vorgelesen — ein klarer Mehrwert gegenüber allen bisher verfügbaren Lösungen. Heraus kommt eine geprüfte, verständliche Arbeitsfassung mit korrekter Lesereihenfolge.",
+        "claim": "**Macht Dokumente barrierefrei für blinde und sehbehinderte Menschen — eine Übersetzungsleistung, kein bloßes Vorlesen.** Im Hintergrund analysieren ==mehrere KI-Agenten== ein hochgeladenes PDF, Word- oder PowerPoint-Dokument inhaltlich und bringen es in eine verständliche Form. Schaubilder werden ==inhaltlich zusammengefasst statt nur per Alt-Text vorgelesen== — ==ein klarer Mehrwert gegenüber allen bisher verfügbaren Lösungen==. Heraus kommt eine geprüfte, verständliche Arbeitsfassung mit korrekter Lesereihenfolge.",
         "tags": ["Barrierefreiheit", "KI-Agenten", "Behörden"],
         "bild": "img/projekte/voxdrop.jpg",
         "alt": "VoxDrop Startseite mit Upload-Bereich für PDF-, Word- und PowerPoint-Dateien",
@@ -138,7 +138,7 @@
       },
       {
         "titel": "KI-Krisenassistent",
-        "claim": "**Ein KI-Begleiter für die Stärkung der Resilienz.** Er erfasst die individuellen Umstände eines Haushalts, unterstützt dabei, Ressourcen aufzubauen, und leitet daraus konkrete Schritte für den Ernstfall ab. Tritt die Krise ein, analysiert er dynamisch die Situation und erstellt einen Hilfeplan. Die Selbstwirksamkeit wird gestärkt, Hilfskräfte werden entlastet. Die KI-Modelle laufen lokal auf dem Gerät: Die Chat-Funktion bleibt selbst bei Stromausfall verfügbar, ganz ohne Netz. Gedacht für Organisationen des Bevölkerungsschutzes wie BBK, DRK und THW.",
+        "claim": "**Ein KI-Begleiter für die Stärkung der Resilienz.** Er erfasst die individuellen Umstände eines Haushalts, unterstützt dabei, Ressourcen aufzubauen, und leitet daraus ==konkrete Schritte für den Ernstfall== ab. Tritt die Krise ein, analysiert er dynamisch die Situation und erstellt einen Hilfeplan. ==Die Selbstwirksamkeit wird gestärkt, Hilfskräfte werden entlastet==. Die KI-Modelle laufen ==lokal auf dem Gerät==: Die Chat-Funktion bleibt selbst bei Stromausfall verfügbar, ganz ohne Netz. Gedacht für Organisationen des Bevölkerungsschutzes wie BBK, DRK und THW.",
         "tags": ["Resilienz", "Bevölkerungsschutz", "Lokale KI", "Offline-fähig"],
         "screens": [
           { "bild": "img/projekte/krisenassistent-vorsorge.webp", "alt": "KI-Krisenassistent Vorsorge-Modus: Nutzerprofil mit Alter, Medikamenten, Wohnsituation und Mobilität" },
