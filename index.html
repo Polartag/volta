@@ -136,8 +136,8 @@
         }
         .hero h1 {
             font-size: clamp(3rem, 9.5vw, 8.5rem);
-            font-weight: 400; letter-spacing: 0.14em;
-            text-transform: uppercase; line-height: 1;
+            font-weight: 600; letter-spacing: 0.02em;
+            text-transform: none; line-height: 1;
             margin-bottom: 1.6rem; color: var(--dark);
         }
         @keyframes dot-breathe {
@@ -146,6 +146,7 @@
         }
         .hero h1 .dot {
             color: var(--blue);
+            margin: 0 -0.01em 0 0.06em; /* optical balance: nudge dot off "volta" (= nav logo) */
             animation: dot-breathe 3s ease-in-out infinite;
         }
         .logo-dot {
@@ -155,9 +156,7 @@
         }
         nav.nav-dark .logo-dot { color: var(--blue); }
         .hero h1 .tld {
-            font-size: clamp(0.8rem, 0.265em, 2.3rem);
-            letter-spacing: 0.14em; font-weight: 400;
-            color: var(--dark); margin-left: -0.1em;
+            font-size: 1em; /* uniform with "volta" (Variante C: ein Logo, kleingeschrieben) */
         }
         .hero .sub {
             font-size: clamp(1.05rem, 1.8vw, 1.28rem);
@@ -333,7 +332,7 @@
             section { padding: clamp(48px, 7vh, 80px) 0; }
             .kontakt { padding-bottom: 0; }
             .hero { padding-top: 120px; }
-            .hero h1 { letter-spacing: 0.08em; }
+            .hero h1 { letter-spacing: 0.02em; }
             .split { grid-template-columns: 1fr; gap: 0.6rem; }
             .split .s-head { position: static; padding-top: 0; }
             .fuerWen .s-head { position: static; }
@@ -341,7 +340,7 @@
             .phase::after, .wert::after, .merkmal::after { font-size: 5.5rem; }
         }
         @media (max-width: 480px) {
-            .hero h1 { font-size: 2.2rem; letter-spacing: 0.06em; }
+            .hero h1 { font-size: 2.2rem; letter-spacing: 0.02em; }
         }
     </style>
 </head>
