@@ -48,6 +48,15 @@ Impressum als Modal (Footer-Button); seit 2026-06-15 mit **Handelsregister** (Am
 
 ## Logbuch
 
+### 2026-06-26
+
+Logo-Punkt-Abstand korrigiert (im Zuge des CI-Baukastens, Repo `volta-ci`). Das Nav-Logo
+(`.logo-dot`) bekam einen kleinen optischen Margin (Punkt klebte font-natürlich an „volta"),
+und `img/volta_codes_v6.png` (von der CDN-E-Mail-Signatur genutzt) wurde aus der korrigierten
+Logo-Geometrie neu gerendert (Punkt saß zu nah an VOLTA). Committet (`5c7b954`) + nach `main`
+gepusht → GitHub Pages + jsdelivr aktualisiert. Verbindliche Logo-Geometrie liegt jetzt im
+CI-Paket (`/Users/ziply/Projekte/volta-ci`) bzw. Figma „Volta-Logo".
+
 ### 2026-06-16
 
 **Gründer-Foto** in die Sektion „Die Gründer" eingebaut (S/W-Studioporträt der beiden Gründer). Self-hosted in `img/gruender.jpg`, von 2,47 MB/3092px auf **165 KB/1500px** web-optimiert (`sips`), `loading=lazy`, 2px-Ecken, Alt-Text. Content-getrieben über neues Feld `gruender.foto` in `content/site.json` + konditionale Render-Zeile/CSS in `index.html`. Lokal auf Mobile + Desktop gerendert/geprüft, dann committet + via GitHub Pages deployt. Full-res-Original liegt lokal als `img/gruender-original.jpg` (nicht im Repo).

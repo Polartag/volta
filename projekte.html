@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekte — volta.codes</title>
+    <meta name="description" content="Eine Auswahl der Software, die volta.codes gebaut hat: FAMOS, VoxDrop und der Krisenassistent.">
+    <link rel="icon" href="data:,">
+
+    <style>
+        /* Self-hosted Space Grotesk (variable font, weights 300–600).
+           Served locally to avoid sending visitor IPs to Google (GDPR). */
+        @font-face {
+            font-family: 'Space Grotesk';
+            font-style: normal;
+            font-weight: 300 600;
+            font-display: swap;
+            src: url('fonts/space-grotesk-latin.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+            font-family: 'Space Grotesk';
+            font-style: normal;
+            font-weight: 300 600;
+            font-display: swap;
+            src: url('fonts/space-grotesk-latin-ext.woff2') format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --white: #fafaf8;
+            --dark: #14141a;
+            --text: #3a3a3e;
+            --text-mid: #48484c;
+            --text-light: #70706e;
+            --blue: #2b5ae0;
+            --blue-bg: #2350c8;
+            --line: rgba(20,20,26,0.09);
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            overflow-x: hidden;
+            font-size: 15.5px;
+            font-weight: 400;
+            line-height: 1.72;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection { background: var(--blue); color: #fff; }
+        p { color: var(--text-mid); margin-bottom: 1rem; }
+        p:last-child { margin-bottom: 0; }
+        a { color: var(--blue); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: var(--dark); }
+
+        /* --- Nav (identisch zur Startseite) --- */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 1.1rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+        }
+        nav.scrolled {
+            background: rgba(250,250,248,0.9);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 var(--line);
+        }
+        nav.scrolled.nav-dark {
+            background: rgba(20,20,26,0.85);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.08);
+        }
+        nav .logo {
+            font-weight: 600; font-size: 0.9rem;
+            letter-spacing: 0.02em; color: var(--dark); transition: color 0.3s;
+        }
+        nav .logo-dot { color: var(--blue); margin: 0 -0.01em 0 0.06em; }
+        .nav-links { display: flex; gap: 1.6rem; align-items: center; }
+        nav .nav-link {
+            font-size: 0.75rem; font-weight: 500; letter-spacing: 0.07em;
+            text-transform: uppercase; color: var(--text-light); transition: color 0.3s;
+        }
+        nav .nav-link:hover { color: var(--blue); }
+        nav.nav-dark .logo { color: #fff; }
+        nav.nav-dark .logo-dot { color: var(--blue); }
+        nav.nav-dark .nav-link { color: rgba(255,255,255,0.6); }
+        nav.nav-dark .nav-link:hover { color: #fff; }
+
+        /* --- Layout --- */
+        .w { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .fade { opacity: 0; transform: translateY(14px); transition: opacity 0.55s ease, transform 0.55s ease; }
+        .fade.visible { opacity: 1; transform: none; }
+
+        /* --- Seitenkopf --- */
+        .page-head {
+            padding-top: clamp(112px, 17vh, 176px);
+            padding-bottom: clamp(16px, 3vh, 32px);
+            background:
+                radial-gradient(ellipse 70% 50% at 90% 5%, rgba(43,90,224,0.07) 0%, transparent 65%),
+                var(--white);
+        }
+        .page-head .eyebrow {
+            font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--blue); margin-bottom: 1rem;
+        }
+        .page-head h1 {
+            font-size: clamp(2.4rem, 6vw, 4.2rem);
+            font-weight: 600; letter-spacing: -0.025em;
+            line-height: 1.05; color: var(--dark); margin-bottom: 1.4rem;
+        }
+        .page-head .intro {
+            font-size: clamp(1.05rem, 1.8vw, 1.28rem);
+            font-weight: 300; color: var(--text);
+            line-height: 1.6; max-width: 640px;
+        }
+
+        /* --- Projekt-Reihen (Zickzack) --- */
+        .projekte { padding: clamp(4px, 1vh, 12px) 0 clamp(64px, 10vh, 104px); }
+        .proj {
+            display: grid; grid-template-columns: 1.6fr 1fr;
+            gap: clamp(2rem, 5vw, 4rem); align-items: center;
+            padding: clamp(44px, 8vh, 84px) 0;
+            border-top: 1px solid var(--line);
+        }
+        .proj:first-child { border-top: none; padding-top: clamp(16px, 2.5vh, 28px); }
+        .proj.rev { grid-template-columns: 1fr 1.6fr; }
+        .proj.rev .proj-media { order: 2; }
+
+        .proj-media { display: flex; justify-content: center; align-items: center; }
+        .proj-media img {
+            display: block; width: 100%; height: auto;
+            border-radius: 8px; border: 1px solid var(--line);
+            box-shadow: 0 26px 52px -32px rgba(20,20,26,0.4);
+            cursor: zoom-in; transition: transform 0.4s cubic-bezier(.2,.7,.2,1), box-shadow 0.3s ease;
+        }
+        .proj-media:not(.phones) > img:not(.zoomed):hover { box-shadow: 0 32px 60px -28px rgba(20,20,26,0.5); transform: translateY(-3px); }
+        .proj-media.hoch img { width: auto; max-width: 100%; max-height: 520px; }
+
+        /* KI-Krisenassistent: zwei freigestellte Mobile-Screens (transparenter Umriss), einzeln zoombar.
+           Schatten per drop-shadow, damit er der Phone-Form folgt statt einem Rechteck. */
+        .proj-media.phones { gap: 7%; align-items: flex-start; }
+        .proj-media.phones img {
+            width: 46%; border: none; border-radius: 0; box-shadow: none;
+            filter: drop-shadow(0 16px 22px rgba(20,20,26,0.20));
+        }
+        .proj-media.phones img:not(.zoomed):hover { transform: translateY(-5px); }
+
+        /* In-place-Zoom (kein Overlay, Bild skaliert an Ort und Stelle) */
+        .proj-media img.zoomed { position: relative; z-index: 60; cursor: zoom-out; }
+        .proj-media:not(.phones) > img.zoomed { transform: scale(1.12); box-shadow: 0 44px 84px -30px rgba(20,20,26,0.45); }
+        .proj-media.phones img.zoomed { transform: scale(1.15); }
+
+        .proj-name {
+            font-size: clamp(1.6rem, 3vw, 2.3rem);
+            font-weight: 600; letter-spacing: -0.02em;
+            line-height: 1.1; color: var(--dark); margin-bottom: 1rem;
+        }
+        .proj-claim { font-size: 0.95rem; line-height: 1.8; color: var(--text-mid); margin-bottom: 1.3rem; }
+        .proj-claim strong { display: block; margin-bottom: 0.6rem; color: var(--dark); font-weight: 600; font-size: 1.06rem; line-height: 1.45; letter-spacing: -0.01em; }
+
+        .proj-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.3rem; }
+        .proj-tag {
+            font-size: 0.68rem; font-weight: 500; letter-spacing: 0.07em;
+            text-transform: uppercase; color: var(--text-light);
+            border: 1px solid var(--line); border-radius: 100px;
+            padding: 0.32rem 0.7rem; line-height: 1;
+        }
+        .proj-link {
+            display: inline-flex; align-items: center; gap: 0.4em;
+            font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em;
+            color: var(--blue);
+        }
+        .proj-link .arrow { transition: transform 0.25s ease; }
+        .proj-link:hover { color: var(--dark); }
+        .proj-link:hover .arrow { transform: translate(2px, -2px); }
+
+        /* --- Footer / Kontakt (dunkel) --- */
+        .footer { background: var(--dark); color: #fff; padding: clamp(56px, 10vh, 100px) 0 0; }
+        .footer h2 {
+            font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 600;
+            letter-spacing: -0.02em; line-height: 1.15; color: #fff; margin-bottom: 1.2rem;
+        }
+        .footer p { color: rgba(255,255,255,0.7); max-width: 560px; }
+        .footer .email-wrap { margin-top: 0.5rem; margin-bottom: 1.2rem; }
+        .footer .email {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 600;
+            letter-spacing: -0.01em; color: #fff; display: inline-block; position: relative;
+        }
+        .footer .email::after {
+            content: ''; position: absolute; bottom: -2px; left: 0;
+            width: 0; height: 2px; background: var(--blue); transition: width 0.35s ease;
+        }
+        .footer .email:hover { color: var(--blue); }
+        .footer .email:hover::after { width: 100%; }
+        .footer .kontakt-meta { font-size: 0.82rem; color: rgba(255,255,255,0.4); line-height: 1.65; }
+
+        .copy { margin-top: clamp(40px, 6vh, 64px); padding: 1.2rem 0; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.72rem; color: rgba(255,255,255,0.25); letter-spacing: 0.02em; }
+        .copy a, .imprint-btn { color: rgba(255,255,255,0.25); }
+        .copy a:hover { color: rgba(255,255,255,0.5); }
+        .imprint-btn { background: none; border: none; cursor: pointer; font: inherit; font-size: 0.72rem; letter-spacing: 0.02em; padding: 0; transition: color 0.2s; }
+        .imprint-btn:hover { color: rgba(255,255,255,0.5); }
+
+        /* --- Modals (identisch zur Startseite) --- */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0; z-index: 200;
+            background: rgba(14,14,20,0.72); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            align-items: center; justify-content: center; padding: 2rem;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal { background: var(--white); max-width: 480px; width: 100%; padding: 2.4rem 2.6rem; position: relative; border-radius: 2px; }
+        .modal h2 { font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; color: var(--dark); margin-bottom: 1.4rem; }
+        .modal h3 { font-size: 0.82rem; font-weight: 600; color: var(--dark); margin: 1.15rem 0 0.45rem; }
+        .modal h3:first-of-type { margin-top: 0.3rem; }
+        .modal p { font-size: 0.82rem; color: var(--text-mid); line-height: 1.75; margin-bottom: 0.65rem; }
+        .modal .ds-stand { font-size: 0.72rem; color: var(--text-light); margin-top: 1.3rem; margin-bottom: 0; }
+        .modal a { color: var(--blue); }
+        .modal-close { position: absolute; top: 1.1rem; right: 1.3rem; background: none; border: none; cursor: pointer; color: var(--text-light); font-size: 1.25rem; line-height: 1; padding: 0.25rem; transition: color 0.2s; }
+        .modal-close:hover { color: var(--dark); }
+        .modal.modal-wide { max-width: 560px; display: flex; flex-direction: column; max-height: 85vh; }
+        .modal.modal-wide .modal-body { overflow-y: auto; margin-top: 0.2rem; padding-right: 0.4rem; }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.2rem; }
+            .nav-links { gap: 1.1rem; }
+            .w { padding: 0 1.2rem; }
+            .page-head { padding-top: 110px; }
+            .proj, .proj.rev { grid-template-columns: 1fr; gap: 1.6rem; }
+            .proj.rev .proj-media { order: 0; }
+            .proj-media.hoch img { max-height: 420px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">volta<span class="logo-dot">.</span>codes</a>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">Startseite</a>
+        <a href="index.html#kontakt" class="nav-link">Kontakt</a>
+    </div>
+</nav>
+
+<header class="page-head">
+    <div class="w">
+        <div class="fade">
+            <h1 id="page-title">Projekte</h1>
+            <p class="intro" id="page-intro"></p>
+        </div>
+    </div>
+</header>
+
+<main class="projekte">
+    <div class="w" id="projekte-list"></div>
+</main>
+
+<footer class="footer">
+    <div class="w">
+        <div class="fade">
+            <h2 id="footer-head">Sprechen wir.</h2>
+            <p id="footer-text"></p>
+            <p class="email-wrap"><a id="footer-email" href="mailto:hello@volta.codes" class="email">hello@volta.codes</a></p>
+            <p class="kontakt-meta" id="footer-meta"></p>
+        </div>
+        <p class="copy">&copy; 2026 volta.codes — Berlin &ensp;&middot;&ensp; <button class="imprint-btn" id="imprint-open">Impressum</button> &ensp;&middot;&ensp; <button class="imprint-btn" id="datenschutz-open">Datenschutz</button></p>
+    </div>
+</footer>
+
+<div class="modal-overlay" id="imprint-modal">
+    <div class="modal">
+        <button class="modal-close" id="imprint-close" aria-label="Schließen">&times;</button>
+        <div id="imprint-content"></div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="datenschutz-modal">
+    <div class="modal modal-wide">
+        <button class="modal-close" id="datenschutz-close" aria-label="Schließen">&times;</button>
+        <div id="datenschutz-content" class="modal-body"></div>
+    </div>
+</div>
+
+<script>
+const n = document.querySelector('nav');
+const updateScroll = () => n.classList.toggle('scrolled', scrollY > 40);
+addEventListener('scroll', updateScroll, { passive: true });
+updateScroll();
+
+const imprintModal = document.getElementById('imprint-modal');
+const datenschutzModal = document.getElementById('datenschutz-modal');
+const openModal = m => m.classList.add('open');
+const closeModal = m => m.classList.remove('open');
+document.getElementById('imprint-open').addEventListener('click', () => openModal(imprintModal));
+document.getElementById('imprint-close').addEventListener('click', () => closeModal(imprintModal));
+document.getElementById('datenschutz-open').addEventListener('click', () => openModal(datenschutzModal));
+document.getElementById('datenschutz-close').addEventListener('click', () => closeModal(datenschutzModal));
+[imprintModal, datenschutzModal].forEach(m => m.addEventListener('click', e => { if (e.target === m) closeModal(m); }));
+
+// Bilder an Ort und Stelle vergrößern (kein Overlay); jedes Bild einzeln, Klick togglet
+const unzoomAll = () => document.querySelectorAll('.proj-media img.zoomed').forEach(im => im.classList.remove('zoomed'));
+document.addEventListener('click', e => {
+    const img = e.target.closest && e.target.closest('.proj-media img');
+    if (!img) { unzoomAll(); return; }
+    const wasZoomed = img.classList.contains('zoomed');
+    unzoomAll();
+    if (!wasZoomed) img.classList.add('zoomed');
+});
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(imprintModal); closeModal(datenschutzModal); unzoomAll(); } });
+
+function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function md(s) {
+    return esc(s)
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/==(.*?)==/g, '<mark>$1</mark>')
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+}
+
+async function init() {
+    const raw = await fetch('./content/site.json').then(r => r.text());
+    const d = JSON.parse(raw.replace(/,\s*([}\]])/g, '$1'));
+    const p = d.projekte;
+
+    document.getElementById('page-title').textContent = p.heading;
+    document.getElementById('page-intro').innerHTML = md(p.intro);
+
+    document.getElementById('projekte-list').innerHTML = p.items.map((it, i) => {
+        const media = it.screens
+            ? `<div class="proj-media phones">${it.screens.map(s => `<img src="${s.bild}" alt="${esc(s.alt)}" loading="lazy">`).join('')}</div>`
+            : `<div class="proj-media ${it.orientierung === 'hoch' ? 'hoch' : ''}"><img src="${it.bild}" alt="${esc(it.alt)}" loading="lazy"></div>`;
+        return `
+        <article class="proj${i % 2 === 1 ? ' rev' : ''}">
+            ${media}
+            <div class="proj-body">
+                <h2 class="proj-name">${esc(it.titel)}</h2>
+                <p class="proj-claim">${md(it.claim)}</p>
+                <div class="proj-tags">${it.tags.map(t => `<span class="proj-tag">${esc(t)}</span>`).join('')}</div>
+                ${it.link ? `<a class="proj-link" href="${it.link}" target="_blank" rel="noopener noreferrer">${esc(it.linkLabel || it.link)}<span class="arrow">↗</span></a>` : ''}
+            </div>
+        </article>`;
+    }).join('');
+
+    document.getElementById('footer-head').textContent = d.kontakt.heading;
+    document.getElementById('footer-text').innerHTML = md(d.kontakt.text);
+    const emailEl = document.getElementById('footer-email');
+    emailEl.href = `mailto:${d.kontakt.email}`;
+    emailEl.textContent = d.kontakt.email;
+    document.getElementById('footer-meta').innerHTML = d.kontakt.meta.replace(/\n/g, '<br>');
+
+    const imp = d.impressum;
+    document.getElementById('imprint-content').innerHTML =
+        `<h2>${imp.heading}</h2>
+         <p>${imp.firma}<br>${imp.adresse.replace(/\n/g, '<br>')}</p>
+         <p>${imp.geschaeftsfuehrer}</p>
+         ${imp.handelsregister ? `<p>${imp.handelsregister}</p>` : ''}
+         <p><a href="mailto:${imp.email}">${imp.email}</a></p>`;
+
+    const dat = d.datenschutz;
+    if (dat) {
+        document.getElementById('datenschutz-content').innerHTML =
+            `<h2>${dat.heading}</h2>` +
+            dat.abschnitte.map(a =>
+                `<h3>${md(a.titel)}</h3>` +
+                a.text.split('\n\n').map(par => `<p>${md(par).replace(/\n/g, '<br>')}</p>`).join('')
+            ).join('') +
+            (dat.stand ? `<p class="ds-stand">${md(dat.stand)}</p>` : '');
+    }
+
+    const fadeObs = new IntersectionObserver(es => {
+        es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade').forEach(el => fadeObs.observe(el));
+    document.querySelector('.page-head .fade').classList.add('visible');
+
+    const footer = document.querySelector('.footer');
+    const navObs = new IntersectionObserver(es => {
+        es.forEach(e => n.classList.toggle('nav-dark', e.isIntersecting));
+    }, { rootMargin: '0px 0px -94% 0px' });
+    navObs.observe(footer);
+}
+
+init();
+</script>
+
+</body>
+</html>

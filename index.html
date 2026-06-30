@@ -103,6 +103,7 @@
             font-weight: 600; font-size: 0.9rem;
             letter-spacing: 0.02em; color: var(--dark); transition: color 0.3s;
         }
+        .nav-links { display: flex; gap: 1.6rem; align-items: center; }
         nav .nav-link {
             font-size: 0.75rem; font-weight: 500; letter-spacing: 0.07em;
             text-transform: uppercase; color: var(--text-light); transition: color 0.3s;
@@ -348,7 +349,10 @@
 
 <nav>
     <span class="logo">volta<span class="logo-dot">.</span>codes</span>
-    <a href="#kontakt" class="nav-link" id="nav-kontakt">Kontakt</a>
+    <div class="nav-links">
+        <a href="projekte.html" class="nav-link">Projekte</a>
+        <a href="#kontakt" class="nav-link" id="nav-kontakt">Kontakt</a>
+    </div>
 </nav>
 
 <!-- 1. Hero -->
