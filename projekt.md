@@ -1,10 +1,12 @@
 # volta.codes
 
-Statische Marketing-/Landingpage für volta.codes, eine Berliner Agentur für maßgeschneiderte Software und KI-Lösungen. Bewusst "no build": alles steckt in einer einzigen `index.html`. Betreiber: Dominik Bretsch und Simon Hufeisen (volta.codes GmbH).
+Statische Marketing-/Landingpage für volta.codes, eine Berliner Agentur für maßgeschneiderte Software und KI-Lösungen. Bewusst "no build", ohne Framework: die Startseite ist eine einzige `index.html`, ergänzt um eine eigenständige Projektseite `projekte.html`. Betreiber: Dominik Bretsch und Simon Hufeisen (volta.codes GmbH).
 
 ## Aktueller Stand
 
 Die Website ist inhaltlich und technisch überarbeitet. Acht Sektionen (Hero, Warum volta.codes, Für wen wir bauen, Was wir machen, Wie wir arbeiten, Was unsere Software auszeichnet, Die Gründer, Kontakt). Farbrhythmus: hell → hell → blau → hell → dunkel → hell → hell → dunkel.
+
+Seit 2026-06-30 gibt es eine zweite Seite **`projekte.html`** (eigenständig, gleicher Stil/Tokens, von der Nav verlinkt). Sie stellt drei Projekte im Zickzack-Layout vor — **FAMOS** (Fallmanagement- und Organisationssoftware), **VoxDrop** (Dokumente barrierefrei via KI-Agenten, extern auf voxdrop.live verlinkt) und den **KI-Krisenassistenten** (Bevölkerungsschutz). Inhalte als `projekte`-Block in `content/site.json`, gerendert per `fetch()` wie die Startseite. Pro Projekt ein web-optimiertes Bild in `img/projekte/`; beim KI-Krisenassistenten zwei transparent freigestellte Mobile-Screens. Klick vergrößert das jeweilige Bild an Ort und Stelle (kein Overlay); pro Projekt leuchten beim Scrollen 2 von 3 `==`-Markierungen zufällig auf.
 
 Texte sind aus dem HTML in `content/site.json` ausgelagert und werden per `fetch()` geladen. Inline-Formatierung über `**bold**` und `==highlight==`. Die `==`-Syntax steuert den Highlight-Pool: pro Sektion werden beim Scrollen 2 zufällige Marks angezeigt, die erst verschwinden wenn die Sektion komplett aus dem Viewport gescrollt ist.
 
@@ -12,15 +14,16 @@ Schriften (Space Grotesk) werden seit 2026-06-11 **lokal** aus `fonts/` ausgelie
 
 Die Sektion „Die Gründer" zeigt seit 2026-06-16 ein **Gründer-Foto** (S/W, self-hosted in `img/gruender.jpg`, web-optimiert ~165 KB, `loading=lazy`; content-getrieben über `gruender.foto` in `content/site.json`).
 
-Impressum als Modal (Footer-Button); seit 2026-06-15 mit **Handelsregister** (Amtsgericht Charlottenburg, HRB 288375B). **Rechtlich offen:** ggf. USt-IdNr.; eine **Datenschutzerklärung fehlt komplett**. Hosting läuft auf GitHub Pages (USA) — im Spannungsverhältnis zur eigenen „Daten in Deutschland"-Positionierung.
+Impressum als Modal (Footer-Button); seit 2026-06-15 mit **Handelsregister** (Amtsgericht Charlottenburg, HRB 288375B). Seit 2026-06-11 zusätzlich eine **Datenschutzerklärung** als zweites Modal (Footer-Button „Datenschutz" neben „Impressum"). **Rechtlich offen:** ggf. USt-IdNr.; Datenschutztext und Registerdaten sollten noch rechtlich gegengeprüft werden. Hosting läuft auf GitHub Pages (USA) — im Spannungsverhältnis zur eigenen „Daten in Deutschland"-Positionierung.
 
 ## Nächste Schritte
 
-- **Datenschutzerklärung erstellen** (Art. 13 DSGVO) und als eigenen, klar benannten Link neben dem Impressum einbinden — Pflicht, fehlt aktuell ganz. Inhalte: Verantwortlicher, Server-Logs/IP (Art. 6 Abs. 1 lit. f), Hosting GitHub Pages USA (Drittlandtransfer / Data Privacy Framework), Kontaktaufnahme per E-Mail, Betroffenenrechte, Speicherdauer, Hinweis „keine Cookies/kein Tracking, Schriften lokal".
+- **Datenschutzerklärung vorhanden** (Modal seit 2026-06-11, Footer-Button „Datenschutz"): deckt Verantwortlicher, Server-Logs/IP (Art. 6 Abs. 1 lit. f), Hosting GitHub Pages USA (Drittlandtransfer / Data Privacy Framework), Kontaktaufnahme per E-Mail, Betroffenenrechte und den Hinweis „keine Cookies/kein Tracking, Schriften lokal" ab. Offen nur noch die rechtssichere Endabnahme (siehe letzter Punkt).
 - **Impressum vervollständigen** (`content/site.json` → `impressum`): Registergericht + HRB ✓ (Amtsgericht Charlottenburg, HRB 288375B, 2026-06-15); offen: USt-IdNr. nach § 27a UStG (falls vorhanden), möglichst Telefonnummer als zweiter Kontaktweg (EuGH-Rechtsprechung zur „unmittelbaren Kommunikation").
 - **Hosting prüfen:** GitHub Pages (USA) passt nicht zur Datenschutz-Positionierung; Migration auf EU-/DE-Hosting erwägen (vgl. Vault-Notiz zur volta.codes-Migration).
 - Falls Analytics gewünscht: nur cookielos/self-hosted, um den No-Cookie-Banner-Vorteil zu erhalten.
 - Rechtssichere Endabnahme von Impressum-Registerdaten und Datenschutztext idealerweise anwaltlich bzw. per seriösem Generator gegenprüfen.
+- Optional: kompakter **Teaser-Block auf der Startseite**, der zur Projektseite führt (bewusst vertagt). Weitere Projekte lassen sich als Einträge im `projekte`-Block in `content/site.json` ergänzen.
 
 ## Technisches / Setup
 
@@ -30,7 +33,7 @@ Impressum als Modal (Footer-Button); seit 2026-06-15 mit **Handelsregister** (Am
 
 **Vorschau:** `index.html` direkt im Browser öffnen. Falls ein lokaler Server nötig ist, vorher in Mission Control einen freien Utility-Port reservieren; `8000` ist fest für Sentinel reserviert.
 
-**Aufbau:** Einzige Datei `index.html` mit inline `<style>` und inline `<script>`. Kein Build-Schritt, kein Package Manager, kein Framework.
+**Aufbau:** `index.html` (Startseite) und `projekte.html` (Projektseite), jeweils mit inline `<style>` und inline `<script>`. Kein Build-Schritt, kein Package Manager, kein Framework. Beide laden ihre Texte per `fetch()` aus `content/site.json` — für die lokale Vorschau daher ein kleiner Server nötig (`file://` blockiert das `fetch`). Projektbilder liegen in `img/projekte/` (FAMOS/VoxDrop als JPEG/PNG, die zwei Krisenassistent-Phones als transparente WebP).
 
 **Schriften:** Space Grotesk als self-hosted Variable Font in `fonts/` (woff2, `latin` + `latin-ext`), eingebunden per `@font-face` im inline `<style>`. Keine Google-Fonts-Einbindung mehr (DSGVO). Nicht wieder per `<link>` auf `fonts.googleapis.com`/`fonts.gstatic.com` umstellen.
 
@@ -45,8 +48,34 @@ Impressum als Modal (Footer-Button); seit 2026-06-15 mit **Handelsregister** (Am
 
 - **Single-File-Ansatz:** HTML, CSS und JS in einer Datei, bewusst ohne Framework oder Build-Tooling. Reduziert Komplexität für ein reines Marketing-Dokument.
 - **Impressum als Modal:** Kein eigener Seitenbereich, um den visuellen Fluss der Seite nicht zu unterbrechen.
+- **Projekte als eigene Unterseite** (2026-06-30): `projekte.html` statt einer weiteren Sektion auf der Startseite — mehr Raum pro Projekt (großes Bild, Klick-Zoom), ohne den Single-Page-Fluss der Startseite zu stören. No-Build bleibt: zweite statische Datei, gleiche Tokens/Fonts, Inhalte in `content/site.json`.
 
 ## Logbuch
+
+### 2026-07-01
+
+**Bug-Fix: Kontakt-Link auf der Projektseite.** Der Nav-Button „Kontakt" zeigte auf
+`index.html#kontakt`; weil die Startseite ihre Inhalte per `fetch()` nachlädt, verspringt der
+Anker beim Laden und man landet nicht beim Kontakt. Fix: Der Projektseiten-Footer
+(„Sprechen wir."-Block) bekam `id="kontakt"`, der Nav-Link zeigt jetzt auf den lokalen Anker
+`#kontakt`. Via PR [#2](https://github.com/Polartag/volta/pull/2). Außerdem Doku-Korrektur:
+„Aktueller Stand" und „Nächste Schritte" zum Datenschutz nachgezogen — die Erklärung existiert
+als zweites Modal bereits seit 2026-06-11, war in der projekt.md aber noch als fehlend vermerkt.
+
+### 2026-06-30
+
+**Projektseite `projekte.html` gebaut** (neue Unterseite, von der Nav verlinkt). Drei Projekte:
+FAMOS, VoxDrop (extern, verlinkt auf voxdrop.live) und KI-Krisenassistent. Eigener
+`projekte`-Block in `content/site.json`, gerendert per `fetch()` wie die Startseite, gleiche
+Tokens/Fonts (DSGVO: keine Drittanbieter-Ressourcen). Zickzack-Layout, große web-optimierte
+Bilder in `img/projekte/` (FAMOS/VoxDrop quer; KI-Krisenassistent als **zwei transparent
+freigestellte Mobile-Screens** — aus dem Pitch-HTML in 2× gerendert, runde Alpha-Maske,
+`drop-shadow` folgt der Phone-Form). Bilder per Klick **an Ort und Stelle** vergrößerbar (kein
+Overlay), beim Krisenassistenten jeder Screen einzeln. Pro Projekt 2 von 3 randomisierte
+`==`-Highlights beim Scrollen (Mechanik der Startseite, Subline bleibt schlicht). FAMOS-Lead
+mit gezieltem Soft-Hyphen (`Schwangerschafts-konfliktberatung`). Bulk-Stand lag bereits auf
+`main` (`f7241eb`); finale Politur (Highlights, stärkerer Zoom, Trennung) via PR
+[#1](https://github.com/Polartag/volta/pull/1) → Squash-Merge `05628ab`, live über GitHub Pages.
 
 ### 2026-06-26
 
