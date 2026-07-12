@@ -4,7 +4,7 @@ Statische Marketing-/Landingpage für volta.codes, eine Berliner Agentur für ma
 
 ## Aktueller Stand
 
-Die Website ist inhaltlich und technisch überarbeitet. Acht Sektionen (Hero, Warum volta.codes, Für wen wir bauen, Was wir machen, Wie wir arbeiten, Was unsere Software auszeichnet, Die Gründer, Kontakt). Farbrhythmus: hell → hell → blau → hell → dunkel → hell → hell → dunkel.
+Die Website ist inhaltlich und technisch überarbeitet. Acht Sektionen (Hero, Warum volta.codes, Für wen wir bauen, Was wir machen, Wie wir arbeiten, Was unsere Software auszeichnet, Das Team, Kontakt). Farbrhythmus: hell → hell → blau → hell → dunkel → hell → hell → dunkel.
 
 Seit 2026-06-30 gibt es eine zweite Seite **`projekte.html`** (eigenständig, gleicher Stil/Tokens, von der Nav verlinkt). Sie stellt drei Projekte im Zickzack-Layout vor — **FAMOS** (Fallmanagement- und Organisationssoftware), **VoxDrop** (Dokumente barrierefrei via KI-Agenten, extern auf voxdrop.live verlinkt) und den **KI-Krisenassistenten** (Bevölkerungsschutz). Inhalte als `projekte`-Block in `content/site.json`, gerendert per `fetch()` wie die Startseite. Pro Projekt ein web-optimiertes Bild in `img/projekte/`; beim KI-Krisenassistenten zwei transparent freigestellte Mobile-Screens. Klick vergrößert das jeweilige Bild an Ort und Stelle (kein Overlay); pro Projekt leuchten beim Scrollen 2 von 3 `==`-Markierungen zufällig auf.
 
@@ -12,7 +12,7 @@ Texte sind aus dem HTML in `content/site.json` ausgelagert und werden per `fetch
 
 Schriften (Space Grotesk) werden seit 2026-06-11 **lokal** aus `fonts/` ausgeliefert; die frühere Live-Einbindung von Google Fonts wurde entfernt (DSGVO). Die Seite lädt damit keinerlei Drittanbieter-Ressourcen mehr, setzt keine Cookies und kein Tracking — ein Cookie-Banner ist nicht nötig.
 
-Die Sektion „Die Gründer" zeigt seit 2026-06-16 ein **Gründer-Foto** (S/W, self-hosted in `img/gruender.jpg`, web-optimiert ~165 KB, `loading=lazy`; content-getrieben über `gruender.foto` in `content/site.json`).
+Die Sektion „Das Team" zeigt seit 2026-06-16 ein **Gründer-Foto** (S/W, self-hosted in `img/gruender.jpg`, web-optimiert ~165 KB, `loading=lazy`; content-getrieben über `gruender.foto` in `content/site.json`) und seit 2026-07-12 zwei weitere Teammitglieder mit web-optimierten Porträts (`img/team-nicolas-huart.jpg`, `img/team-doreen-finocchiaro.png`).
 
 Impressum als Modal (Footer-Button); seit 2026-06-15 mit **Handelsregister** (Amtsgericht Charlottenburg, HRB 288375B). Seit 2026-06-11 zusätzlich eine **Datenschutzerklärung** als zweites Modal (Footer-Button „Datenschutz" neben „Impressum"). **Rechtlich offen:** ggf. USt-IdNr.; Datenschutztext und Registerdaten sollten noch rechtlich gegengeprüft werden. Hosting läuft auf GitHub Pages (USA) — im Spannungsverhältnis zur eigenen „Daten in Deutschland"-Positionierung.
 
@@ -51,6 +51,10 @@ Impressum als Modal (Footer-Button); seit 2026-06-15 mit **Handelsregister** (Am
 - **Projekte als eigene Unterseite** (2026-06-30): `projekte.html` statt einer weiteren Sektion auf der Startseite — mehr Raum pro Projekt (großes Bild, Klick-Zoom), ohne den Single-Page-Fluss der Startseite zu stören. No-Build bleibt: zweite statische Datei, gleiche Tokens/Fonts, Inhalte in `content/site.json`.
 
 ## Logbuch
+
+### 2026-07-12
+
+**Team-Sektion erweitert.** Lokalen `main` per Fast-Forward auf GitHub-Stand `eafcbb2` aktualisiert. Sichtbare Überschrift von „Die Gründer" auf **„Das Team"** geändert. Nicolas Huart (Software-Ingenieur) und Doreen Finocchiaro (Kundenkommunikation & Office Management) als neue Teammitglieder in `content/site.json` ergänzt. Ihre Fotos wurden lokal und web-optimiert als `img/team-nicolas-huart.jpg` sowie `img/team-doreen-finocchiaro.png` eingebunden. Desktop und Mobile lokal über `http://127.0.0.1:8765/` geprüft.
 
 ### 2026-07-01
 

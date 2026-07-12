@@ -188,6 +188,48 @@
             width: 100%; height: auto; display: block;
             border-radius: 2px; margin-bottom: 1.6rem;
         }
+        .team-list {
+            border-top: 1px solid var(--line);
+            margin-top: 2rem;
+        }
+        .team-member {
+            display: grid;
+            grid-template-columns: minmax(124px, 168px) 1fr;
+            gap: 1.25rem;
+            align-items: start;
+            border-bottom: 1px solid var(--line);
+            padding: 1.65rem 0;
+        }
+        .team-member img {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            display: block;
+            border-radius: 2px;
+            background: rgba(20,20,26,0.05);
+        }
+        .team-member h3 {
+            font-size: 0.96rem;
+            font-weight: 600;
+            line-height: 1.25;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+        .team-role {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            line-height: 1.45;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 0.7rem;
+        }
+        .team-member p {
+            font-size: 0.91rem;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
 
         /* --- Für wen (blue) --- */
         .fuerWen { background: var(--blue-bg); color: #fff; }
@@ -338,9 +380,16 @@
             .fuerWen .s-head { position: static; }
             .wieWirArbeiten .s-head { position: static; }
             .phase::after, .wert::after, .merkmal::after { font-size: 5.5rem; }
+            .team-member {
+                grid-template-columns: 116px 1fr;
+                gap: 1rem;
+                padding: 1.35rem 0;
+            }
         }
         @media (max-width: 480px) {
             .hero h1 { font-size: 2.2rem; letter-spacing: 0.02em; }
+            .team-member { grid-template-columns: 104px 1fr; }
+            .team-role { font-size: 0.62rem; letter-spacing: 0.09em; }
         }
     </style>
 </head>
@@ -414,11 +463,11 @@
     </div>
 </section>
 
-<!-- 7. Die Gründer (hell) -->
+<!-- 7. Das Team (hell) -->
 <section class="team">
     <div class="w">
         <div class="fade split">
-            <h2 class="s-head" id="gruender-head">Die Gründer</h2>
+            <h2 class="s-head" id="gruender-head">Das Team</h2>
             <div class="col" id="gruender-col"></div>
         </div>
     </div>
@@ -554,13 +603,29 @@ async function init() {
         ).join('') +
         '</div>';
 
+    const teamMembers = Array.isArray(d.gruender.mitglieder) && d.gruender.mitglieder.length
+        ? '<div class="team-list">' +
+            d.gruender.mitglieder.map(m =>
+                `<article class="team-member">
+                    ${m.foto ? `<img src="img/${m.foto}" alt="${m.fotoAlt || m.name}" loading="lazy">` : ''}
+                    <div>
+                        <h3>${md(m.name)}</h3>
+                        <span class="team-role">${md(m.rolle)}</span>
+                        <p>${md(m.text)}</p>
+                    </div>
+                </article>`
+            ).join('') +
+        '</div>'
+        : '';
+
     document.getElementById('gruender-col').innerHTML =
         (d.gruender.foto
-            ? `<img class="gruender-foto" src="img/${d.gruender.foto}" alt="${d.gruender.fotoAlt || 'Die Gründer'}" loading="lazy">`
+            ? `<img class="gruender-foto" src="img/${d.gruender.foto}" alt="${d.gruender.fotoAlt || 'Das Team'}" loading="lazy">`
             : '') +
         d.gruender.absaetze.map((t, i) =>
             `<p${i === 0 ? ' class="lead-p"' : ''}>${md(t)}</p>`
-        ).join('');
+        ).join('') +
+        teamMembers;
 
     document.getElementById('kontakt-text').innerHTML = md(d.kontakt.text);
     const emailEl = document.getElementById('kontakt-email');
