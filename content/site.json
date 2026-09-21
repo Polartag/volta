@@ -137,8 +137,8 @@
         "bild": "img/projekte/famos.png",
         "alt": "FAMOS Berater:innen-Dashboard mit Fallübersicht, Kennzahlen und Kinderschutzfällen",
         "orientierung": "quer",
-        "link": null,
-        "linkLabel": null
+        "link": "famos/",
+        "linkLabel": "Präsentation ansehen"
       },
       {
         "titel": "VoxDrop",

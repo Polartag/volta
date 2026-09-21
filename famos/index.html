@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAMOS — Pitch-Präsentation</title>
+    <style>
+        /* Self-hosted Inter (Variable Font, Gewichte 400-900).
+           Lokal ausgeliefert, damit keine Besucher-IP an Google geht (DSGVO). */
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400 900;
+            font-display: swap;
+            src: url('fonts/inter-latin.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400 900;
+            font-display: swap;
+            src: url('fonts/inter-latin-ext.woff2') format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* Ersetzt den frueheren Tailwind-Preflight: das Deck nutzt keine
+           Tailwind-Klassen, brauchte davon aber die globale Zeilenhoehe. */
+        html { line-height: 1.5; -webkit-text-size-adjust: 100%; }
+        body { line-height: inherit; }
+        html { scroll-behavior: smooth; scroll-snap-type: y mandatory; overflow-y: scroll; }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: #0d1b2a; color: #fff; }
+        .slide { min-height: 100vh; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .sc { max-width: 1280px; width: 100%; padding: 48px 64px; position: relative; z-index: 2; }
+
+        .geo-cyan { position: absolute; width: 380px; height: 380px; background: linear-gradient(135deg, #4fc3f7 0%, #00bfa5 100%); clip-path: polygon(0 0, 100% 0, 0 100%); opacity: 0.9; z-index: 1; }
+        .geo-lime { position: absolute; width: 300px; height: 400px; background: linear-gradient(160deg, #c6f135 0%, #00bfa5 60%, #4fc3f7 100%); clip-path: polygon(50% 0%, 100% 35%, 85% 100%, 15% 100%, 0% 35%); opacity: 0.85; z-index: 1; }
+        .geo-small { position: absolute; width: 130px; height: 130px; background: linear-gradient(135deg, #e8f34a 0%, #c6f135 100%); clip-path: polygon(50% 0%, 100% 100%, 0% 100%); opacity: 0.75; z-index: 1; }
+
+        .mockup { background: #152238; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; box-shadow: 0 0 60px rgba(79,195,247,0.06), 0 20px 40px rgba(0,0,0,0.35); }
+        .mbar { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+        h2.st { font-size: 44px; font-weight: 900; line-height: 1.08; letter-spacing: -1px; }
+        .accent { color: #4fc3f7; }
+        .accent-lime { color: #c6f135; }
+        .sub { font-size: 17px; color: rgba(255,255,255,0.45); line-height: 1.65; margin-top: 16px; }
+        .label { display: inline-block; font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; }
+        .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 28px; }
+        .card-hl { background: rgba(79,195,247,0.06); border: 1px solid rgba(79,195,247,0.15); border-radius: 14px; padding: 28px; }
+        .role-tag { display: inline-flex; align-items: center; gap: 8px; padding: 7px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 24px; }
+        .divider-gradient { height: 3px; background: linear-gradient(90deg, #4fc3f7 0%, #c6f135 50%, #00bfa5 100%); }
+
+        table.cmp { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 24px; }
+        table.cmp th { text-align: left; padding: 12px 16px; background: rgba(255,255,255,0.07); color: #4fc3f7; font-weight: 600; font-size: 13px; letter-spacing: 1px; }
+        table.cmp th:first-child { border-radius: 8px 0 0 0; } table.cmp th:last-child { border-radius: 0 8px 0 0; }
+        table.cmp td { padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.68); vertical-align: top; line-height: 1.5; }
+        table.cmp .col-f { background: rgba(79,195,247,0.05); }
+        .chk { color: #66bb6a; font-weight: 700; } .wrn { color: #ffa726; } .crs { color: #ef5350; }
+        .usp-badge { display: inline-block; background: #4fc3f7; color: #000; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 4px; letter-spacing: 1px; margin-left: 6px; }
+
+        .tl-item { display: flex; gap: 20px; margin-bottom: 24px; align-items: flex-start; }
+        .tl-dot { width: 36px; height: 36px; background: #4fc3f7; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #0d1b2a; font-size: 13px; }
+        .tl-dot.dim { background: rgba(79,195,247,0.25); }
+
+        /* Screenshot zoom */
+        .mockup { cursor: pointer; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s ease; position: relative; z-index: 2; }
+        .mockup.zoomed {
+            z-index: 200;
+            box-shadow: 0 0 80px rgba(0,0,0,0.5);
+        }
+        .slide-text { transition: opacity 0.4s ease; }
+        .slide-text.dimmed { opacity: 0.06; }
+
+        .slide-counter { position: fixed; bottom: 20px; right: 28px; z-index: 100; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.2); font-variant-numeric: tabular-nums; }
+        .slide-nav { position: fixed; right: 14px; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 6px; }
+        .slide-nav a { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.12); display: block; transition: all 0.3s; }
+        .slide-nav a.active { background: #4fc3f7; transform: scale(1.5); }
+
+        /* ---------- Buttons (Terminbuchung) ---------- */
+        .btn { display:inline-flex; align-items:center; gap:10px; padding:15px 28px; border-radius:12px; font-size:16px; font-weight:700; text-decoration:none; transition:transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease; }
+        .btn-primary { background:#c6f135; color:#0d1b2a; box-shadow:0 8px 28px rgba(198,241,53,0.16); }
+        .btn-primary:hover { transform:translateY(-2px); box-shadow:0 12px 34px rgba(198,241,53,0.26); }
+        .btn-ghost { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.14); color:rgba(255,255,255,0.85); }
+        .btn-ghost:hover { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.28); transform:translateY(-2px); }
+
+        /* ---------- Hero-Teaser Testbetrieb ---------- */
+        .hero-teaser { margin-top:36px; display:inline-flex; align-items:center; gap:14px; padding:10px 12px 10px 22px; background:rgba(198,241,53,0.07); border:1px solid rgba(198,241,53,0.22); border-radius:999px; text-decoration:none; transition:background .2s ease, border-color .2s ease; }
+        .hero-teaser:hover { background:rgba(198,241,53,0.12); border-color:rgba(198,241,53,0.4); }
+        .hero-teaser .pulse { width:8px; height:8px; border-radius:50%; background:#c6f135; flex-shrink:0; animation:teaserPulse 2.4s infinite; }
+        @keyframes teaserPulse { 0% { box-shadow:0 0 0 0 rgba(198,241,53,0.5); } 70% { box-shadow:0 0 0 12px rgba(198,241,53,0); } 100% { box-shadow:0 0 0 0 rgba(198,241,53,0); } }
+
+        /* ---------- Fahrplan-Zeilen ---------- */
+        .rm-row { display:grid; grid-template-columns:190px 1fr; gap:32px; padding:19px 4px; border-bottom:1px solid rgba(255,255,255,0.08); align-items:baseline; }
+        .rm-when { font-size:17px; font-weight:700; }
+        .rm-what { font-size:17px; color:rgba(255,255,255,0.5); line-height:1.6; }
+        .rm-row-hl { background:rgba(198,241,53,0.05); border-bottom:none; border-left:3px solid #c6f135; padding-left:20px; margin-left:-4px; border-radius:0 8px 8px 0; }
+
+        /* ---------- Preiskarten ---------- */
+        .pk-group { font-size:13px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#4fc3f7; margin:20px 0 10px; }
+        .price-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-top:3px solid #4fc3f7; border-radius:12px; padding:17px 20px; }
+        .pk-tag { font-size:11px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,0.35); }
+        .pk-name { font-size:22px; font-weight:800; margin-top:5px; }
+        .pk-size { font-size:14px; color:rgba(255,255,255,0.4); margin-top:2px; }
+        .pk-lbl { font-size:11px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#4fc3f7; margin-top:14px; }
+        .pk-price { font-size:30px; font-weight:900; color:#4fc3f7; letter-spacing:-1px; margin-top:2px; }
+        .pk-price span { font-size:13px; font-weight:600; color:rgba(255,255,255,0.4); letter-spacing:0; margin-left:6px; }
+        .pk-setup { font-size:14px; color:rgba(255,255,255,0.5); margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.07); }
+        .pk-setup strong { color:#fff; font-weight:700; }
+        .pk-list { font-size:13px; color:rgba(255,255,255,0.28); margin-top:8px; line-height:1.5; }
+
+        /* ---------- Leistungslisten ---------- */
+        .inc-list { list-style:none; }
+        .inc-list li { position:relative; padding-left:24px; font-size:16px; color:rgba(255,255,255,0.5); line-height:1.5; margin-bottom:9px; }
+        .nb { white-space:nowrap; }
+
+        /* ---------- Dichte Slides: bei niedrigen Fenstern gleichmaessig verkleinern ---------- */
+        .slide-dense { height:100vh; }
+        .slide-dense .sc { padding-top:36px; padding-bottom:36px; transition:transform .2s ease; }
+        @media (max-height: 880px) { .slide-dense .sc { transform:scale(0.90); } }
+        @media (max-height: 800px) { .slide-dense .sc { transform:scale(0.82); } }
+        @media (max-height: 720px) { .slide-dense .sc { transform:scale(0.72); } }
+        .inc-list li::before { content:''; position:absolute; left:0; top:9px; width:7px; height:7px; border-radius:50%; background:var(--dot,#4fc3f7); }
+    </style>
+</head>
+<body>
+<nav class="slide-nav" id="slideNav"></nav>
+<div class="slide-counter" id="slideCounter">1 / 17</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 1: HERO (Original-Design, mit Testbetrieb-Teaser) -->
+<!-- ============================================================ -->
+<section class="slide" id="s1">
+    <div class="sc" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+        <div style="margin-bottom:48px;">
+            <span style="font-size:96px; font-weight:900; letter-spacing:-5px; line-height:1;">FA<span style="color:#4fc3f7;">MOS</span></span>
+        </div>
+        <h1 style="font-size:clamp(1.8rem,3.5vw,2.8rem); font-weight:900; color:#fff; line-height:1.15; letter-spacing:-0.5px; max-width:900px;">
+            Fallmanagement und Organisation<br>für <span style="color:#4fc3f7;">soziale Träger</span>
+        </h1>
+        <p style="margin-top:28px; font-size:19px; color:rgba(255,255,255,0.55); line-height:1.7; max-width:680px;">
+            FAMOS ersetzt veraltete Desktop-Software durch eine schlanke, robuste Web-Applikation — <strong style="color:rgba(255,255,255,0.8);">Aktenführung, Statistik und Archivierung</strong> in einem System.
+        </p>
+        <div style="margin-top:40px; display:flex; gap:12px;">
+            <span style="padding:6px 16px; background:rgba(79,195,247,0.08); border:1px solid rgba(79,195,247,0.15); border-radius:20px; font-size:12px; font-weight:600; color:#4fc3f7;">Erziehungsberatung</span>
+            <span style="padding:6px 16px; background:rgba(198,241,53,0.08); border:1px solid rgba(198,241,53,0.12); border-radius:20px; font-size:12px; font-weight:600; color:#c6f135;">Familienberatung</span>
+            <span style="padding:6px 16px; background:rgba(0,191,165,0.08); border:1px solid rgba(0,191,165,0.12); border-radius:20px; font-size:12px; font-weight:600; color:#00bfa5;">§28 SGB VIII</span>
+        </div>
+        <a class="hero-teaser" href="#s2">
+            <span class="pulse"></span>
+            <span style="font-size:15px; font-weight:700; color:#c6f135;">Neu: kostenloser Testbetrieb ab Mitte Oktober 2026</span>
+            <span style="display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; background:rgba(198,241,53,0.15); color:#c6f135; font-size:15px; font-weight:800;">&#8595;</span>
+        </a>
+    </div>
+</section>
+
+<div class="divider-gradient"></div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2: TESTBETRIEB — KOSTENLOS AB MITTE OKTOBER 2026 -->
+<!-- ============================================================ -->
+<section class="slide" id="s2" style="background:#0a1524;">
+    <div class="geo-lime" style="top:-160px; right:-120px; opacity:0.05;"></div>
+    <div class="geo-small" style="bottom:60px; left:-40px; opacity:0.05;"></div>
+    <div class="sc">
+        <p class="label" style="color:#c6f135;">Neu — ab Mitte Oktober 2026</p>
+        <h2 class="st" style="font-size:50px;">Testen Sie FAMOS <span class="accent-lime">kostenlos</span><br>in Ihrer Beratungsstelle.</h2>
+        <p style="margin-top:18px; font-size:21px; color:rgba(255,255,255,0.45); line-height:1.6; max-width:920px;">
+            Keine Demo-Datenbank, die alle sehen: Sie bekommen eine eigene Instanz und arbeiten nach Absprache mit Ihren echten Fällen — für <span class="nb">FAMOS-EFB</span> wie für <span class="nb">FAMOS-SKB</span>.
+        </p>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:40px;">
+            <div class="card" style="padding:28px;">
+                <div style="width:52px; height:52px; border-radius:13px; background:rgba(79,195,247,0.1); display:flex; align-items:center; justify-content:center; margin-bottom:18px;">
+                    <svg style="width:26px; height:26px; color:#4fc3f7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2M5 12h14M7 8h.01M7 16h.01"/></svg>
+                </div>
+                <p style="font-size:20px; font-weight:700; margin-bottom:10px;">Eine eigene Instanz</p>
+                <p style="font-size:16px; color:rgba(255,255,255,0.45); line-height:1.6;">Ihre Beratungsstelle arbeitet in einem eigenen, getrennten Datenraum auf Servern in Deutschland — nicht in einer gemeinsamen Demo-Umgebung.</p>
+            </div>
+            <div class="card" style="padding:28px;">
+                <div style="width:52px; height:52px; border-radius:13px; background:rgba(0,191,165,0.1); display:flex; align-items:center; justify-content:center; margin-bottom:18px;">
+                    <svg style="width:26px; height:26px; color:#00bfa5;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <p style="font-size:20px; font-weight:700; margin-bottom:10px;">Echte Fälle, nach Absprache</p>
+                <p style="font-size:16px; color:rgba(255,255,255,0.45); line-height:1.6;">Bevor der erste echte Datensatz erfasst wird, klären wir gemeinsam Auftragsverarbeitung und technische Maßnahmen. Erst danach geht es los.</p>
+            </div>
+            <div class="card" style="padding:28px;">
+                <div style="width:52px; height:52px; border-radius:13px; background:rgba(198,241,53,0.1); display:flex; align-items:center; justify-content:center; margin-bottom:18px;">
+                    <svg style="width:26px; height:26px; color:#c6f135;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <p style="font-size:20px; font-weight:700; margin-bottom:10px;">Ohne Kosten, ohne Bindung</p>
+                <p style="font-size:16px; color:rgba(255,255,255,0.45); line-height:1.6;">Der Testbetrieb ist kostenfrei. Die Lizenz wird erst ab dem Produktivgang abgerechnet — Sie entscheiden danach.</p>
+            </div>
+        </div>
+        <div style="margin-top:40px; display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+            <a class="btn btn-primary" data-termin href="#">
+                <svg style="width:20px; height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                Produktvorstellung vereinbaren
+            </a>
+            <p style="font-size:16px; color:rgba(255,255,255,0.35); line-height:1.6; max-width:420px;">Wir zeigen FAMOS an Ihren Abläufen und stimmen Start und Umfang des Testbetriebs gemeinsam ab.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3: ÜBERBLICK (Was ist FAMOS) -->
+<!-- ============================================================ -->
+<section class="slide" id="s3" style="background:#0a1524;">
+    <div class="sc">
+        <p class="label" style="color:#4fc3f7;">Überblick</p>
+        <h2 class="st" style="font-size:58px;">Was ist <span class="accent">FAMOS</span>?</h2>
+        <p style="margin-top:20px; font-size:24px; color:rgba(255,255,255,0.55); line-height:1.6; max-width:900px;">
+            Ein Tool, das für Erziehungs- und Familienberatungsstellen das komplette Fallmanagement übernimmt — von der Anmeldung über die Falldokumentation bis zur statistischen Auswertung und Archivierung.
+        </p>
+        <div style="margin-top:48px; background:rgba(0,191,165,0.04); border:1px solid rgba(0,191,165,0.08); border-radius:16px; padding:44px;">
+            <p style="font-size:16px; color:#00bfa5; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:28px;">FAMOS — die Lösung</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+                <div style="display:flex; gap:16px; align-items:flex-start;"><svg style="width:24px; height:24px; color:#00bfa5; flex-shrink:0; margin-top:2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><div><p style="font-weight:700; font-size:20px;">Rollengerechte Eingabefelder</p><p style="font-size:16px; color:rgba(255,255,255,0.4); margin-top:4px;">Auf jeder Hierarchie-Ebene nur das Notwendige</p></div></div>
+                <div style="display:flex; gap:16px; align-items:flex-start;"><svg style="width:24px; height:24px; color:#00bfa5; flex-shrink:0; margin-top:2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><div><p style="font-weight:700; font-size:20px;">Statistik automatisch erfasst</p><p style="font-size:16px; color:rgba(255,255,255,0.4); margin-top:4px;">Kennzahlen werden aufbereitet, kein Nacharbeiten</p></div></div>
+                <div style="display:flex; gap:16px; align-items:flex-start;"><svg style="width:24px; height:24px; color:#00bfa5; flex-shrink:0; margin-top:2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><div><p style="font-weight:700; font-size:20px;">Web-basiert & DSGVO-konform</p><p style="font-size:16px; color:rgba(255,255,255,0.4); margin-top:4px;">Alle arbeiten gleichzeitig, von jedem Gerät</p></div></div>
+                <div style="display:flex; gap:16px; align-items:flex-start;"><svg style="width:24px; height:24px; color:#00bfa5; flex-shrink:0; margin-top:2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><div><p style="font-weight:700; font-size:20px;">Zukunftssicher & erweiterbar</p><p style="font-size:16px; color:rgba(255,255,255,0.4); margin-top:4px;">Aktives Entwicklungsteam, direkte Weiterentwicklung</p></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 4: DEMO INTRO -->
+<!-- ============================================================ -->
+<section class="slide" id="s4">
+    <div class="sc" style="text-align:center;">
+        <p class="label" style="color:#00bfa5; font-size:14px;">Demo FAMOS</p>
+        <h2 class="st" style="font-size:58px;">Architektur &<br><span class="accent">Funktionalität</span></h2>
+        <p class="sub" style="max-width:720px; margin-left:auto; margin-right:auto; font-size:22px;">Wir haben die Rollenstruktur, die Kernfunktionalität und die Benutzerführung entwickelt — inklusive funktionaler Mockup-Pages.</p>
+        <p style="margin-top:56px; font-size:16px; color:rgba(255,255,255,0.3);">Lassen Sie uns durch das System gehen ↓</p>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 5: TEAMASSISTENZ — ANMELDUNG -->
+<!-- ============================================================ -->
+<section class="slide" id="s5" style="background:#0a1524;">
+    <div class="sc">
+        <div style="display:grid; grid-template-columns:1fr 1.6fr; gap:48px; align-items:center;">
+            <div>
+                <div class="role-tag" style="background:rgba(79,195,247,0.08); color:#4fc3f7;"><span style="width:7px; height:7px; border-radius:50%; background:#4fc3f7;"></span> Teamassistenz</div>
+                <h2 class="st" style="font-size:44px;">Anmeldung &<br><span class="accent">Fall anlegen</span></h2>
+                <p class="sub" style="font-size:19px;">Schnelle Fallanlage mit nur den notwendigen Feldern. Automatische Fallnummern, Beratungssetting direkt bei der Anmeldung.</p>
+                <p style="margin-top:24px; font-size:17px; color:rgba(255,255,255,0.4); line-height:2;">✓ Anmeldedatum-Schnelleingabe<br>✓ Zwei Elternteile direkt erfassen<br>✓ Fehlende Daten später ergänzbar</p>
+            </div>
+            <div class="mockup"><div class="mbar"><span class="dot" style="background:rgba(255,95,87,0.7);"></span><span class="dot" style="background:rgba(255,189,46,0.7);"></span><span class="dot" style="background:rgba(39,201,63,0.7);"></span></div><img src="slides/slide-02-anmeldung.png" style="width:100%; display:block;"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 6: TEAMASSISTENZ — ZUWEISUNG -->
+<!-- ============================================================ -->
+<section class="slide" id="s6">
+    <div class="sc">
+        <div style="display:grid; grid-template-columns:1.6fr 1fr; gap:48px; align-items:center;">
+            <div class="mockup"><div class="mbar"><span class="dot" style="background:rgba(255,95,87,0.7);"></span><span class="dot" style="background:rgba(255,189,46,0.7);"></span><span class="dot" style="background:rgba(39,201,63,0.7);"></span></div><img src="slides/slide-03-fallliste.png" style="width:100%; display:block;"></div>
+            <div>
+                <div class="role-tag" style="background:rgba(79,195,247,0.08); color:#4fc3f7;"><span style="width:7px; height:7px; border-radius:50%; background:#4fc3f7;"></span> Teamassistenz</div>
+                <h2 class="st" style="font-size:44px;">Fälle<br><span class="accent">zuweisen</span></h2>
+                <p class="sub" style="font-size:19px;">Die Teamassistenz weist neue Fälle den Berater:innen zu. Status wechselt automatisch von Warteliste zu Aktiv. Übersichtliche Fallliste mit Status-Filter.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7: BERATERIN — MEINE FÄLLE -->
+<!-- ============================================================ -->
+<section class="slide" id="s7" style="background:#0a1524;">
+    <div class="sc">
+        <div style="display:grid; grid-template-columns:1fr 1.6fr; gap:48px; align-items:center;">
+            <div>
+                <div class="role-tag" style="background:rgba(0,191,165,0.08); color:#00bfa5;"><span style="width:7px; height:7px; border-radius:50%; background:#00bfa5;"></span> Beraterin</div>
+                <h2 class="st" style="font-size:44px;">Auf einen Blick:<br><span style="color:#00bfa5;">Meine Fälle</span></h2>
+                <p class="sub" style="font-size:19px;">Welche Fälle sind aktiv? Welche im Wartebereich? Kinderschutzfälle werden hervorgehoben. Kann selbst Fälle aus der Warteliste übernehmen.</p>
+                <p style="margin-top:24px; font-size:17px; color:rgba(255,255,255,0.4); line-height:2;">✓ Warnhinweise bei fehlenden Daten<br>✓ Kinderschutzfälle sofort sichtbar<br>✓ Selbstständige Fallübernahme</p>
+            </div>
+            <div class="mockup"><div class="mbar"><span class="dot" style="background:rgba(255,95,87,0.7);"></span><span class="dot" style="background:rgba(255,189,46,0.7);"></span><span class="dot" style="background:rgba(39,201,63,0.7);"></span></div><img src="slides/slide-04-beraterin-dashboard.png" style="width:100%; display:block;"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8: BERATERIN — BERATUNGSVERLAUF -->
+<!-- ============================================================ -->
+<section class="slide" id="s8">
+    <div class="sc">
+        <div style="display:grid; grid-template-columns:1.6fr 1fr; gap:48px; align-items:center;">
+            <div class="mockup"><div class="mbar"><span class="dot" style="background:rgba(255,95,87,0.7);"></span><span class="dot" style="background:rgba(255,189,46,0.7);"></span><span class="dot" style="background:rgba(39,201,63,0.7);"></span></div><img src="slides/slide-06-verlauf.png" style="width:100%; display:block;"></div>
+            <div>
+                <div class="role-tag" style="background:rgba(0,191,165,0.08); color:#00bfa5;"><span style="width:7px; height:7px; border-radius:50%; background:#00bfa5;"></span> Beraterin</div>
+                <h2 class="st" style="font-size:44px;">Beratungstermin<br><span style="color:#00bfa5;">dokumentieren</span></h2>
+                <p class="sub" style="font-size:19px;">Datum, Dauer, Kontaktart und Dokumentation. Sitzungsdaten fließen automatisch in die Statistik: Hilfebeginn = erste Sitzung, Hilfeende = letzte Sitzung.</p>
+                <div style="margin-top:24px; padding:18px 22px; background:rgba(0,191,165,0.05); border:1px solid rgba(0,191,165,0.1); border-radius:10px;">
+                    <p style="font-size:17px; color:#00bfa5; font-weight:600;">Automatische Übernahme — kein manuelles Speichern nötig.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9: LEITUNG — DASHBOARD -->
+<!-- ============================================================ -->
+<section class="slide" id="s9" style="background:#0a1524;">
+    <div class="sc">
+        <div style="display:grid; grid-template-columns:1fr 1.6fr; gap:48px; align-items:center;">
+            <div>
+                <div class="role-tag" style="background:rgba(198,241,53,0.08); color:#c6f135;"><span style="width:7px; height:7px; border-radius:50%; background:#c6f135;"></span> Leitung</div>
+                <h2 class="st" style="font-size:44px;">Dashboard:<br><span class="accent-lime">Alles im Blick</span></h2>
+                <div style="margin-top:24px; font-size:19px; color:rgba(255,255,255,0.55); line-height:2.2;">
+                    → Wie viele Fälle sind <strong style="color:#4fc3f7;">aktiv</strong>?<br>
+                    → Wie viele im Kalenderjahr <strong style="color:#64748b;">abgeschlossen</strong>?<br>
+                    → Wie viele <strong style="color:#ef5350;">Kinderschutzfälle</strong>?<br>
+                    → Wo fehlen <strong style="color:#fb8c00;">Stammdaten</strong>?
+                </div>
+            </div>
+            <div class="mockup"><div class="mbar"><span class="dot" style="background:rgba(255,95,87,0.7);"></span><span class="dot" style="background:rgba(255,189,46,0.7);"></span><span class="dot" style="background:rgba(39,201,63,0.7);"></span></div><img src="slides/slide-08-leitung-dashboard.png" style="width:100%; display:block;"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 10: LEITUNG — SACHBERICHT -->
+<!-- ============================================================ -->
+<section class="slide" id="s10">
+    <div class="sc">
+        <div style="display:grid; grid-template-columns:1.6fr 1fr; gap:48px; align-items:center;">
+            <div class="mockup"><div class="mbar"><span class="dot" style="background:rgba(255,95,87,0.7);"></span><span class="dot" style="background:rgba(255,189,46,0.7);"></span><span class="dot" style="background:rgba(39,201,63,0.7);"></span></div><img src="slides/slide-09-auswertung.png" style="width:100%; display:block;"></div>
+            <div>
+                <div class="role-tag" style="background:rgba(198,241,53,0.08); color:#c6f135;"><span style="width:7px; height:7px; border-radius:50%; background:#c6f135;"></span> Leitung</div>
+                <h2 class="st" style="font-size:44px;">Sachbericht<br><span class="accent-lime">erstellen</span></h2>
+                <p class="sub" style="font-size:19px;">Statistische Auswertung mit Filtern nach Berichtsjahr, Bezirk und Berater:in. Alles aus den laufenden Falldaten — kein nachträgliches Zusammensuchen.</p>
+                <p style="margin-top:20px; font-size:17px; color:rgba(255,255,255,0.4);">Export als PDF direkt aus dem System.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 11: LEITUNG — FALLSTEUERUNG -->
+<!-- ============================================================ -->
+<section class="slide" id="s11" style="background:#0a1524;">
+    <div class="sc">
+        <div style="display:grid; grid-template-columns:1fr 1.6fr; gap:48px; align-items:center;">
+            <div>
+                <div class="role-tag" style="background:rgba(198,241,53,0.08); color:#c6f135;"><span style="width:7px; height:7px; border-radius:50%; background:#c6f135;"></span> Leitung</div>
+                <h2 class="st" style="font-size:44px;">Fälle steuern &<br><span class="accent-lime">archivieren</span></h2>
+                <p class="sub" style="font-size:19px;">Geschlossene Fälle wieder öffnen und neu zuweisen. Abschluss nur bei vollständigen Daten. 100-Jahres-Archivierung in offenen Formaten.</p>
+                <p style="margin-top:24px; font-size:17px; color:rgba(255,255,255,0.4); line-height:2;">✓ Abgeschlossene Fälle reaktivieren<br>✓ Berater:in neu zuweisen<br>✓ Archivierung als PDF/A</p>
+            </div>
+            <div class="mockup"><div class="mbar"><span class="dot" style="background:rgba(255,95,87,0.7);"></span><span class="dot" style="background:rgba(255,189,46,0.7);"></span><span class="dot" style="background:rgba(39,201,63,0.7);"></span></div><img src="slides/slide-10-fall-status.png" style="width:100%; display:block;"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 12: WARUM FAMOS — ZUSAMMENFASSUNG -->
+<!-- ============================================================ -->
+<section class="slide slide-dense" id="s12" style="background:#0a1524;">
+    <div class="sc">
+        <p class="label" style="color:#4fc3f7;">Zusammenfassung</p>
+        <h2 class="st" style="font-size:56px;">Was <span class="accent">FAMOS</span><br>ausmacht.</h2>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:26px; margin-top:48px;">
+            <div class="card-hl" style="padding:36px;">
+                <div style="width:60px; height:60px; border-radius:14px; background:rgba(79,195,247,0.1); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+                    <svg style="width:30px; height:30px; color:#4fc3f7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <p style="font-size:21px; font-weight:700; margin-bottom:12px;">Vollständig individualisierbar</p>
+                <p style="font-size:17px; color:rgba(255,255,255,0.5); line-height:1.6;">Felder, Formulare, Berichte — passgenau auf Ihre Einrichtung. Alles drin, nichts überflüssig.</p>
+            </div>
+            <div class="card-hl" style="padding:36px;">
+                <div style="width:60px; height:60px; border-radius:14px; background:rgba(0,191,165,0.1); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+                    <svg style="width:30px; height:30px; color:#00bfa5;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <p style="font-size:21px; font-weight:700; margin-bottom:12px;">Alle Daten sicher und zugänglich</p>
+                <p style="font-size:17px; color:rgba(255,255,255,0.5); line-height:1.6;">§28-Statistik, Sachberichte, Akteneinsicht.</p>
+            </div>
+            <div class="card-hl" style="padding:36px;">
+                <div style="width:60px; height:60px; border-radius:14px; background:rgba(198,241,53,0.1); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+                    <svg style="width:30px; height:30px; color:#c6f135;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <p style="font-size:21px; font-weight:700; margin-bottom:12px;">Web-basierte Anwendung</p>
+                <p style="font-size:17px; color:rgba(255,255,255,0.5); line-height:1.6;">Stabile Verbindungen, sichere Datenübertragung, DSGVO-konform.</p>
+            </div>
+            <div class="card-hl" style="padding:36px;">
+                <div style="width:60px; height:60px; border-radius:14px; background:rgba(79,195,247,0.1); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+                    <svg style="width:30px; height:30px; color:#4fc3f7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+                </div>
+                <p style="font-size:21px; font-weight:700; margin-bottom:12px;">Leicht erweiterbar</p>
+                <p style="font-size:17px; color:rgba(255,255,255,0.5); line-height:1.6;">Einfach auf weitere Bereiche erweiterbar — z.B. Schwangeren- und Schwangerschaftskonfliktberatung oder Sozialberatung.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 13: SKB — DASHBOARD -->
+<!-- ============================================================ -->
+<section class="slide" id="s13" style="background:#0a1524;">
+    <div class="sc">
+        <div style="display:grid; grid-template-columns:1fr 1.6fr; gap:48px; align-items:center;">
+            <div>
+                <div class="role-tag" style="background:rgba(249,168,212,0.08); color:#f9a8d4; border:1px solid rgba(249,168,212,0.15);">
+                    <span style="width:7px; height:7px; border-radius:50%; background:#f9a8d4;"></span> Erweiterbarkeit
+                </div>
+                <h2 class="st" style="font-size:44px;">FAMOS für die<br><span style="color:#f9a8d4;">Schwangerenberatung</span></h2>
+                <p class="sub" style="font-size:19px;">Neue Beratungsbereiche lassen sich als eigenständiges Modul einbinden — mit eigener Navigation, eigenen Feldern und eigenem Login.</p>
+                <div style="margin-top:28px; display:flex; flex-direction:column; gap:14px;">
+                    <div style="display:flex; gap:12px; align-items:flex-start;">
+                        <span style="width:20px; height:20px; background:rgba(249,168,212,0.12); border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; margin-top:2px;">
+                            <svg style="width:11px;height:11px;color:#f9a8d4;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        </span>
+                        <p style="font-size:17px; color:rgba(255,255,255,0.55);">Eigene Beratungstypen, Stiftungsanträge, Beratungsscheine</p>
+                    </div>
+                    <div style="display:flex; gap:12px; align-items:flex-start;">
+                        <span style="width:20px; height:20px; background:rgba(249,168,212,0.12); border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; margin-top:2px;">
+                            <svg style="width:11px;height:11px;color:#f9a8d4;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        </span>
+                        <p style="font-size:17px; color:rgba(255,255,255,0.55);">Fälle können anonym erfasst werden — wichtig z.&thinsp;B. bei Schwangerschaftskonfliktberatung</p>
+                    </div>
+                    <div style="display:flex; gap:12px; align-items:flex-start;">
+                        <span style="width:20px; height:20px; background:rgba(249,168,212,0.12); border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; margin-top:2px;">
+                            <svg style="width:11px;height:11px;color:#f9a8d4;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        </span>
+                        <p style="font-size:17px; color:rgba(255,255,255,0.55);">Vollständig getrennte Datenhaltung — kein Zugriff auf EFB-Fälle</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mockup">
+                <div class="mbar"><span class="dot" style="background:rgba(255,95,87,0.7);"></span><span class="dot" style="background:rgba(255,189,46,0.7);"></span><span class="dot" style="background:rgba(39,201,63,0.7);"></span></div>
+                <img src="slides/skb-dashboard.png" style="width:100%; display:block;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 14: SKB — STATISTIK & ANONYMITÄT -->
+<!-- ============================================================ -->
+<section class="slide" id="s14">
+    <div class="sc">
+        <div style="display:grid; grid-template-columns:1.6fr 1fr; gap:48px; align-items:center;">
+            <div class="mockup">
+                <div class="mbar"><span class="dot" style="background:rgba(255,95,87,0.7);"></span><span class="dot" style="background:rgba(255,189,46,0.7);"></span><span class="dot" style="background:rgba(39,201,63,0.7);"></span></div>
+                <img src="slides/skb-auswertung.png" style="width:100%; display:block;">
+            </div>
+            <div>
+                <div class="role-tag" style="background:rgba(249,168,212,0.08); color:#f9a8d4; border:1px solid rgba(249,168,212,0.15);">
+                    <span style="width:7px; height:7px; border-radius:50%; background:#f9a8d4;"></span> Statistik
+                </div>
+                <h2 class="st" style="font-size:44px;">Eigene Kennzahlen<br><span style="color:#f9a8d4;">sofort verfügbar</span></h2>
+                <p class="sub" style="font-size:19px;">Die Auswertung zählt Termine je Beratungsart, ausgestellte Beratungsscheine, Stiftungsanträge und Begleitungen — direkt aus den dokumentierten Terminen.</p>
+                <div style="margin-top:28px; padding:22px 26px; background:rgba(249,168,212,0.04); border:1px solid rgba(249,168,212,0.12); border-radius:12px;">
+                    <p style="font-size:15px; font-weight:700; color:#f9a8d4; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">Adaptierbar für jeden Bereich</p>
+                    <p style="font-size:16px; color:rgba(255,255,255,0.45); line-height:1.7;">Schwangerenberatung heute — Migrationsberatung, Schuldnerberatung oder ambulante Hilfen morgen. Jedes Modul bekommt genau die Felder und Statistiken, die es braucht.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 15: FAHRPLAN (nach Angebot Kapitel 5.1) -->
+<!-- ============================================================ -->
+<section class="slide slide-dense" id="s15">
+    <div class="sc">
+        <p class="label" style="color:#4fc3f7;">Fahrplan</p>
+        <h2 class="st" style="font-size:50px;">Von der Sichtung bis zum<br><span class="accent">Produktivgang.</span></h2>
+        <p style="margin-top:18px; font-size:20px; color:rgba(255,255,255,0.45); line-height:1.6; max-width:880px;">Drei bis sechs Monate ab Auftragserteilung, abhängig von der Zahl der Standorte und dem Umfang der Datenmigration. Ein Produktivgang ist zu jedem Monatsbeginn möglich.</p>
+        <div style="margin-top:40px; border-top:1px solid rgba(255,255,255,0.08);">
+            <div class="rm-row">
+                <div class="rm-when" style="color:#4fc3f7;">Vorab</div>
+                <div class="rm-what">Sichtung der Datenbank eines Standorts zur Prüfung von Struktur und Datenqualität, Abstimmung des Migrationsumfangs und der Paketzuordnung.</div>
+            </div>
+            <div class="rm-row">
+                <div class="rm-when" style="color:#4fc3f7;">Monat 1 – 2</div>
+                <div class="rm-what">Anforderungsanalyse mit Leitung und Mitarbeitenden, Konfiguration der standortspezifischen Workflows, Abnahme des Prototyps.</div>
+            </div>
+            <div class="rm-row">
+                <div class="rm-when" style="color:#00bfa5;">Monat 3 – 4</div>
+                <div class="rm-what">Datenmigration aus dem EFB-Assistenten, Security- und DSGVO-Konformitätsprüfung, Testbetrieb.</div>
+            </div>
+            <div class="rm-row">
+                <div class="rm-when" style="color:#00bfa5;">Monat 5 – 6</div>
+                <div class="rm-what">Einführung der Teams per Videokonferenz, finale Abnahme, Generalprobe.</div>
+            </div>
+            <div class="rm-row rm-row-hl">
+                <div class="rm-when" style="color:#c6f135; font-weight:800; letter-spacing:1px; text-transform:uppercase;">Produktivgang</div>
+                <div class="rm-what" style="color:rgba(255,255,255,0.8); font-weight:600;">Regelbetrieb, Beginn der Lizenzabrechnung je Standort.</div>
+            </div>
+        </div>
+        <p style="margin-top:28px; font-size:16px; color:rgba(255,255,255,0.32); line-height:1.6; max-width:880px;">Die Daten des laufenden Berichtsjahres werden im Zuge der Migration übernommen, sodass die Jahresstatistik lückenlos in FAMOS geführt werden kann.</p>
+    </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SLIDE 16: LIZENZMODELL — LEISTUNGSUMFANG & STARTGRUPPE -->
+<!-- ============================================================ -->
+<section class="slide slide-dense" id="s16">
+    <div class="sc">
+        <p class="label" style="color:#00bfa5;">Leistungsumfang</p>
+        <h2 class="st" style="font-size:40px;">Was in der Lizenz steckt —<br>und was die <span style="color:#00bfa5;">Einrichtung</span> abdeckt.</h2>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:30px;">
+            <div class="card" style="padding:26px;">
+                <p style="font-size:13px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#4fc3f7; margin-bottom:18px;">In der monatlichen Lizenz</p>
+                <ul class="inc-list">
+                    <li>Nutzungsrecht an FAMOS mit allen Modulen für den jeweiligen Standort</li>
+                    <li>Hosting auf Servern in Deutschland, Betrieb und Monitoring durch volta.codes</li>
+                    <li>Laufende Updates, Sicherheitspatches und Weiterentwicklung der Plattform</li>
+                    <li>Anpassung an neue gesetzliche Vorgaben und geänderte Berichtsformate von Land, Bezirken und Förderträgern</li>
+                    <li>Tägliche Sicherungen und Wiederherstellung im Störungsfall</li>
+                    <li>Anwendersupport per E-Mail und Telefon an Werktagen</li>
+                    <li>Erklärvideos zu den Kernabläufen für neue Mitarbeitende</li>
+                </ul>
+            </div>
+            <div class="card" style="padding:26px;">
+                <p style="font-size:13px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#00bfa5; margin-bottom:18px;">Einmalig bei der Einrichtung</p>
+                <ul class="inc-list" style="--dot:#00bfa5;">
+                    <li>Anforderungsanalyse mit Leitung und Mitarbeitenden</li>
+                    <li>Konfiguration von Workflows, Sichten und Auswertungen für den Standort</li>
+                    <li>Datenmigration aus dem bisherigen EFB-Assistenten mit bis zu zwei Arbeitstagen je Standort</li>
+                    <li>Security-Check und DSGVO-Konformitätsprüfung vor dem Produktivgang</li>
+                    <li>Einführung des Teams per Videokonferenz und ein Termin für Rückfragen</li>
+                </ul>
+                <p style="margin-top:16px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.07); font-size:15px; color:rgba(255,255,255,0.35); line-height:1.55;">Schulungen vor Ort und Zusatzentwicklungen über die gemeinsame Roadmap hinaus bieten wir nach Aufwand an. Verbesserungen, die allen Nutzern dienen, fließen ohne Zusatzkosten in die Plattform ein.</p>
+            </div>
+        </div>
+        <div style="margin-top:22px; background:rgba(198,241,53,0.05); border:1px solid rgba(198,241,53,0.16); border-left:4px solid #c6f135; border-radius:12px; padding:22px 28px;"><p style="font-size:13px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#c6f135; margin-bottom:10px;">Preise</p><p style="font-size:16px; color:rgba(255,255,255,0.6); line-height:1.6;">Die Lizenz wird monatlich je Standort abgerechnet und richtet sich nach der Zahl der Nutzerkonten; dazu kommt eine einmalige Einrichtungsgebühr. Das vollständige Angebot mit allen Paketpreisen schicken wir Ihnen auf Anfrage per E-Mail zu — <a data-angebot href="#" style="color:#c6f135; text-decoration:underline; text-underline-offset:3px;">Angebot anfordern</a>.</p></div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 17: ABSCHLUSS -->
+<!-- ============================================================ -->
+<section class="slide" id="s17" style="background:#0a1524;">
+    <div class="geo-cyan" style="top:-120px; right:-100px; opacity:0.06;"></div>
+    <div class="geo-lime" style="bottom:-80px; left:-60px; opacity:0.04;"></div>
+    <div class="sc" style="text-align:center;">
+        <h2 class="st" style="font-size:58px;">Bereit für<br><span class="accent-lime">FAMOS</span>?</h2>
+        <p class="sub" style="max-width:660px; margin-left:auto; margin-right:auto; font-size:21px;">Wir zeigen Ihnen FAMOS anhand Ihrer eigenen Abläufe — und wenn es passt, starten Sie ab Mitte Oktober 2026 kostenlos in den Testbetrieb.</p>
+        <div style="margin-top:40px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+            <a class="btn btn-primary" data-termin href="#">
+                <svg style="width:20px; height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                Produktvorstellung vereinbaren
+            </a>
+            <a class="btn btn-ghost" data-angebot href="#">
+                <svg style="width:20px; height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                Angebot anfordern
+            </a>
+        </div>
+        <div style="margin-top:36px;">
+            <p style="margin-top:22px; font-size:15px; color:rgba(255,255,255,0.3);">Das vollständige Angebot mit allen Paketpreisen schicken wir Ihnen auf Anfrage per E-Mail zu.</p>
+        <div style="margin-top:44px;">
+            <p style="font-size:17px; color:rgba(255,255,255,0.45);">Ein Projekt von</p>
+            <p style="font-size:34px; font-weight:800; color:#fff; margin-top:10px; letter-spacing:-0.5px;">volta<span style="color:#4fc3f7;">.codes</span></p>
+            <p style="font-size:16px; color:rgba(255,255,255,0.35); margin-top:10px;">Maßgeschneiderte Software, entwickelt mit KI.<br>Verlässlich, smart und zukunftsfest.</p>
+        </div>
+        <div style="margin-top:36px;"><span style="font-size:60px; font-weight:900; letter-spacing:-3px; color:rgba(255,255,255,0.04);">FA<span style="color:rgba(79,195,247,0.08);">MOS</span></span></div>
+    </div>
+</section>
+
+<script>
+const T=17, nav=document.getElementById('slideNav'), ctr=document.getElementById('slideCounter');
+for(let i=1;i<=T;i++){const a=document.createElement('a');a.href='#s'+i;a.dataset.s=i;nav.appendChild(a);}
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const n=parseInt(e.target.id.replace('s',''));ctr.textContent=n+' / '+T;nav.querySelectorAll('a').forEach(a=>a.classList.toggle('active',parseInt(a.dataset.s)===n));}});},{threshold:0.5});
+document.querySelectorAll('.slide').forEach(s=>obs.observe(s));
+document.addEventListener('keydown',e=>{const c=parseInt(ctr.textContent);
+    if(document.querySelector('.mockup.zoomed')){if(e.key==='Escape'){e.preventDefault();closeZoom();}return;}
+    if(['ArrowDown','ArrowRight',' '].includes(e.key)){e.preventDefault();if(c<T)document.getElementById('s'+(c+1)).scrollIntoView({behavior:'smooth'});}
+    else if(['ArrowUp','ArrowLeft'].includes(e.key)){e.preventDefault();if(c>1)document.getElementById('s'+(c-1)).scrollIntoView({behavior:'smooth'});}
+});
+
+// Screenshot zoom — Klick vergrößert, Text tritt zurück
+let activeZoom = null;
+function closeZoom() {
+    if (!activeZoom) return;
+    activeZoom.classList.remove('zoomed');
+    activeZoom.style.transform = '';
+    activeZoom.closest('.slide').querySelectorAll('.slide-text').forEach(el => el.classList.remove('dimmed'));
+    activeZoom = null;
+}
+document.querySelectorAll('.mockup').forEach(m => {
+    const grid = m.parentElement;
+    grid.querySelectorAll(':scope > div:not(.mockup)').forEach(el => el.classList.add('slide-text'));
+    m.addEventListener('click', () => {
+        if (m.classList.contains('zoomed')) { closeZoom(); }
+        else {
+            if (activeZoom) closeZoom();
+            activeZoom = m;
+            // Berechne Verschiebung zur Bildschirmmitte
+            const rect = m.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const viewCenterX = window.innerWidth / 2;
+            const shiftX = (viewCenterX - centerX) / 1.8; // durch Scale teilen
+            m.style.transform = 'scale(1.8) translateX(' + shiftX + 'px)';
+            m.classList.add('zoomed');
+            m.closest('.slide').querySelectorAll('.slide-text').forEach(el => el.classList.add('dimmed'));
+        }
+    });
+});
+
+// ---------- Terminbuchung ----------
+// Link des Buchungstools hier eintragen (z. B. Cal.com oder Calendly).
+// Bleibt das Feld leer, öffnen die Buttons eine vorbereitete E-Mail.
+const TERMIN_URL = '';
+const TERMIN_MAILTO = 'mailto:hello@volta.codes?subject=' + encodeURIComponent('Produktvorstellung FAMOS')
+    + '&body=' + encodeURIComponent('Guten Tag,\n\nwir interessieren uns für FAMOS und möchten einen Termin für eine Produktvorstellung vereinbaren.\n\nEinrichtung:\nStandorte:\nAnsprechperson:\nWunschtermine:\n\nMit freundlichen Grüßen');
+const ANGEBOT_MAILTO = 'mailto:hello@volta.codes?subject=' + encodeURIComponent('Angebot FAMOS anfordern')
+    + '&body=' + encodeURIComponent('Guten Tag,\n\nbitte senden Sie uns das vollständige Angebot zu FAMOS mit den Paketpreisen.\n\nEinrichtung:\nBaustein (EFB / SKB / beide):\nStandorte:\nNutzerkonten je Standort:\nAnsprechperson:\n\nMit freundlichen Grüßen');
+document.querySelectorAll('[data-angebot]').forEach(a => { a.href = ANGEBOT_MAILTO; });
+document.querySelectorAll('[data-termin]').forEach(a => {
+    a.href = TERMIN_URL || TERMIN_MAILTO;
+    if (TERMIN_URL) { a.target = '_blank'; a.rel = 'noopener'; }
+});
+</script>
+</body>
+</html>
