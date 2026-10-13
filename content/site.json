@@ -173,11 +173,15 @@
   },
   "datenschutz": {
     "heading": "Datenschutzerklärung",
-    "stand": "Stand: September 2026",
+    "stand": "Stand: 13. Oktober 2026",
     "abschnitte": [
       {
         "titel": "1. Verantwortlicher",
         "text": "Verantwortlich für die Datenverarbeitung auf dieser Website ist:\n\nvolta.codes GmbH\nEmserstr. 125\n12051 Berlin\n\nVertreten durch die Geschäftsführer Dominik Bretsch und Simon Hufeisen.\nE-Mail: [hello@volta.codes](mailto:hello@volta.codes)"
+      },
+      {
+        "titel": "Datenschutzbeauftragter",
+        "text": "Unser Datenschutzbeauftragter ist die heyData GmbH, Schützenstraße 5, 10117 Berlin, [www.heydata.eu](https://www.heydata.eu), [datenschutz@heydata.eu](mailto:datenschutz@heydata.eu)."
       },
       {
         "titel": "2. Datensparsamkeit",
