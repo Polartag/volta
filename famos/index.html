@@ -180,12 +180,16 @@ p+p {
     top:0;
     z-index:10;
     background:var(--bg);
-    border-bottom:1px solid var(--line)
+    border-bottom:1px solid var(--line);
+    opacity:1;
+    transition:transform .22s cubic-bezier(.22,1,.36,1),opacity .22s ease-out,visibility 0s
 }
 .site-header.is-hidden {
     visibility:hidden;
     pointer-events:none;
-    transform:translateY(-100%)
+    transform:translateY(-100%);
+    opacity:0;
+    transition-delay:0s,0s,.22s
 }
 .header-inner {
     max-width:var(--page);
@@ -198,18 +202,17 @@ p+p {
     gap:2rem
 }
 .header-brand {
-    display:grid;
-    gap:.25rem;
+    display:flex;
+    align-items:center;
+    gap:1rem;
     flex-shrink:0
 }
-.header-home {
+.product-home {
     display:inline-flex;
     align-items:center;
-    min-height:24px;
-    width:fit-content;
-    color:var(--muted);
-    font-size:.75rem;
-    line-height:1.2
+    min-height:44px;
+    padding-inline-start:1rem;
+    border-inline-start:1px solid var(--line)
 }
 .wordmark {
     font-size:1.7rem;
@@ -224,6 +227,19 @@ p+p {
 }
 /* Preserve the volta.codes footer wordmark. */
 .contact-brand .wordmark span {
+    color:var(--blue)
+}
+.wordmark.company-link {
+    display:inline-flex;
+    align-items:center;
+    min-height:44px;
+    font-size:1.2rem;
+    transition:color .18s ease-out
+}
+.wordmark.company-link span {
+    color:var(--blue)
+}
+.company-link:hover {
     color:var(--blue)
 }
 .main-nav {
@@ -365,13 +381,9 @@ p+p {
 .hero-copy {
     min-width:0
 }
-.hero-home {
-    display:inline-flex;
-    align-items:center;
-    min-height:44px;
+.wordmark.hero-home {
     margin-bottom:1.25rem;
-    color:var(--muted);
-    font-size:.85rem
+    font-size:1.35rem
 }
 .hero-composition {
     display:none
@@ -813,6 +825,12 @@ p+p {
         flex-wrap:wrap;
         gap:0
     }
+    .header-brand {
+        gap:.75rem
+    }
+    .product-home {
+        padding-inline-start:.75rem
+    }
     .wordmark {
         font-size:1.5rem
     }
@@ -1016,8 +1034,8 @@ p+p {
 <a class="skip-link" href="#inhalt">Zum Inhalt</a>
 <header class="site-header"><div class="header-inner">
 <div class="header-brand">
-<a class="wordmark" href="#start" aria-label="FAMOS, zum Anfang">FA<span>MOS</span></a>
-<a class="header-home" href="../">volta.codes</a>
+<a class="wordmark company-link" href="../" aria-label="Zur Website von volta.codes">volta<span>.codes</span></a>
+<a class="wordmark product-home" href="#start" aria-label="FAMOS, zum Anfang">FA<span>MOS</span></a>
 </div>
 <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" hidden>Menü</button>
 <nav class="main-nav" id="main-nav" aria-label="Kapitel"><a href="#efb">EFB</a><a href="#skb">SKB</a><a href="#sicherheit">Sicherheit</a><a href="#einstieg">Einstieg</a><a href="#leistungen">Leistungen</a><a href="#kontakt">Kontakt</a></nav>
@@ -1026,7 +1044,7 @@ p+p {
 <main id="inhalt" tabindex="-1">
 <section id="start" class="section hero" data-chapter="" aria-labelledby="title-start"><span id="s1" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><div class="hero-layout"><div class="hero-copy">
-<a class="hero-home" href="../">Zurück zu volta.codes</a>
+<a class="wordmark company-link hero-home" href="../" aria-label="Zur Website von volta.codes">volta<span>.codes</span></a>
 <p class="eyebrow">Fallmanagement und Organisation</p>
 <h1 id="title-start">Fallakten, Termine<br><span class="accent">und Berichte.</span></h1>
 <p class="lede">FAMOS verbindet Dokumentation und Auswertung für Erziehungs-, Familien- und Schwangerschaftskonfliktberatung. Die Anwendungen laufen im Browser, ohne Installation auf Ihren Geräten.</p>
@@ -1195,6 +1213,8 @@ const syncActiveSection = () => {
 };
 window.addEventListener('scroll',syncActiveSection,{passive:true});
 window.addEventListener('resize',syncActiveSection);
+window.addEventListener('pageshow',syncActiveSection);
+window.addEventListener('hashchange',syncActiveSection);
 document.fonts.ready.then(syncActiveSection);
 syncActiveSection();
 document.documentElement.classList.add('js');
