@@ -7,6 +7,7 @@
   <title>FAMOS share image source</title>
   <!-- Render at 1200 x 630 and save as og-image.png. All assets are local. -->
   <style>
+    :root { --petrol: oklch(74% .12 185); }
     @font-face {
       font-family: Inter;
       font-style: normal;
@@ -26,7 +27,7 @@
     }
     header { display: flex; justify-content: space-between; align-items: center; }
     .logo { font-size: 60px; font-weight: 900; letter-spacing: -4px; line-height: 1; }
-    .logo span { color: #4fc3f7; }
+    .logo span { color: var(--petrol); }
     .byline { font-size: 20px; color: #b8c5d2; }
     h1 { margin: 26px 0 30px; font-size: 44px; line-height: 1.12; letter-spacing: -1.8px; }
     .products { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }

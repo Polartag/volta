@@ -47,6 +47,8 @@
     --line:oklch(48% .03 248);
     --blue:oklch(80% .13 228);
     --coral:oklch(83% .09 12);
+    --petrol:oklch(74% .12 185);
+    --section-accent:var(--petrol);
     --lime:oklch(91% .2 117);
     --dark-ink:oklch(23% .035 248);
     --header:5rem;
@@ -123,11 +125,14 @@ p {
 p+p {
     margin-top:1rem
 }
-.accent {
-    color:var(--blue)
+.efb {
+    --section-accent:var(--blue)
 }
-.coral {
-    color:var(--coral)
+.skb {
+    --section-accent:var(--coral)
+}
+.accent {
+    color:var(--section-accent)
 }
 .muted {
     color:var(--muted)
@@ -135,14 +140,11 @@ p+p {
 .eyebrow {
     display:block;
     margin-bottom:1.25rem;
-    color:var(--blue);
+    color:var(--section-accent);
     font-size:.8rem;
     font-weight:750;
     letter-spacing:.12em;
     text-transform:uppercase
-}
-.skb .eyebrow {
-    color:var(--coral)
 }
 .lede {
     font-size:1.1rem;
@@ -193,7 +195,11 @@ p+p {
     text-decoration:none;
     white-space:nowrap
 }
-.wordmark span {
+.site-header .wordmark span {
+    color:var(--petrol)
+}
+/* Preserve the volta.codes footer wordmark. */
+.contact-bottom .wordmark span {
     color:var(--blue)
 }
 .main-nav {
@@ -210,7 +216,7 @@ p+p {
     align-items:center
 }
 .main-nav a:hover {
-    color:var(--blue)
+    color:var(--petrol)
 }
 .main-nav a[aria-current] {
     color:var(--ink);
@@ -233,6 +239,18 @@ p+p {
 }
 .section:nth-of-type(even) {
     background:var(--surface)
+}
+.product-section.efb {
+    background:color-mix(in oklch,var(--bg) 88%,var(--blue))
+}
+.product-section.efb:nth-of-type(even) {
+    background:color-mix(in oklch,var(--surface) 88%,var(--blue))
+}
+.product-section.skb {
+    background:color-mix(in oklch,var(--bg) 88%,var(--coral))
+}
+.product-section.skb:nth-of-type(even) {
+    background:color-mix(in oklch,var(--surface) 88%,var(--coral))
 }
 .section-inner {
     max-width:var(--page);
@@ -267,7 +285,7 @@ p+p {
 }
 .index {
     font-size:.8rem;
-    color:var(--quiet);
+    color:var(--section-accent);
     font-variant-numeric:tabular-nums
 }
 .hero .section-inner {
@@ -276,6 +294,12 @@ p+p {
 }
 .hero h1 {
     max-width:22ch
+}
+.hero-copy {
+    min-width:0
+}
+.hero-composition {
+    display:none
 }
 .hero .lede {
     max-width:45ch;
@@ -371,7 +395,7 @@ p+p {
     text-decoration:none
 }
 .shot-frame:hover {
-    outline:1px solid var(--blue)
+    outline:1px solid var(--section-accent)
 }
 .shot-frame img {
     width:100%;
@@ -397,13 +421,10 @@ p+p {
     border:0;
     padding:0 .15rem;
     min-height:44px;
-    color:var(--blue);
+    color:var(--section-accent);
     font-size:.8rem;
     font-weight:650;
     cursor:pointer
-}
-.skb .zoom-button {
-    color:var(--coral)
 }
 [hidden] {
     display:none!important
@@ -467,7 +488,7 @@ p+p {
 .steps li::before {
     content:'0' counter(steps);
     font-variant-numeric:tabular-nums;
-    color:var(--blue);
+    color:var(--section-accent);
     font-weight:700
 }
 .steps h3 {
@@ -494,6 +515,9 @@ p+p {
 }
 .service-columns li {
     padding:.4rem 0
+}
+.service-columns li::marker {
+    color:var(--section-accent)
 }
 .service-note {
     margin-top:2rem;
@@ -535,6 +559,36 @@ p+p {
     padding-bottom:3rem
 }
 @media(min-width:1001px) {
+    .hero-layout {
+        display:grid;
+        grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+        gap:var(--col-gap);
+        align-items:center
+    }
+    .hero h1 {
+        font-size:clamp(2.6rem,4.6vw,4.4rem)
+    }
+    .hero-composition {
+        display:block;
+        position:relative;
+        aspect-ratio:1.27
+    }
+    .hero-composition img {
+        position:absolute;
+        width:84%;
+        height:auto;
+        border:1px solid var(--line);
+        border-radius:.6rem
+    }
+    .hero-composition img:first-child {
+        top:0;
+        left:0
+    }
+    .hero-composition img:last-child {
+        right:0;
+        bottom:0;
+        box-shadow:0 1.2rem 2.8rem -.8rem color-mix(in oklch,var(--bg) 70%,transparent)
+    }
     .js .shot-frame {
         cursor:zoom-in
     }
@@ -692,16 +746,21 @@ p+p {
     }
 }
 @media print {
+    :root {
+        --petrol:oklch(40% .07 185);
+        --blue:oklch(40% .08 228);
+        --coral:oklch(40% .08 12)
+    }
     body {
         background:oklch(99% .005 248);
         color:oklch(23% .035 248);
         font-size:10pt
     }
-    header,.zoom-button,.menu-toggle,.skip-link {
+    header,.hero-composition,.zoom-button,.menu-toggle,.skip-link {
         display:none!important
     }
     .section,.section:nth-of-type(even) {
-        background:transparent;
+        background:transparent!important;
         border-color:oklch(75% .01 248);
         break-inside:avoid
     }
@@ -709,7 +768,7 @@ p+p {
         padding:2rem 0!important;
         min-height:0!important
     }
-    .split,.compare {
+    .hero-layout,.split,.compare {
         display:block
     }
     .copy {
@@ -718,8 +777,8 @@ p+p {
     .lede,.facts li,.note,.muted,.security-list dd,.steps p,.service-columns ul,.footer-links a {
         color:oklch(35% .02 248)
     }
-    .accent,.coral,.eyebrow {
-        color:oklch(40% .08 248)
+    .hero .eyebrow {
+        color:oklch(35% .02 248)
     }
     .shot {
         max-width:35rem
@@ -760,16 +819,19 @@ p+p {
 </div></header>
 <main id="inhalt" tabindex="-1">
 <section id="start" class="section hero" data-chapter="" aria-labelledby="title-start"><span id="s1" class="legacy-anchor" aria-hidden="true"></span>
-<div class="section-inner">
+<div class="section-inner"><div class="hero-layout"><div class="hero-copy">
 <p class="eyebrow">Fallmanagement und Organisation</p>
 <h1 id="title-start">Fallakten, Termine<br><span class="accent">und Berichte.</span></h1>
 <p class="lede">FAMOS verbindet Dokumentation und Auswertung für Erziehungs-, Familien- und Schwangerschaftskonfliktberatung. Die Anwendungen laufen im Browser, ohne Installation auf Ihren Geräten.</p>
 <div class="actions"><a class="btn btn-primary" href="https://cal.meetergo.com/hello-61/famos" target="_blank" rel="noopener">Produktvorstellung vereinbaren</a></div>
-</div></section>
+</div><div class="hero-composition">
+<img src="media/efb-overview.webp" width="1280" height="720" loading="eager" decoding="async" alt="FAMOS-EFB: Dashboard">
+<img src="media/skb-overview.webp" width="1280" height="720" loading="eager" decoding="async" alt="FAMOS-SKB: Terminübersicht">
+</div></div></div></section>
 
 <section id="anwendungen" class="section" data-chapter="" aria-labelledby="title-anwendungen"><span id="s3" class="legacy-anchor" aria-hidden="true"></span><span id="s4" class="legacy-anchor" aria-hidden="true"></span>
-<div class="section-inner"><span class="eyebrow">FAMOS-EFB und FAMOS-SKB</span><h2 id="title-anwendungen">Fallakte in der EFB.<br><span class="accent">Termin in der SKB.</span></h2>
-<div class="compare"><article><h3 class="accent">EFB: Fallakten führen.</h3><p>Eine Fallakte enthält die Angaben zur Familie, Beratungstermine und Dokumente. Aus den erfassten Daten entstehen Statistik und Sachberichte.</p></article><article><h3 class="coral">SKB: Beratungstermine erfassen.</h3><p>Jeder Termin hat eine eigene Nummer und Zuständigkeit. Verknüpfte Folgetermine erscheinen in einer virtuellen Akte. Die Zugriffsrechte gelten für jeden Termin.</p></article></div>
+<div class="section-inner"><span class="eyebrow">FAMOS-EFB und FAMOS-SKB</span><h2 id="title-anwendungen"><span class="accent efb">Fallakte in der EFB.</span><br><span class="accent skb">Termin in der SKB.</span></h2>
+<div class="compare"><article><h3 class="accent efb">EFB: Fallakten führen.</h3><p>Eine Fallakte enthält die Angaben zur Familie, Beratungstermine und Dokumente. Aus den erfassten Daten entstehen Statistik und Sachberichte.</p></article><article><h3 class="accent skb">SKB: Beratungstermine erfassen.</h3><p>Jeder Termin hat eine eigene Nummer und Zuständigkeit. Verknüpfte Folgetermine erscheinen in einer virtuellen Akte. Die Zugriffsrechte gelten für jeden Termin.</p></article></div>
 <p class="note comparison-foot">EFB und SKB lassen sich einzeln beauftragen. Sie teilen das Bedienkonzept; Datenbestände und Berechtigungen bleiben getrennt. Alle Abbildungen zeigen synthetische Beispieldaten.</p></div></section>
 <section id="efb" class="section product-section efb" data-chapter="efb" aria-labelledby="title-efb"><span id="s5" class="legacy-anchor" aria-hidden="true"></span><span id="s8" class="legacy-anchor" aria-hidden="true"></span><span id="s10" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><div class="section-kicker"><span class="index">01 / EFB</span><span class="eyebrow">Erziehungs- und Familienberatung</span></div>
@@ -798,34 +860,34 @@ p+p {
 <a class="shot-frame" href="media/efb-prevention.webp" target="_blank" rel="noopener" aria-label="EFB-Übersicht für Prävention und Vernetzung mit Veranstaltungen und Anfragen. Originalbild in neuem Tab öffnen."><img id="image-efb-prevention" src="media/efb-prevention.webp" width="1280" height="720" loading="lazy" decoding="async" alt="EFB-Übersicht für Prävention und Vernetzung mit Veranstaltungen und Anfragen"></a>
 <figcaption><span>EFB · Prävention und Vernetzung</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-efb-prevention" hidden>Bild vergrößern</button></figcaption></figure></div></div></div></section><section id="skb" class="section product-section skb" data-chapter="skb" aria-labelledby="title-skb"><span id="s14" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><div class="section-kicker"><span class="index">01 / SKB</span><span class="eyebrow">Schwangerschafts&shy;konfliktberatung</span></div>
-<div class="split"><div class="copy"><h2 id="title-skb"><span class="sr-only">FAMOS-SKB: </span>Beratungstermine<br><span class="coral">im Überblick.</span></h2><p class="lede">Jeder Termin erhält eine eigene Nummer und eine zuständige Person. Die virtuelle Akte zeigt die verknüpften Termine.</p><ul class="facts"><li><strong>Ihre Übersicht:</strong> eigene Termine und die übernommene Vorgeschichte; die Leitung sieht alle Termine der Einrichtung.</li><li><strong>Termine suchen:</strong> nach Name, Terminnummer, Zeitraum und Beratungsart.</li><li><strong>Erfassung:</strong> anonyme Konfliktberatung und namentliche Sozialberatung.</li></ul></div>
+<div class="split"><div class="copy"><h2 id="title-skb"><span class="sr-only">FAMOS-SKB: </span>Beratungstermine<br><span class="accent">im Überblick.</span></h2><p class="lede">Jeder Termin erhält eine eigene Nummer und eine zuständige Person. Die virtuelle Akte zeigt die verknüpften Termine.</p><ul class="facts"><li><strong>Ihre Übersicht:</strong> eigene Termine und die übernommene Vorgeschichte; die Leitung sieht alle Termine der Einrichtung.</li><li><strong>Termine suchen:</strong> nach Name, Terminnummer, Zeitraum und Beratungsart.</li><li><strong>Erfassung:</strong> anonyme Konfliktberatung und namentliche Sozialberatung.</li></ul></div>
 <div class="col"><figure class="shot">
 <a class="shot-frame" href="media/skb-overview.webp" target="_blank" rel="noopener" aria-label="SKB-Terminübersicht mit anonymen und namentlichen Beratungsterminen. Originalbild in neuem Tab öffnen."><img id="image-skb-overview" src="media/skb-overview.webp" width="1280" height="720" loading="lazy" decoding="async" alt="SKB-Terminübersicht mit anonymen und namentlichen Beratungsterminen"></a>
 <figcaption><span>SKB · Terminübersicht</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-skb-overview" hidden>Bild vergrößern</button></figcaption></figure></div></div></div></section><section id="skb-erfassung" class="section product-section skb" data-chapter="skb" aria-labelledby="title-skb-erfassung">
 <div class="section-inner"><div class="section-kicker"><span class="index">02 / SKB</span><span class="eyebrow">Beratung erfassen</span></div>
-<div class="split"><div class="copy"><h2 id="title-skb-erfassung"><span class="sr-only">FAMOS-SKB: </span>Angaben passend<br><span class="coral">zur Beratungsart.</span></h2><p class="lede">Die Beratungsart bestimmt die Erfassung. Die Konfliktberatung bleibt anonym. In der Sozialberatung erfassen Sie Name und bei Bedarf eine Telefonnummer.</p><ul class="facts"><li><strong>Beratungsarten:</strong> u. a. Sozialberatung, Schwangerschaftskonfliktberatung, Beratung zur Pränataldiagnostik und vertrauliche Geburt.</li><li><strong>Begleitungen:</strong> Begleitpersonen und beteiligte Fachpersonen je Termin erfassen.</li><li><strong>Weitere Vorgänge:</strong> Angaben zu Beratungsscheinen, Herkunftsnachweisen und Stiftungsanträgen.</li></ul></div>
+<div class="split"><div class="copy"><h2 id="title-skb-erfassung"><span class="sr-only">FAMOS-SKB: </span>Angaben passend<br><span class="accent">zur Beratungsart.</span></h2><p class="lede">Die Beratungsart bestimmt die Erfassung. Die Konfliktberatung bleibt anonym. In der Sozialberatung erfassen Sie Name und bei Bedarf eine Telefonnummer.</p><ul class="facts"><li><strong>Beratungsarten:</strong> u. a. Sozialberatung, Schwangerschaftskonfliktberatung, Beratung zur Pränataldiagnostik und vertrauliche Geburt.</li><li><strong>Begleitungen:</strong> Begleitpersonen und beteiligte Fachpersonen je Termin erfassen.</li><li><strong>Weitere Vorgänge:</strong> Angaben zu Beratungsscheinen, Herkunftsnachweisen und Stiftungsanträgen.</li></ul></div>
 <div class="col"><figure class="shot">
 <a class="shot-frame" href="media/skb-capture.webp" target="_blank" rel="noopener" aria-label="SKB-Erfassung mit anonymer Beratung, Folgetermin und Begleitpersonen. Originalbild in neuem Tab öffnen."><img id="image-skb-capture" src="media/skb-capture.webp" width="1280" height="720" loading="lazy" decoding="async" alt="SKB-Erfassung mit anonymer Beratung, Folgetermin und Begleitpersonen"></a>
 <figcaption><span>SKB · Neuen Beratungstermin erfassen</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-skb-capture" hidden>Bild vergrößern</button></figcaption></figure></div></div></div></section><section id="skb-folgetermine" class="section product-section skb" data-chapter="skb" aria-labelledby="title-skb-folgetermine">
 <div class="section-inner"><div class="section-kicker"><span class="index">03 / SKB</span><span class="eyebrow">Folgetermine und virtuelle Akte</span></div>
-<div class="split"><div class="copy"><h2 id="title-skb-folgetermine"><span class="sr-only">FAMOS-SKB: </span>Folgetermine und<br><span class="coral">virtuelle Akte.</span></h2><p class="lede">Einen Folgetermin verknüpfen Sie mit einem früheren Termin. Bei namentlicher Erfassung helfen das letzte Beratungsdatum und weitere Vergleichsangaben bei der Auswahl der Person.</p><ul class="facts"><li><strong>Virtuelle Akte:</strong> verknüpfte Termine im Rahmen Ihrer Zugriffsrechte chronologisch lesen.</li><li><strong>Beratung übernehmen:</strong> Wer den Folgetermin speichert, übernimmt die Beratung und kann die verknüpften früheren Termine lesen.</li><li><strong>Anonymität:</strong> Anonyme und namentliche Termine bleiben getrennt. Eine anonyme Beratung lässt sich nur mit der Terminnummer fortsetzen, die die Ratsuchende erhalten hat.</li></ul></div>
+<div class="split"><div class="copy"><h2 id="title-skb-folgetermine"><span class="sr-only">FAMOS-SKB: </span>Folgetermine und<br><span class="accent">virtuelle Akte.</span></h2><p class="lede">Einen Folgetermin verknüpfen Sie mit einem früheren Termin. Bei namentlicher Erfassung helfen das letzte Beratungsdatum und weitere Vergleichsangaben bei der Auswahl der Person.</p><ul class="facts"><li><strong>Virtuelle Akte:</strong> verknüpfte Termine im Rahmen Ihrer Zugriffsrechte chronologisch lesen.</li><li><strong>Beratung übernehmen:</strong> Wer den Folgetermin speichert, übernimmt die Beratung und kann die verknüpften früheren Termine lesen.</li><li><strong>Anonymität:</strong> Anonyme und namentliche Termine bleiben getrennt. Eine anonyme Beratung lässt sich nur mit der Terminnummer fortsetzen, die die Ratsuchende erhalten hat.</li></ul></div>
 <div class="col"><figure class="shot">
 <a class="shot-frame" href="media/skb-virtual-file.webp" target="_blank" rel="noopener" aria-label="SKB-Virtuelle-Akte mit zusammengehörigen Beratungsterminen. Originalbild in neuem Tab öffnen."><img id="image-skb-virtual-file" src="media/skb-virtual-file.webp" width="1280" height="720" loading="lazy" decoding="async" alt="SKB-Virtuelle-Akte mit zusammengehörigen Beratungsterminen"></a>
 <figcaption><span>SKB · Virtuelle Akte mit drei ausdrücklich verknüpften Terminen</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-skb-virtual-file" hidden>Bild vergrößern</button></figcaption></figure></div></div></div></section><section id="skb-angebote" class="section product-section skb" data-chapter="skb" aria-labelledby="title-skb-angebote">
 <div class="section-inner"><div class="section-kicker"><span class="index">04 / SKB</span><span class="eyebrow">Gruppenangebote und Fortbildungen</span></div>
-<div class="split"><div class="copy"><h2 id="title-skb-angebote"><span class="sr-only">FAMOS-SKB: </span>Gruppenangebote<br><span class="coral">und Fortbildungen.</span></h2><p class="lede">Die erfassten Angebote und Fortbildungen fließen in den Jahresbericht ein.</p><ul class="facts"><li><strong>Gruppenangebote:</strong> Kategorie, Inhalte und Teilnehmendenzahlen erfassen.</li><li><strong>Kursreihen:</strong> eine vollständige Reihe als ein Angebot erfassen.</li><li><strong>Fortbildungen:</strong> eigene Teilnahme mit Dauer in Stunden und Themen dokumentieren.</li></ul></div>
+<div class="split"><div class="copy"><h2 id="title-skb-angebote"><span class="sr-only">FAMOS-SKB: </span>Gruppenangebote<br><span class="accent">und Fortbildungen.</span></h2><p class="lede">Die erfassten Angebote und Fortbildungen fließen in den Jahresbericht ein.</p><ul class="facts"><li><strong>Gruppenangebote:</strong> Kategorie, Inhalte und Teilnehmendenzahlen erfassen.</li><li><strong>Kursreihen:</strong> eine vollständige Reihe als ein Angebot erfassen.</li><li><strong>Fortbildungen:</strong> eigene Teilnahme mit Dauer in Stunden und Themen dokumentieren.</li></ul></div>
 <div class="col"><figure class="shot">
 <a class="shot-frame" href="media/skb-groups.webp" target="_blank" rel="noopener" aria-label="SKB-Formular für Gruppenangebote mit Kategorie, Inhalten und Teilnehmendenzahlen. Originalbild in neuem Tab öffnen."><img id="image-skb-groups" src="media/skb-groups.webp" width="1280" height="720" loading="lazy" decoding="async" alt="SKB-Formular für Gruppenangebote mit Kategorie, Inhalten und Teilnehmendenzahlen"></a>
 <figcaption><span>SKB · Gruppenangebot erfassen</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-skb-groups" hidden>Bild vergrößern</button></figcaption></figure></div></div></div></section><section id="skb-auswertung" class="section product-section skb" data-chapter="skb" aria-labelledby="title-skb-auswertung"><span id="s15" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><div class="section-kicker"><span class="index">05 / SKB</span><span class="eyebrow">Sachbericht und eigene Auswertung</span></div>
-<div class="split"><div class="copy"><h2 id="title-skb-auswertung"><span class="sr-only">FAMOS-SKB: </span>Berliner Sachbericht<br><span class="coral">und eigene Kennzahlen.</span></h2><p class="lede">Die Auswertung zählt Termine und Personen getrennt. Sie berücksichtigt Beratungen, Stiftungsanträge, Gruppenangebote und Jahresangaben.</p><ul class="facts"><li><strong>Berliner Sachbericht:</strong> Vorschau aller sechs Berichtsbereiche und Excel-Ausgabe im Format der Berliner Vorlage.</li><li><strong>Eigene Kennzahlen:</strong> Bereiche auswählen und als persönliche Vorlage speichern.</li><li><strong>Export prüfen:</strong> Hinweise führen zu fehlenden oder widersprüchlichen Angaben.</li></ul></div>
+<div class="split"><div class="copy"><h2 id="title-skb-auswertung"><span class="sr-only">FAMOS-SKB: </span>Berliner Sachbericht<br><span class="accent">und eigene Kennzahlen.</span></h2><p class="lede">Die Auswertung zählt Termine und Personen getrennt. Sie berücksichtigt Beratungen, Stiftungsanträge, Gruppenangebote und Jahresangaben.</p><ul class="facts"><li><strong>Berliner Sachbericht:</strong> Vorschau aller sechs Berichtsbereiche und Excel-Ausgabe im Format der Berliner Vorlage.</li><li><strong>Eigene Kennzahlen:</strong> Bereiche auswählen und als persönliche Vorlage speichern.</li><li><strong>Export prüfen:</strong> Hinweise führen zu fehlenden oder widersprüchlichen Angaben.</li></ul></div>
 <div class="col"><figure class="shot">
 <a class="shot-frame" href="media/skb-report.webp" target="_blank" rel="noopener" aria-label="SKB-Sachbericht mit Jahresauswahl, Excel-Export und allgemeinen Angaben. Originalbild in neuem Tab öffnen."><img id="image-skb-report" src="media/skb-report.webp" width="1280" height="720" loading="lazy" decoding="async" alt="SKB-Sachbericht mit Jahresauswahl, Excel-Export und allgemeinen Angaben"></a>
 <figcaption><span>SKB · Berliner Sachbericht</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-skb-report" hidden>Bild vergrößern</button></figcaption></figure></div></div></div></section>
 
 <section id="sicherheit" class="section" data-chapter="sicherheit" aria-labelledby="title-sicherheit"><span id="s12" class="legacy-anchor" aria-hidden="true"></span><span id="s13" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><span class="eyebrow">Sicherheit und Verantwortung</span><h2 id="title-sicherheit">Verschlüsselung,<br><span class="accent">Rechte und Protokolle.</span></h2>
-<dl class="security-list"><div><dt>Verschlüsselte sensible Daten</dt><dd>Identitätsangaben, fachliche Daten und Beratungsnotizen werden verschlüsselt gespeichert. EFB schützt auch die hochgeladenen Dokumente.</dd></div><div><dt>Rechte nach Aufgabe</dt><dd>Teamassistenz, Berater:innen, Leitung und Einrichtungsadministration erhalten Rechte für ihre Aufgaben. Eine reine Admin-Rolle hat keinen Zugriff auf Beratungsinhalte.</dd></div><div><dt>Nachvollziehbare Zugriffe</dt><dd>Die Leitung kann Zugriffe und Änderungen prüfen. Technische Betriebsprotokolle enthalten keine personenbezogenen Inhalte.</dd></div><div><dt>Geschützte Anmeldung</dt><dd>Konten der Einrichtungsadministration brauchen einen zweiten Faktor: Authenticator-App oder Passkey. In FAMOS-SKB kann die Einrichtung ihn für alle Konten verpflichtend machen.</dd></div><div><dt>Getrennte Datenbestände</dt><dd>Einrichtungen und Anwendungen arbeiten in getrennten Datenbanken mit eigenen Berechtigungen und Schlüsseln.</dd></div><div><dt>Aufbewahrung und Datenauskunft</dt><dd>In EFB lassen sich Aufbewahrungsklassen festlegen. Fällige Akten anonymisiert die Leitung. Die Datenauskunft nach Art. 15 DSGVO steht als ZIP mit PDF, HTML, JSON und Originaldokumenten bereit.</dd></div><div><dt>Hosting in Deutschland</dt><dd>Für den von volta.codes betriebenen Einsatz ist Hosting bei STACKIT in Deutschland vorgesehen. Betrieb, Sicherungen, Wiederherstellung und Datenschutzvereinbarungen legen wir für Ihre Installation fest.</dd></div></dl>
+<dl class="security-list"><div><dt>Verschlüsselte sensible Daten</dt><dd>Identitätsangaben, fachliche Daten und Beratungsnotizen werden verschlüsselt gespeichert. EFB schützt auch die hochgeladenen Dokumente.</dd></div><div><dt>Rechte nach Aufgabe</dt><dd>Teamassistenz, Berater:innen, Leitung und Einrichtungsadministration erhalten Rechte für ihre Aufgaben. Eine reine Admin-Rolle hat keinen Zugriff auf Beratungsinhalte.</dd></div><div><dt>Nachvollziehbare Zugriffe</dt><dd>Die Leitung kann Zugriffe und Änderungen prüfen. Technische Betriebsprotokolle enthalten keine personenbezogenen Inhalte.</dd></div><div><dt>Geschützte Anmeldung</dt><dd>Konten der Einrichtungsadministration brauchen einen zweiten Faktor: Authenticator-App oder Passkey. In FAMOS-SKB kann die Einrichtung ihn für alle Konten verpflichtend machen.</dd></div><div><dt>Eigene Datenbank, Hosting in Deutschland</dt><dd>Jede Einrichtung und jede Anwendung arbeitet in einer eigenen Datenbank mit eigenen Berechtigungen und Schlüsseln. Für den von volta.codes betriebenen Einsatz ist Hosting bei STACKIT in Deutschland vorgesehen.</dd></div><div><dt>Aufbewahrung und Datenauskunft</dt><dd>In EFB lassen sich Aufbewahrungsklassen festlegen. Fällige Akten anonymisiert die Leitung. Die Datenauskunft nach Art. 15 DSGVO steht als ZIP mit PDF, HTML, JSON und Originaldokumenten bereit.</dd></div></dl>
 </div></section>
 
 <section id="einstieg" class="section" data-chapter="einstieg" aria-labelledby="title-einstieg"><span id="s2" class="legacy-anchor" aria-hidden="true"></span>

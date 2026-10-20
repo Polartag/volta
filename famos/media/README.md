@@ -28,7 +28,9 @@ account, permission or configuration in the running EFB/SKB instances was change
 for this refresh. Temporary rendered forms, key rings and databases are removed
 after capture.
 
-The website uses ten product screenshots. Captions identify the application and
+The website uses ten product screenshots. The desktop hero reuses
+`efb-overview.webp` and `skb-overview.webp` in a non-interactive composition; no
+additional image files are needed. Captions identify the application and
 view; one note in the comparison section explains that all images show synthetic
 example data. Additional detail images were removed to keep the tour concise.
 The images are illustrative, not evidence of an installed production release.
