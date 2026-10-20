@@ -1175,16 +1175,27 @@ sections.forEach(section => {
 });
 const sectionLinks = Array.from(sectionNav.querySelectorAll('a'));
 let activeSection = sections[0];
-const setActiveSection = section => {
-  activeSection = section;
-  const hideHeader = section.id === 'start' || section.id === 'kontakt';
+let headerHiddenOnScroll = false;
+let headerScrollY = Math.max(0,window.scrollY);
+let headerSnapTarget = null;
+let navigationScroll = true;
+let navigationTimer = 0;
+const syncHeaderVisibility = () => {
+  const sectionEnd = activeSection.id === 'start' || activeSection.id === 'kontakt';
+  const menuOpen = menu.getAttribute('aria-expanded') === 'true';
+  const keyboardFocus = Boolean(siteHeader.querySelector(':focus-visible'));
+  const hideHeader = sectionEnd || (headerHiddenOnScroll && !menuOpen && !keyboardFocus);
   if (hideHeader && menu.getAttribute('aria-expanded') === 'true') closeMenu();
   if (hideHeader && siteHeader.contains(document.activeElement)) {
-    section.setAttribute('tabindex','-1');
-    section.focus({preventScroll:true});
+    activeSection.setAttribute('tabindex','-1');
+    activeSection.focus({preventScroll:true});
   }
   siteHeader.classList.toggle('is-hidden',hideHeader);
   siteHeader.inert = hideHeader;
+};
+const setActiveSection = section => {
+  activeSection = section;
+  syncHeaderVisibility();
   const chapter = section.dataset.chapter;
   mainNav.querySelectorAll('a').forEach(link => {
     if (chapter && link.getAttribute('href') === `#${chapter}`) link.setAttribute('aria-current','location');
@@ -1197,32 +1208,90 @@ const setActiveSection = section => {
 };
 setActiveSection(sections[0]);
 sectionNav.hidden = false;
+const settleNavigation = () => {
+  clearTimeout(navigationTimer);
+  navigationTimer = setTimeout(() => {
+    navigationScroll = false;
+    headerScrollY = Math.max(0,window.scrollY);
+  },180);
+};
 let sectionFrame = 0;
 const syncActiveSection = () => {
   if (sectionFrame) return;
   sectionFrame = requestAnimationFrame(() => {
     sectionFrame = 0;
+    const scrollY = Math.max(0,window.scrollY);
     const atEnd = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
     const readingLine = window.innerHeight * .25;
     const section = atEnd ? sections[sections.length - 1] : sections.find(candidate => {
       const bounds = candidate.getBoundingClientRect();
       return bounds.top <= readingLine && bounds.bottom > readingLine;
     }) || sections[0];
+    const snapping = getComputedStyle(document.documentElement).scrollSnapType.includes('mandatory');
+    if (navigationScroll) {
+      headerScrollY = scrollY;
+      headerSnapTarget = null;
+      settleNavigation();
+    } else if (snapping && section !== activeSection) {
+      headerHiddenOnScroll = sections.indexOf(section) > sections.indexOf(activeSection);
+      // Preserve direction while the browser corrects the final snap position.
+      headerSnapTarget = section.getBoundingClientRect().top + scrollY - siteHeader.getBoundingClientRect().height;
+      if (Math.abs(scrollY - headerSnapTarget) < 2) {
+        headerSnapTarget = null;
+        headerScrollY = scrollY;
+      }
+    } else if (snapping && headerSnapTarget !== null) {
+      if (Math.abs(scrollY - headerSnapTarget) < 2) {
+        headerSnapTarget = null;
+        headerScrollY = scrollY;
+      }
+    } else {
+      headerSnapTarget = null;
+      if (Math.abs(scrollY - headerScrollY) >= 12) {
+        headerHiddenOnScroll = scrollY > headerScrollY;
+        headerScrollY = scrollY;
+      }
+    }
     if (section !== activeSection) setActiveSection(section);
+    else syncHeaderVisibility();
   });
 };
+const revealHeaderForNavigation = () => {
+  headerHiddenOnScroll = false;
+  headerScrollY = Math.max(0,window.scrollY);
+  headerSnapTarget = null;
+  navigationScroll = true;
+  settleNavigation();
+  syncHeaderVisibility();
+  syncActiveSection();
+};
 window.addEventListener('scroll',syncActiveSection,{passive:true});
-window.addEventListener('resize',syncActiveSection);
-window.addEventListener('pageshow',syncActiveSection);
-window.addEventListener('hashchange',syncActiveSection);
-document.fonts.ready.then(syncActiveSection);
-syncActiveSection();
+window.addEventListener('resize',revealHeaderForNavigation);
+window.addEventListener('pageshow',revealHeaderForNavigation);
+window.addEventListener('hashchange',revealHeaderForNavigation);
+document.fonts.ready.then(revealHeaderForNavigation);
+document.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click',revealHeaderForNavigation));
+siteHeader.addEventListener('focusin', () => {
+  headerHiddenOnScroll = false;
+  headerScrollY = Math.max(0,window.scrollY);
+  syncHeaderVisibility();
+});
+siteHeader.addEventListener('focusout', () => requestAnimationFrame(syncHeaderVisibility));
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Tab') return;
+  headerHiddenOnScroll = false;
+  headerScrollY = Math.max(0,window.scrollY);
+  syncHeaderVisibility();
+});
+revealHeaderForNavigation();
 document.documentElement.classList.add('js');
 menu.hidden = false;
 menu.addEventListener('click', () => {
   const open = menu.getAttribute('aria-expanded') !== 'true';
   mainNav.classList.toggle('open',open);menu.setAttribute('aria-expanded',String(open));menu.textContent=open ? 'Schließen' : 'Menü';
   syncHeaderHeight();
+  headerHiddenOnScroll = false;
+  syncHeaderVisibility();
 });
 mainNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 
