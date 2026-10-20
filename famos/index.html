@@ -180,7 +180,16 @@ p+p {
     top:0;
     z-index:10;
     background:var(--bg);
-    border-bottom:1px solid var(--line)
+    border-bottom:1px solid var(--line);
+    opacity:1;
+    transition:transform .22s cubic-bezier(.22,1,.36,1),opacity .22s ease-out,visibility 0s
+}
+.site-header.is-hidden {
+    visibility:hidden;
+    pointer-events:none;
+    transform:translateY(-100%);
+    opacity:0;
+    transition-delay:0s,0s,.22s
 }
 .header-inner {
     max-width:var(--page);
@@ -191,6 +200,19 @@ p+p {
     align-items:center;
     justify-content:space-between;
     gap:2rem
+}
+.header-brand {
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    flex-shrink:0
+}
+.product-home {
+    display:inline-flex;
+    align-items:center;
+    min-height:44px;
+    padding-inline-start:1rem;
+    border-inline-start:1px solid var(--line)
 }
 .wordmark {
     font-size:1.7rem;
@@ -205,6 +227,19 @@ p+p {
 }
 /* Preserve the volta.codes footer wordmark. */
 .contact-brand .wordmark span {
+    color:var(--blue)
+}
+.wordmark.company-link {
+    display:inline-flex;
+    align-items:center;
+    min-height:44px;
+    font-size:1.2rem;
+    transition:color .18s ease-out
+}
+.wordmark.company-link span {
+    color:var(--blue)
+}
+.company-link:hover {
     color:var(--blue)
 }
 .main-nav {
@@ -345,6 +380,10 @@ p+p {
 }
 .hero-copy {
     min-width:0
+}
+.wordmark.hero-home {
+    margin-bottom:1.25rem;
+    font-size:1.35rem
 }
 .hero-composition {
     display:none
@@ -590,6 +629,7 @@ p+p {
 .contact .section-inner {
     max-width:54rem;
     padding-block:2rem;
+    padding-bottom:max(6rem,env(safe-area-inset-bottom,0px));
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -785,6 +825,12 @@ p+p {
         flex-wrap:wrap;
         gap:0
     }
+    .header-brand {
+        gap:.75rem
+    }
+    .product-home {
+        padding-inline-start:.75rem
+    }
     .wordmark {
         font-size:1.5rem
     }
@@ -793,9 +839,14 @@ p+p {
     }
     .main-nav {
         display:flex;
+        position:absolute;
+        top:100%;
+        left:0;
         width:100%;
         align-items:stretch;
-        padding:1rem 0 .5rem;
+        padding:1rem clamp(1.25rem,4vw,4rem) .5rem;
+        background:var(--bg);
+        border-bottom:1px solid var(--line);
         flex-wrap:wrap;
         gap:.25rem 1.5rem
     }
@@ -854,7 +905,7 @@ p+p {
         padding-left:0
     }
     .contact .section-inner {
-        padding-block:2.5rem
+        padding-top:2.5rem
     }
     .contact-content {
         padding-block:0
@@ -982,7 +1033,10 @@ p+p {
 <body>
 <a class="skip-link" href="#inhalt">Zum Inhalt</a>
 <header class="site-header"><div class="header-inner">
-<a class="wordmark" href="#start" aria-label="FAMOS, zum Anfang">FA<span>MOS</span></a>
+<div class="header-brand">
+<a class="wordmark company-link" href="../" aria-label="Zur Website von volta.codes">volta<span>.codes</span></a>
+<a class="wordmark product-home" href="#start" aria-label="FAMOS, zum Anfang">FA<span>MOS</span></a>
+</div>
 <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" hidden>Menü</button>
 <nav class="main-nav" id="main-nav" aria-label="Kapitel"><a href="#efb">EFB</a><a href="#skb">SKB</a><a href="#sicherheit">Sicherheit</a><a href="#einstieg">Einstieg</a><a href="#leistungen">Leistungen</a><a href="#kontakt">Kontakt</a></nav>
 </div></header>
@@ -990,6 +1044,7 @@ p+p {
 <main id="inhalt" tabindex="-1">
 <section id="start" class="section hero" data-chapter="" aria-labelledby="title-start"><span id="s1" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><div class="hero-layout"><div class="hero-copy">
+<a class="wordmark company-link hero-home" href="../" aria-label="Zur Website von volta.codes">volta<span>.codes</span></a>
 <p class="eyebrow">Fallmanagement und Organisation</p>
 <h1 id="title-start">Fallakten, Termine<br><span class="accent">und Berichte.</span></h1>
 <p class="lede">FAMOS verbindet Dokumentation und Auswertung für Erziehungs-, Familien- und Schwangerschaftskonfliktberatung. Die Anwendungen laufen im Browser, ohne Installation auf Ihren Geräten.</p>
@@ -1090,6 +1145,7 @@ const syncHeaderHeight = () => {
 syncHeaderHeight();
 window.addEventListener('resize',syncHeaderHeight);
 document.fonts.ready.then(syncHeaderHeight);
+const closeMenu = () => {mainNav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='Menü';syncHeaderHeight();};
 const sectionNav = document.querySelector('.section-nav');
 const sectionLabels = {
   start:'Start',
@@ -1119,8 +1175,27 @@ sections.forEach(section => {
 });
 const sectionLinks = Array.from(sectionNav.querySelectorAll('a'));
 let activeSection = sections[0];
+let headerHiddenOnScroll = false;
+let headerScrollY = Math.max(0,window.scrollY);
+let headerSnapTarget = null;
+let navigationScroll = true;
+let navigationTimer = 0;
+const syncHeaderVisibility = () => {
+  const sectionEnd = activeSection.id === 'start' || activeSection.id === 'kontakt';
+  const menuOpen = menu.getAttribute('aria-expanded') === 'true';
+  const keyboardFocus = Boolean(siteHeader.querySelector(':focus-visible'));
+  const hideHeader = sectionEnd || (headerHiddenOnScroll && !menuOpen && !keyboardFocus);
+  if (hideHeader && menu.getAttribute('aria-expanded') === 'true') closeMenu();
+  if (hideHeader && siteHeader.contains(document.activeElement)) {
+    activeSection.setAttribute('tabindex','-1');
+    activeSection.focus({preventScroll:true});
+  }
+  siteHeader.classList.toggle('is-hidden',hideHeader);
+  siteHeader.inert = hideHeader;
+};
 const setActiveSection = section => {
   activeSection = section;
+  syncHeaderVisibility();
   const chapter = section.dataset.chapter;
   mainNav.querySelectorAll('a').forEach(link => {
     if (chapter && link.getAttribute('href') === `#${chapter}`) link.setAttribute('aria-current','location');
@@ -1133,19 +1208,90 @@ const setActiveSection = section => {
 };
 setActiveSection(sections[0]);
 sectionNav.hidden = false;
-if ('IntersectionObserver' in window) {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if (entry.isIntersecting) setActiveSection(entry.target); });
-  }, {rootMargin:'-15% 0px -65% 0px',threshold:0});
-  sections.forEach(section => observer.observe(section));
-}
+const settleNavigation = () => {
+  clearTimeout(navigationTimer);
+  navigationTimer = setTimeout(() => {
+    navigationScroll = false;
+    headerScrollY = Math.max(0,window.scrollY);
+  },180);
+};
+let sectionFrame = 0;
+const syncActiveSection = () => {
+  if (sectionFrame) return;
+  sectionFrame = requestAnimationFrame(() => {
+    sectionFrame = 0;
+    const scrollY = Math.max(0,window.scrollY);
+    const atEnd = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+    const readingLine = window.innerHeight * .25;
+    const section = atEnd ? sections[sections.length - 1] : sections.find(candidate => {
+      const bounds = candidate.getBoundingClientRect();
+      return bounds.top <= readingLine && bounds.bottom > readingLine;
+    }) || sections[0];
+    const snapping = getComputedStyle(document.documentElement).scrollSnapType.includes('mandatory');
+    if (navigationScroll) {
+      headerScrollY = scrollY;
+      headerSnapTarget = null;
+      settleNavigation();
+    } else if (snapping && section !== activeSection) {
+      headerHiddenOnScroll = sections.indexOf(section) > sections.indexOf(activeSection);
+      // Preserve direction while the browser corrects the final snap position.
+      headerSnapTarget = section.getBoundingClientRect().top + scrollY - siteHeader.getBoundingClientRect().height;
+      if (Math.abs(scrollY - headerSnapTarget) < 2) {
+        headerSnapTarget = null;
+        headerScrollY = scrollY;
+      }
+    } else if (snapping && headerSnapTarget !== null) {
+      if (Math.abs(scrollY - headerSnapTarget) < 2) {
+        headerSnapTarget = null;
+        headerScrollY = scrollY;
+      }
+    } else {
+      headerSnapTarget = null;
+      if (Math.abs(scrollY - headerScrollY) >= 12) {
+        headerHiddenOnScroll = scrollY > headerScrollY;
+        headerScrollY = scrollY;
+      }
+    }
+    if (section !== activeSection) setActiveSection(section);
+    else syncHeaderVisibility();
+  });
+};
+const revealHeaderForNavigation = () => {
+  headerHiddenOnScroll = false;
+  headerScrollY = Math.max(0,window.scrollY);
+  headerSnapTarget = null;
+  navigationScroll = true;
+  settleNavigation();
+  syncHeaderVisibility();
+  syncActiveSection();
+};
+window.addEventListener('scroll',syncActiveSection,{passive:true});
+window.addEventListener('resize',revealHeaderForNavigation);
+window.addEventListener('pageshow',revealHeaderForNavigation);
+window.addEventListener('hashchange',revealHeaderForNavigation);
+document.fonts.ready.then(revealHeaderForNavigation);
+document.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click',revealHeaderForNavigation));
+siteHeader.addEventListener('focusin', () => {
+  headerHiddenOnScroll = false;
+  headerScrollY = Math.max(0,window.scrollY);
+  syncHeaderVisibility();
+});
+siteHeader.addEventListener('focusout', () => requestAnimationFrame(syncHeaderVisibility));
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Tab') return;
+  headerHiddenOnScroll = false;
+  headerScrollY = Math.max(0,window.scrollY);
+  syncHeaderVisibility();
+});
+revealHeaderForNavigation();
 document.documentElement.classList.add('js');
 menu.hidden = false;
-const closeMenu = () => {mainNav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='Menü';syncHeaderHeight();};
 menu.addEventListener('click', () => {
   const open = menu.getAttribute('aria-expanded') !== 'true';
   mainNav.classList.toggle('open',open);menu.setAttribute('aria-expanded',String(open));menu.textContent=open ? 'Schließen' : 'Menü';
   syncHeaderHeight();
+  headerHiddenOnScroll = false;
+  syncHeaderVisibility();
 });
 mainNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 
