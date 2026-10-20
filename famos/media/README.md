@@ -3,7 +3,8 @@
 All images in this directory show synthetic example data. They contain no client
 records or production data. Captured on 20 October 2026 and optimized as WebP.
 
-- `efb-*` except `efb-prevention.webp`: local EFB views from revision `6de04f4`,
+- `efb-*` except `efb-prevention.webp` and `efb-overview.webp`: local EFB views
+  from revision `6de04f4`,
   using the repository's synthetic demo fixtures. No case data, settings or
   account permissions were changed during capture.
 - `skb-*` except `skb-report.webp`: SKB templates from revision `e10b070`, rendered with a separate
@@ -27,6 +28,14 @@ Both replacements were captured at 1280 × 720 and converted to WebP. No databas
 account, permission or configuration in the running EFB/SKB instances was changed
 for this refresh. Temporary rendered forms, key rings and databases are removed
 after capture.
+
+## Dashboard layout refresh, 20 October 2026
+
+- `efb-overview.webp`: EFB revision `6de04f4`, rendered from the official local demo
+  fixtures in a fresh disposable SQLite database with separate media and keys.
+  Captured at 1680 × 945 and downsampled to 1280 × 720 WebP. All six metric labels
+  fit on one line and all metric values share the same vertical position.
+  The running EFB instance, accounts, settings and source were unchanged.
 
 The website uses ten product screenshots. The desktop hero reuses
 `efb-overview.webp` and `skb-overview.webp` in a non-interactive composition; no
