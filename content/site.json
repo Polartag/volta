@@ -132,13 +132,13 @@
     "items": [
       {
         "titel": "FAMOS",
-        "claim": "**Fallmanagement- und Organisationssoftware für Erziehungs-, Familien- und Schwangerschafts­konfliktberatung.** FAMOS übernimmt den ==kompletten Fallweg== — von der Anmeldung über die Falldokumentation bis zur statistischen Auswertung und Archivierung. Rollengerechte Eingabefelder zeigen ==jeder Hierarchie-Ebene nur das Notwendige==, Kennzahlen werden ==automatisch erfasst und aufbereitet==. Web-basiert und DSGVO-konform.",
+        "claim": "**Zwei eigenständige Anwendungen für Erziehungs- und Familienberatung und Schwangerschafts­konfliktberatung.** FAMOS-EFB verbindet ==Anmeldung, Fallakte und Auswertung==. FAMOS-SKB stellt ==den einzelnen Beratungstermin== in den Mittelpunkt und führt ausdrücklich verknüpfte Termine in einer virtuellen Akte zusammen. Beide Anwendungen bieten ==Rollen und Berichte für den Beratungsalltag== und halten ihre Datenbestände getrennt.",
         "tags": ["Soziale Träger", "Fallmanagement", "DSGVO", "Webanwendung"],
-        "bild": "img/projekte/famos.png",
-        "alt": "FAMOS Berater:innen-Dashboard mit Fallübersicht, Kennzahlen und Kinderschutzfällen",
+        "bild": "famos/media/efb-overview.webp",
+        "alt": "Aktuelles FAMOS-EFB-Dashboard mit synthetischen Beispieldaten: Fallstatus, Kinderschutzbereich und Hinweise",
         "orientierung": "quer",
         "link": "famos/",
-        "linkLabel": "Präsentation ansehen"
+        "linkLabel": "EFB und SKB entdecken"
       },
       {
         "titel": "VoxDrop",

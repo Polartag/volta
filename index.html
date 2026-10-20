@@ -489,14 +489,14 @@
 </section>
 
 <div class="modal-overlay" id="imprint-modal">
-    <div class="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Impressum">
         <button class="modal-close" id="imprint-close" aria-label="Schließen">&times;</button>
         <div id="imprint-content"></div>
     </div>
 </div>
 
 <div class="modal-overlay" id="datenschutz-modal">
-    <div class="modal modal-wide">
+    <div class="modal modal-wide" role="dialog" aria-modal="true" aria-label="Datenschutz">
         <button class="modal-close" id="datenschutz-close" aria-label="Schließen">&times;</button>
         <div id="datenschutz-content" class="modal-body"></div>
     </div>
@@ -510,8 +510,37 @@ updateScroll();
 
 const imprintModal = document.getElementById('imprint-modal');
 const datenschutzModal = document.getElementById('datenschutz-modal');
-const openModal = m => m.classList.add('open');
-const closeModal = m => m.classList.remove('open');
+let modalReturnFocus = null;
+const openModal = m => {
+    if (m.classList.contains('open')) return;
+    const current = document.querySelector('.modal-overlay.open');
+    if (current) current.classList.remove('open');
+    else modalReturnFocus = document.activeElement;
+    m.classList.add('open');
+    m.querySelector('.modal-close').focus();
+};
+const closeModal = m => {
+    if (!m.classList.contains('open')) return;
+    m.classList.remove('open');
+    if ((m === imprintModal && location.hash === '#impressum') ||
+        (m === datenschutzModal && location.hash === '#datenschutz')) {
+        history.replaceState(null, '', location.pathname + location.search);
+    }
+    if (modalReturnFocus) modalReturnFocus.focus();
+};
+const openLegalHash = () => {
+    const target = { '#impressum': imprintModal, '#datenschutz': datenschutzModal }[location.hash];
+    if (target) openModal(target);
+};
+addEventListener('hashchange', openLegalHash);
+document.addEventListener('keydown', e => {
+    const modal = document.querySelector('.modal-overlay.open');
+    if (!modal || e.key !== 'Tab') return;
+    const controls = Array.from(modal.querySelectorAll('button, a[href], [tabindex="0"]'));
+    const first = controls[0], last = controls[controls.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
 document.getElementById('imprint-open').addEventListener('click', () => openModal(imprintModal));
 document.getElementById('imprint-close').addEventListener('click', () => closeModal(imprintModal));
 document.getElementById('datenschutz-open').addEventListener('click', () => openModal(datenschutzModal));
@@ -564,6 +593,7 @@ async function init() {
             ).join('') +
             (dat.stand ? `<p class="ds-stand">${md(dat.stand)}</p>` : '');
     }
+    openLegalHash();
 
     document.getElementById('warum-col').innerHTML =
         d.warum.absaetze.map((t, i) =>

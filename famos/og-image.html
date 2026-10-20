@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=1200">
+  <title>FAMOS share image source</title>
+  <!-- Render at 1200 x 630 and save as og-image.png. All assets are local. -->
+  <style>
+    @font-face {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 400 900;
+      src: url('fonts/inter-latin.woff2') format('woff2');
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      padding: 40px 48px;
+      background: #0d1b2a;
+      color: #f4f7fa;
+      font-family: Inter, sans-serif;
+    }
+    header { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 60px; font-weight: 900; letter-spacing: -4px; line-height: 1; }
+    .logo span { color: #4fc3f7; }
+    .byline { font-size: 20px; color: #b8c5d2; }
+    h1 { margin: 26px 0 30px; font-size: 44px; line-height: 1.12; letter-spacing: -1.8px; }
+    .products { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    h2 { margin: 0; font-size: 23px; color: #4fc3f7; letter-spacing: -.5px; }
+    .skb h2 { color: #f3b3c2; }
+    p { margin: 5px 0 16px; font-size: 17px; color: #b8c5d2; }
+    img { display: block; width: 536px; height: 253px; object-fit: cover; object-position: top; border-radius: 7px; }
+    footer { margin-top: 13px; font-size: 13px; color: #b8c5d2; }
+  </style>
+</head>
+<body>
+  <header><div class="logo">FA<span>MOS</span></div><div class="byline">Software für Ihre Beratungsstelle · volta.codes</div></header>
+  <h1>Zwei Anwendungen.<br>Ein gemeinsames Fundament.</h1>
+  <div class="products">
+    <section><h2>FAMOS-EFB</h2><p>Erziehungs- und Familienberatung</p><img src="media/efb-overview.webp" alt="EFB-Dashboard mit synthetischen Beispieldaten"></section>
+    <section class="skb"><h2>FAMOS-SKB</h2><p>Schwangerschaftskonfliktberatung</p><img src="media/skb-overview.webp" alt="SKB-Terminübersicht mit synthetischen Beispieldaten"></section>
+  </div>
+  <footer>Entwicklungsstand Oktober 2026 · ausschließlich synthetische Beispieldaten</footer>
+</body>
+</html>
