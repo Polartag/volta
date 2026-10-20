@@ -52,6 +52,7 @@
     --lime:oklch(91% .2 117);
     --dark-ink:oklch(23% .035 248);
     --header:5rem;
+    --header-height:calc(var(--header) + 1px);
     --page:88rem;
     --left-col:minmax(18rem,.8fr);
     --col-gap:clamp(2rem,4vw,4rem)
@@ -61,8 +62,8 @@
 }
 html {
     scroll-behavior:smooth;
-    scroll-snap-type:y proximity;
-    scroll-padding-top:var(--header)
+    scroll-snap-type:none;
+    scroll-padding-top:var(--header-height)
 }
 html.has-expanded-shot {
     scroll-snap-type:none
@@ -203,7 +204,7 @@ p+p {
     color:var(--petrol)
 }
 /* Preserve the volta.codes footer wordmark. */
-.contact-bottom .wordmark span {
+.contact-brand .wordmark span {
     color:var(--blue)
 }
 .main-nav {
@@ -242,11 +243,14 @@ p+p {
     scroll-snap-align:start;
     border-bottom:1px solid var(--line)
 }
+.section.snap-departing {
+    scroll-snap-align:none
+}
 .section-nav {
     display:none;
     position:fixed;
     right:.75rem;
-    top:calc(50% + var(--header)/2);
+    top:calc(50% + var(--header-height)/2);
     transform:translateY(-50%);
     z-index:9
 }
@@ -294,16 +298,16 @@ p+p {
     background:var(--surface)
 }
 .product-section.efb {
-    background:color-mix(in oklch,var(--bg) 88%,var(--blue))
+    background:color-mix(in oklch,var(--bg) 94%,var(--blue))
 }
 .product-section.efb:nth-of-type(even) {
-    background:color-mix(in oklch,var(--surface) 88%,var(--blue))
+    background:color-mix(in oklch,var(--surface) 94%,var(--blue))
 }
 .product-section.skb {
-    background:var(--bg)
+    background:color-mix(in oklch,var(--bg) 94%,var(--coral))
 }
 .product-section.skb:nth-of-type(even) {
-    background:var(--surface)
+    background:color-mix(in oklch,var(--surface) 94%,var(--coral))
 }
 .section-inner {
     max-width:var(--page);
@@ -589,51 +593,104 @@ p+p {
     border-top:1px solid var(--line)
 }
 .contact .section-inner {
-    padding-block:6rem 3rem
+    max-width:54rem;
+    padding-block:var(--contact-space,1.5rem);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center
 }
 .contact h2 {
-    font-size:clamp(2.5rem,5vw,5rem);
-    max-width:17ch
+    font-size:clamp(2.5rem,4vw,3.3rem);
+    max-width:none
 }
 .contact .lede {
-    max-width:52ch
+    max-width:46rem;
+    margin-top:1rem;
+    line-height:1.5
+}
+.contact .actions {
+    justify-content:center;
+    margin-top:1.25rem
+}
+.contact .subnote {
+    margin-top:.75rem
+}
+.contact-brand {
+    display:grid;
+    justify-items:center;
+    gap:.5rem;
+    margin-top:1.5rem
+}
+.contact-brand .note {
+    font-size:.75rem
+}
+.contact-brand .wordmark {
+    font-size:2.5rem
+}
+.contact-tagline {
+    font-size:.85rem;
+    line-height:1.5;
+    color:var(--muted)
 }
 .contact-bottom {
-    margin-top:4rem;
-    padding-top:1.5rem;
-    border-top:1px solid var(--line);
-    display:flex;
-    justify-content:space-between;
-    gap:2rem;
-    align-items:center
+    margin-top:1.25rem;
+    width:100%
 }
 .footer-links {
     display:flex;
     flex-wrap:wrap;
-    gap:1.2rem
-}
-.footer-links a {
-    min-height:44px;
-    display:inline-flex;
+    justify-content:center;
     align-items:center;
+    gap:0 .5rem;
     font-size:.82rem;
     color:var(--muted)
 }
-.contact-bottom {
-    padding-bottom:3rem
+.footer-links>*+*::before {
+    content:'·';
+    margin-right:.5rem;
+    color:var(--quiet)
 }
-@media(min-width:721px) {
+.footer-links a,.footer-links .copyright {
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+    white-space:nowrap
+}
+@media(min-width:1001px) and (min-height:800px) {
     html {
-        scroll-snap-type:y mandatory
-    }
-    .section {
-        scroll-snap-stop:always
+        scroll-snap-type:y proximity
     }
     .section-inner {
-        min-height:calc(100svh - var(--header));
-        padding-right:max(3rem,clamp(1.25rem,4vw,4rem));
+        min-height:calc(100svh - var(--header-height) - 1px);
+        padding-block:2rem;
         display:grid;
         align-content:center
+    }
+    .security-list,.steps,.service-columns {
+        margin-top:1.5rem
+    }
+    .security-list>div,.steps li {
+        padding:.9rem 0
+    }
+    .security-list dt {
+        margin-bottom:.35rem
+    }
+    .service-columns li {
+        padding:.25rem 0
+    }
+    .service-note {
+        margin-top:1.25rem;
+        padding-top:1rem
+    }
+    #skb-folgetermine .facts li {
+        padding:.5rem 0
+    }
+}
+@media(min-width:721px) {
+    .section-inner {
+        padding-right:max(3rem,clamp(1.25rem,4vw,4rem))
     }
 }
 @media(min-width:1001px) {
@@ -795,14 +852,22 @@ p+p {
         padding-left:0
     }
     .contact .section-inner {
-        padding-top:4rem
+        padding-block:2.5rem
     }
-    .contact-bottom {
+    .contact .actions {
         flex-direction:column;
-        align-items:flex-start;
-        gap:1rem;
-        margin-top:3rem;
-        padding-bottom:4rem
+        width:100%
+    }
+    .contact .actions .btn {
+        flex:auto;
+        width:100%
+    }
+    .footer-links .copyright {
+        flex-basis:100%;
+        justify-content:center
+    }
+    .footer-links .copyright::before {
+        display:none
     }
     .actions {
         align-items:stretch
@@ -984,15 +1049,33 @@ p+p {
 <p class="note service-note">Das schriftliche Angebot enthält Leistungen und Konditionen für Ihre Anwendungen und Standorte.</p><div class="actions"><a class="btn btn-secondary" href="mailto:hello@volta.codes?subject=Angebot%20FAMOS&body=Guten%20Tag%2C%0A%0Awir%20interessieren%20uns%20f%C3%BCr%20FAMOS.%0A%0AEinrichtung%3A%0AAnwendung%20(EFB%20%2F%20SKB%20%2F%20beide)%3A%0AStandorte%3A%0AAnsprechperson%3A%0A%0AMit%20freundlichen%20Gr%C3%BC%C3%9Fen">Angebot anfordern</a></div></div></section>
 
 <section id="kontakt" class="section contact" data-chapter="kontakt" aria-labelledby="title-kontakt"><span id="s17" class="legacy-anchor" aria-hidden="true"></span>
-<div class="section-inner"><span class="eyebrow">FAMOS von volta.codes</span><h2 id="title-kontakt">Ihre Fragen<br><span class="accent">zu FAMOS.</span></h2><p class="lede">Wir zeigen Ihnen EFB oder SKB und besprechen Ihre Anforderungen an Abläufe, Berichte und Einführung.</p>
+<div class="section-inner"><h2 id="title-kontakt">Bereit für<br><span class="accent">FAMOS?</span></h2><p class="lede">Wir zeigen Ihnen EFB oder SKB und besprechen Ihre Anforderungen an Abläufe, Berichte und Einführung.</p>
 <div class="actions"><a class="btn btn-primary" href="https://cal.meetergo.com/hello-61/famos" target="_blank" rel="noopener">Produktvorstellung vereinbaren</a><a class="btn btn-secondary" href="mailto:hello@volta.codes?subject=Angebot%20FAMOS&body=Guten%20Tag%2C%0A%0Awir%20interessieren%20uns%20f%C3%BCr%20FAMOS.%0A%0AEinrichtung%3A%0AAnwendung%20(EFB%20%2F%20SKB%20%2F%20beide)%3A%0AStandorte%3A%0AAnsprechperson%3A%0A%0AMit%20freundlichen%20Gr%C3%BC%C3%9Fen">Angebot anfordern</a></div><p class="subnote">E-Mail: <a href="mailto:hello@volta.codes">hello@volta.codes</a></p>
-<footer class="contact-bottom"><a class="wordmark" href="../" aria-label="Zur Website von volta.codes">volta<span>.codes</span></a><nav class="footer-links" aria-label="Weitere Informationen"><a href="../projekte.html">Weitere Projekte</a><a href="../#impressum">Impressum</a><a href="../#datenschutz">Datenschutz</a></nav><p class="note">© 2026 volta.codes GmbH</p></footer></div></section>
+<div class="contact-brand"><p class="note">Ein Projekt von</p><a class="wordmark" href="../" aria-label="Zur Website von volta.codes">volta<span>.codes</span></a><p class="contact-tagline">Maßgeschneiderte Software, entwickelt mit KI.<br>Verlässlich, smart und zukunftsfest.</p></div>
+<footer class="contact-bottom"><nav class="footer-links" aria-label="Weitere Informationen"><a href="../projekte.html">Weitere Projekte</a><a href="../#impressum">Impressum</a><a href="../#datenschutz">Datenschutz</a><span class="copyright">© 2026 volta.codes GmbH</span></nav></footer></div></section>
 </main>
 <script>
 'use strict';
 const sections = Array.from(document.querySelectorAll('main > .section'));
 const mainNav = document.getElementById('main-nav');
 const menu = document.querySelector('.menu-toggle');
+const siteHeader = document.querySelector('.site-header');
+const syncLayout = () => {
+  const root = document.documentElement;
+  const headerHeight = siteHeader.getBoundingClientRect().height;
+  root.style.setProperty('--header-height',`${headerHeight}px`);
+  const contact = document.querySelector('#kontakt .section-inner');
+  if (window.matchMedia('(min-width:1001px)').matches) {
+    const contentHeight = contact.lastElementChild.getBoundingClientRect().bottom - contact.firstElementChild.getBoundingClientRect().top;
+    const space = Math.max(24,(root.clientHeight - headerHeight - contentHeight - 1)/2);
+    root.style.setProperty('--contact-space',`${space}px`);
+  } else {
+    root.style.removeProperty('--contact-space');
+  }
+};
+syncLayout();
+window.addEventListener('resize',syncLayout);
+document.fonts.ready.then(syncLayout);
 const sectionNav = document.querySelector('.section-nav');
 const sectionLabels = {
   start:'Start',
@@ -1021,7 +1104,9 @@ sections.forEach(section => {
   sectionNav.appendChild(link);
 });
 const sectionLinks = Array.from(sectionNav.querySelectorAll('a'));
+let activeSection = sections[0];
 const setActiveSection = section => {
+  activeSection = section;
   const chapter = section.dataset.chapter;
   mainNav.querySelectorAll('a').forEach(link => {
     if (chapter && link.getAttribute('href') === `#${chapter}`) link.setAttribute('aria-current','location');
@@ -1042,14 +1127,49 @@ if ('IntersectionObserver' in window) {
 }
 document.documentElement.classList.add('js');
 menu.hidden = false;
-const closeMenu = () => {mainNav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='Menü';};
+const closeMenu = () => {mainNav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='Menü';syncLayout();};
 menu.addEventListener('click', () => {
   const open = menu.getAttribute('aria-expanded') !== 'true';
   mainNav.classList.toggle('open',open);menu.setAttribute('aria-expanded',String(open));menu.textContent=open ? 'Schließen' : 'Menü';
+  syncLayout();
 });
 mainNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 
 const desktopZoom = window.matchMedia('(min-width:1001px)');
+const sectionView = window.matchMedia('(min-width:1001px) and (min-height:800px)');
+const clearReleasedStops = () => sections.forEach(section => section.classList.remove('snap-departing'));
+let wheelDirection = 0;
+document.addEventListener('wheel', event => {
+  if (!sectionView.matches || event.ctrlKey || document.querySelector('.shot-expanded')) return;
+  const direction = Math.sign(event.deltaY);
+  if (!direction) return;
+  if (direction !== wheelDirection) clearReleasedStops();
+  wheelDirection = direction;
+  // Let small wheel gestures leave the current stop without snapping back.
+  if (Math.abs(activeSection.getBoundingClientRect().top - siteHeader.getBoundingClientRect().bottom) < 2) {
+    clearReleasedStops();
+    activeSection.classList.add('snap-departing');
+  }
+},{passive:true});
+window.addEventListener('resize',clearReleasedStops);
+document.addEventListener('click', event => {
+  if (event.target.closest('a[href^="#"]')) clearReleasedStops();
+});
+document.addEventListener('keydown', event => {
+  if (!sectionView.matches || event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (document.querySelector('.shot-expanded') || menu.getAttribute('aria-expanded') === 'true') return;
+  if (event.target.closest('a,button,input,textarea,select,[contenteditable]')) return;
+  let direction = 0;
+  if (event.key === 'ArrowDown' || event.key === 'ArrowRight') direction = 1;
+  if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') direction = -1;
+  if (event.key === ' ') direction = event.shiftKey ? -1 : 1;
+  if (!direction) return;
+  const target = sections[sections.indexOf(activeSection) + direction];
+  if (!target) return;
+  event.preventDefault();
+  clearReleasedStops();
+  target.scrollIntoView({block:'start'});
+});
 const shots = Array.from(document.querySelectorAll('.shot'));
 const setShotZoom = (shot, expanded) => {
   const frame = shot.querySelector('.shot-frame');
