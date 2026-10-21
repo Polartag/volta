@@ -176,8 +176,10 @@ p+p {
     transform:none
 }
 .site-header {
-    position:sticky;
+    position:fixed;
     top:0;
+    left:0;
+    right:0;
     z-index:10;
     background:var(--bg);
     border-bottom:1px solid var(--line);
@@ -722,16 +724,18 @@ p+p {
 }
 @media(min-width:1001px) and (min-height:800px) {
     html {
-        scroll-snap-type:y mandatory
+        scroll-snap-type:y mandatory;
+        scroll-padding-top:0
     }
     .section-inner {
-        min-height:calc(100svh - var(--header-height) - 1px);
+        min-height:100svh;
         padding-block:2rem;
         display:grid;
         align-content:center
     }
     .section:not(.hero):not(.contact) .section-inner {
-        padding-block:1rem
+        padding-top:calc(var(--header-height) + 1rem);
+        padding-bottom:1rem
     }
     .section:not(.hero):not(.contact) .section-inner>.eyebrow {
         margin-bottom:.75rem
@@ -1301,7 +1305,7 @@ const syncActiveSection = () => {
     } else if (snapping && section !== activeSection) {
       headerHiddenOnScroll = sections.indexOf(section) > sections.indexOf(activeSection);
       // Preserve direction while the browser corrects the final snap position.
-      headerSnapTarget = section.getBoundingClientRect().top + scrollY - siteHeader.getBoundingClientRect().height;
+      headerSnapTarget = section.getBoundingClientRect().top + scrollY;
       if (Math.abs(scrollY - headerSnapTarget) < 2) {
         headerSnapTarget = null;
         headerScrollY = scrollY;
