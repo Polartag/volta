@@ -589,12 +589,6 @@ p+p {
     font-size:.85rem;
     line-height:1.5
 }
-.privacy-diagram figcaption {
-    color:var(--muted);
-    text-align:center;
-    font-size:.9rem;
-    line-height:1.6
-}
 .privacy-diagram svg,.recovery-diagram svg {
     fill:none;
     stroke:var(--petrol);
@@ -626,37 +620,6 @@ p+p {
 #angriffe .security-list {
     margin-top:0
 }
-.steps {
-    list-style:none;
-    padding:0;
-    margin:2.75rem 0 0;
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:2rem;
-    counter-reset:steps
-}
-.steps li {
-    padding:1.6rem 0;
-    border-top:1px solid var(--line);
-    counter-increment:steps
-}
-.steps li::before {
-    content:'0' counter(steps);
-    display:block;
-    margin-bottom:1rem;
-    font-variant-numeric:tabular-nums;
-    color:var(--section-accent);
-    font-weight:700
-}
-.steps h3 {
-    font-size:1.2rem;
-    line-height:1.4;
-    margin-bottom:.75rem
-}
-.steps p {
-    color:var(--muted);
-    font-size:1rem
-}
 .references-heading {
     margin:1.5rem 0 .5rem;
     font-size:1rem
@@ -673,23 +636,6 @@ p+p {
 }
 .references li::marker {
     color:var(--section-accent)
-}
-.included {
-    margin-top:1.5rem;
-    padding-top:1rem;
-    border-top:1px solid var(--line)
-}
-.included h3 {
-    font-size:1rem;
-    margin-bottom:.5rem
-}
-.included p {
-    font-size:1rem;
-    color:var(--muted);
-    max-width:none
-}
-.offer-note {
-    margin-top:.75rem
 }
 .contact {
     background:var(--surface)
@@ -793,13 +739,13 @@ p+p {
     .section:not(.hero):not(.contact) .lede {
         margin-top:.75rem
     }
-    .security-list>div,.steps li {
+    .security-list>div {
         padding:.55rem 0
     }
     .security-list dt {
         margin-bottom:.25rem
     }
-    .security-list,.steps {
+    .security-list {
         margin-top:1rem
     }
     .product-section .facts li {
@@ -811,14 +757,7 @@ p+p {
     .product-section .facts {
         margin-top:.75rem
     }
-    .included {
-        margin-top:.75rem;
-        padding-top:.75rem
-    }
-    #einstieg .actions {
-        margin-top:1.25rem
-    }
-    .security h2,#einstieg h2 {
+    .security h2 {
         max-width:none
     }
 }
@@ -868,6 +807,10 @@ p+p {
 /* Tight snapping viewports (narrow desktops or heights under 880px): widen the copy column and
    compact lists so every section still fits one screen with full sentences. */
 @media(min-width:1001px) and (max-width:1199px) and (min-height:800px) {
+    .hero .lede {
+        font-size:1.05rem;
+        margin-top:1.25rem
+    }
     .split {
         grid-template-columns:minmax(0,1fr) minmax(0,1fr)
     }
@@ -887,31 +830,6 @@ p+p {
     .recovery-diagram {
         max-width:40rem;
         margin:1rem 0
-    }
-    .steps {
-        margin-top:1.5rem
-    }
-    .steps li {
-        padding:1rem 0
-    }
-    .steps p {
-        font-size:.9rem
-    }
-    .steps li::before,.steps h3 {
-        margin-bottom:.5rem
-    }
-    #einstieg .lede {
-        font-size:1rem
-    }
-    #einstieg .actions {
-        margin-top:.75rem
-    }
-    .included {
-        margin-top:.75rem;
-        padding-top:.5rem
-    }
-    .offer-note {
-        margin-top:.5rem
     }
 }
 @media(min-width:1200px) and (min-height:800px) and (max-height:879px) {
@@ -934,31 +852,6 @@ p+p {
     .recovery-diagram {
         max-width:40rem;
         margin:1rem 0
-    }
-    .steps {
-        margin-top:1.5rem
-    }
-    .steps li {
-        padding:1rem 0
-    }
-    .steps p {
-        font-size:.9rem
-    }
-    .steps li::before,.steps h3 {
-        margin-bottom:.5rem
-    }
-    #einstieg .lede {
-        font-size:1rem
-    }
-    #einstieg .actions {
-        margin-top:.75rem
-    }
-    .included {
-        margin-top:.75rem;
-        padding-top:.5rem
-    }
-    .offer-note {
-        margin-top:.5rem
     }
 }
 @media(min-width:721px) and (min-height:640px) {
@@ -1059,7 +952,7 @@ p+p {
         font-size:.9rem;
         min-height:44px
     }
-    .security-list,.steps {
+    .security-list {
         grid-template-columns:1fr
     }
     .hero h1 {
@@ -1072,9 +965,6 @@ p+p {
     .section-inner {
         padding-block:3.5rem
     }
-    .steps {
-        gap:0
-    }
     .section-kicker {
         margin-bottom:1.5rem
     }
@@ -1084,17 +974,6 @@ p+p {
     .security-list {
         margin-top:2rem;
         gap:0
-    }
-    .steps li {
-        display:grid;
-        grid-template-columns:2rem 1fr;
-        gap:.5rem 1rem
-    }
-    .steps li::before,.steps h3 {
-        margin:0
-    }
-    .steps p {
-        grid-column:2
     }
     .recovery-diagram figcaption {
         font-size:.8rem;
@@ -1197,7 +1076,7 @@ p+p {
     .copy {
         margin-bottom:1.5rem
     }
-    .lede,.facts li,.note,.muted,.security-list dd,.steps p,.references,.included p,.footer-links a,.privacy-diagram span,.privacy-diagram figcaption {
+    .lede,.facts li,.note,.muted,.security-list dd,.references,.footer-links a,.privacy-diagram span,.privacy-diagram figcaption {
         color:oklch(35% .02 248)
     }
     .data-node,.key-node {
@@ -1244,16 +1123,16 @@ p+p {
 <a class="wordmark product-home" href="#start" aria-label="FAMOS, zum Anfang">FA<span>MOS</span></a>
 </div>
 <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" hidden>Menü</button>
-<nav class="main-nav" id="main-nav" aria-label="Kapitel"><a href="#entwicklung">Entstehung</a><a href="#efb">EFB</a><a href="#skb">SKB</a><a href="#datenschutz">Datenschutz</a><a href="#einstieg">Einstieg</a><a href="#kontakt">Kontakt</a></nav>
+<nav class="main-nav" id="main-nav" aria-label="Kapitel"><a href="#entwicklung">Entstehung</a><a href="#efb">EFB</a><a href="#skb">SKB</a><a href="#datenschutz">Datenschutz</a><a href="#kontakt">Kontakt</a></nav>
 </div></header>
 <nav class="section-nav" aria-label="Abschnitte" hidden></nav>
 <main id="inhalt" tabindex="-1">
 <section id="start" class="section hero" data-chapter="" aria-labelledby="title-start"><span id="s1" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><div class="hero-layout"><div class="hero-copy">
 <a class="wordmark company-link hero-home" href="../" aria-label="Zur Website von volta.codes">volta<span>.codes</span></a>
-<p class="eyebrow">Fallmanagement und Organisation</p>
-<h1 id="title-start">Software für<br><span class="accent">Beratungsstellen.</span></h1>
-<p class="lede">FAMOS besteht aus zwei Anwendungen: FAMOS-EFB für die Erziehungs- und Familienberatung und FAMOS-SKB für die Schwangerschaftskonfliktberatung. Beide werden gleich bedient, gemeinsam betrieben und lassen sich einzeln beauftragen. Die Software läuft im Browser, ohne Installation.</p>
+<p class="eyebrow">Software für Beratungsstellen</p>
+<h1 id="title-start">Zwei Anwendungen,<br><span class="accent">eine Grundlage.</span></h1>
+<p class="lede">FAMOS-EFB für die Erziehungs- und Familienberatung, FAMOS-SKB für die Schwangerschaftskonfliktberatung. Beide Anwendungen werden gleich bedient, gemeinsam betrieben und lassen sich einzeln beauftragen. Die Software läuft im Browser, ohne Installation.</p>
 <div class="actions"><a class="btn btn-primary" href="https://cal.meetergo.com/hello-61/famos" target="_blank" rel="noopener">Produktvorstellung vereinbaren</a></div>
 </div><div class="hero-composition">
 <img src="media/efb-overview.webp?v=6e956bd2" width="1280" height="720" loading="eager" decoding="async" alt="FAMOS-EFB: Dashboard">
@@ -1285,7 +1164,7 @@ p+p {
 
 <section id="skb" class="section product-section skb" data-chapter="skb" aria-labelledby="title-skb"><span id="s14" class="legacy-anchor" aria-hidden="true"></span><span id="skb-erfassung" class="legacy-anchor" aria-hidden="true"></span><span id="skb-folgetermine" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><div class="section-kicker"><span class="index">FAMOS-SKB</span><span class="eyebrow">Schwangerschafts&shy;konfliktberatung</span></div>
-<div class="split"><div class="copy"><h2 id="title-skb"><span class="sr-only">FAMOS-SKB: </span>Alle Beratungstermine<br><span class="accent">im Überblick.</span></h2><p class="lede">Für die Schwangerschaftskonfliktberatung gab es bisher keine passgenaue Fachsoftware. FAMOS-SKB ist für diese Arbeit entwickelt.</p><ul class="facts"><li><strong>Termine:</strong> Jeder Beratungstermin hat eine Terminnummer und eine zuständige Person; die Übersicht lässt sich nach Name, Nummer, Zeitraum und Beratungsart filtern.</li><li><strong>Folgetermine:</strong> Zusammengehörige Termine werden verknüpft und in einer virtuellen Akte angezeigt.</li><li><strong>Alles, was in den Bericht gehört:</strong> Beratungsscheine, Stiftungsanträge, Gruppenangebote und Fortbildungen werden mit erfasst.</li></ul></div>
+<div class="split"><div class="copy"><h2 id="title-skb"><span class="sr-only">FAMOS-SKB: </span>Alle Beratungstermine<br><span class="accent">im Überblick.</span></h2><p class="lede">Für die Schwangerschaftskonfliktberatung gab es bisher keine passgenaue Fachsoftware. FAMOS-SKB ist für diese Arbeit entwickelt.</p><ul class="facts"><li><strong>Termine:</strong> Jeder Beratungstermin hat eine Terminnummer und eine zuständige Person; die Übersicht lässt sich nach Name, Nummer, Zeitraum und Beratungsart filtern.</li><li><strong>Alles, was in den Bericht gehört:</strong> Beratungsscheine, Stiftungsanträge, Gruppenangebote und Fortbildungen werden mit erfasst.</li></ul></div>
 <div class="col"><figure class="shot ">
 <a class="shot-frame" href="media/skb-overview.webp" target="_blank" rel="noopener" aria-label="SKB-Terminübersicht mit anonymen und namentlichen Beratungsterminen. Originalbild in neuem Tab öffnen."><img id="image-skb-overview" src="media/skb-overview.webp" width="1280" height="720" loading="lazy" decoding="async" alt="SKB-Terminübersicht mit anonymen und namentlichen Beratungsterminen"></a>
 <figcaption><span>SKB · Terminübersicht</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-skb-overview" hidden>Bild vergrößern</button></figcaption></figure></div></div></div></section>
@@ -1299,10 +1178,10 @@ p+p {
 
 <section id="datenschutz" class="section security" data-chapter="datenschutz" aria-labelledby="title-datenschutz"><span id="s12" class="legacy-anchor" aria-hidden="true"></span><span id="s13" class="legacy-anchor" aria-hidden="true"></span><span id="sicherheit" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><span class="eyebrow">Datenschutz</span><h2 id="title-datenschutz">Verschlüsselung, Zugriffsrechte,<br><span class="accent">Aufbewahrung.</span></h2><p class="lede">FAMOS verarbeitet besonders schutzbedürftige Daten. Die Maßnahmen gelten für beide Anwendungen, soweit nicht anders angegeben.</p>
-<div class="security-layout"><figure class="privacy-diagram" aria-label="Beratungsdaten und Schlüssel werden getrennt in Deutschland gespeichert">
+<div class="security-layout"><figure class="privacy-diagram" aria-label="Beratungsdaten und Schlüssel werden getrennt gespeichert">
 <div class="data-node"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><ellipse cx="32" cy="14" rx="23" ry="8"/><path d="M9 14v34c0 11 46 11 46 0V14M9 31c0 11 46 11 46 0"/></svg><strong>Datenbank</strong><span>Beratungsdaten verschlüsselt</span></div>
-<div class="key-node"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="21" cy="22" r="13"/><circle cx="18" cy="19" r="3"/><path d="m31 31 23 23 6-6-6-6-6 2-2-7-7-2"/></svg><strong>Schlüsseldienst</strong><span>Schlüssel getrennt verwahrt</span></div>
-<figcaption>Getrennte Speicherung<br>STACKIT · Deutschland</figcaption></figure><dl class="security-list"><div><dt>Verschlüsselte Daten</dt><dd>Beratungsdaten und Dokumente werden verschlüsselt gespeichert; die Schlüssel liegen getrennt davon in einem Schlüsseldienst in Deutschland.</dd></div><div><dt>Eigene Datenbank</dt><dd>Jede Einrichtung hat eine eigene Datenbank mit eigenen Schlüsseln; der Betrieb läuft bei STACKIT in Deutschland.</dd></div><div><dt>Rechte nach Aufgabe</dt><dd>Rollen für Teamassistenz, Berater:innen und Leitung; die Administration hat keinen Zugriff auf Beratungsinhalte.</dd></div><div><dt>Zweiter Faktor</dt><dd>Administrationskonten brauchen eine Authenticator-App oder einen Passkey; in FAMOS-SKB kann die Einrichtung das für alle Konten vorschreiben.</dd></div><div><dt>Zugriffsprotokoll</dt><dd>Lesezugriffe und Änderungen werden protokolliert und sind für die Leitung einsehbar.</dd></div><div><dt>Aufbewahrung (EFB)</dt><dd>Für jede Akte gilt eine Frist; fällige Akten anonymisiert die Leitung. Die Datenauskunft nach Art. 15 DSGVO steht als Export bereit.</dd></div></dl></div></div></section>
+<div class="key-node"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="21" cy="22" r="13"/><circle cx="18" cy="19" r="3"/><path d="m31 31 23 23 6-6-6-6-6 2-2-7-7-2"/></svg><strong>Schlüssel</strong><span>Getrennt aufbewahrt</span></div>
+</figure><dl class="security-list"><div><dt>Verschlüsselte Daten</dt><dd>Beratungsdaten und Dokumente werden verschlüsselt gespeichert; die Schlüssel werden getrennt aufbewahrt.</dd></div><div><dt>Eigene Datenbank</dt><dd>Jede Einrichtung hat eine eigene Datenbank; der Betrieb läuft auf Servern in Deutschland.</dd></div><div><dt>Rechte nach Aufgabe</dt><dd>Jede Rolle sieht nur die Daten, die sie für ihre Aufgabe braucht.</dd></div><div><dt>Zwei-Faktor-Anmeldung</dt><dd>Für alle Konten lässt sich eine Anmeldung mit zweitem Faktor einrichten.</dd></div><div><dt>Nachvollziehbare Änderungen</dt><dd>Jede Änderung an einer Akte ist nachvollziehbar, etwa wer wann einen Kinderschutz-Status gesetzt oder zurückgenommen hat.</dd></div><div><dt>Aufbewahrung (EFB)</dt><dd>Akten werden nach den gesetzlichen Fristen aufbewahrt, bis zu 100 Jahre.</dd></div></dl></div></div></section>
 
 <section id="angriffe" class="section security" data-chapter="datenschutz" aria-labelledby="title-angriffe">
 <div class="section-inner"><span class="eyebrow">Sicherheit</span><h2 id="title-angriffe">Angriffe<br><span class="accent">und Ausfälle.</span></h2><p class="lede">Träger sozialer Einrichtungen sind in den letzten Jahren wiederholt Ziel von Ransomware-Angriffen geworden. FAMOS begrenzt den Schaden eines solchen Angriffs.</p>
@@ -1313,16 +1192,10 @@ p+p {
 <g><rect x="332" y="18" width="56" height="62" rx="5"/><path d="M332 32h56M350 51v-5a10 10 0 0 1 20 0v5"/><rect x="346" y="51" width="28" height="21" rx="3"/></g>
 <path d="M440 45h120m-7-7 7 7-7 7"/>
 <g><ellipse cx="620" cy="18" rx="28" ry="9"/><path d="M592 18v52c0 12 56 12 56 0V18M592 44c0 12 56 12 56 0M663 20a43 43 0 0 1-5 63m0-10v10h10"/></g>
-</svg><figcaption><span>Installation</span><span>Verschlüsselte Sicherung</span><span>Wiederherstellung</span></figcaption></figure><dl class="security-list"><div><dt>Unlesbare Kopien</dt><dd>Kopierte Daten bleiben ohne die getrennt verwahrten Schlüssel unlesbar.</dd></div><div><dt>Gesicherte Sicherungen</dt><dd>Sicherungen sind verschlüsselt, gegen Veränderung gesperrt und lassen sich wiederherstellen.</dd></div><div><dt>Begrenzte Reichweite</dt><dd>Ein Vorfall bei einer Einrichtung betrifft keine andere.</dd></div><div><dt>Geprüfte Uploads</dt><dd>Dokumente werden in EFB vor dem Speichern auf Schadsoftware geprüft; weder Anwendung noch Website laden Inhalte von Drittanbietern.</dd></div></dl></div></section>
+</svg><figcaption><span>Installation</span><span>Verschlüsselte Sicherung</span><span>Wiederherstellung</span></figcaption></figure><dl class="security-list"><div><dt>Unlesbare Kopien</dt><dd>Kopierte Daten bleiben ohne die getrennt verwahrten Schlüssel unlesbar.</dd></div><div><dt>Gesicherte Sicherungen</dt><dd>Sicherungen sind verschlüsselt, gegen Veränderung gesperrt und lassen sich innerhalb von 24 Stunden wiederherstellen.</dd></div><div><dt>Begrenzte Reichweite</dt><dd>Ein Vorfall bei einer Einrichtung betrifft keine andere.</dd></div><div><dt>Geprüfte Uploads</dt><dd>Dokumente werden in EFB vor dem Speichern auf Schadsoftware geprüft; weder Anwendung noch Website laden Inhalte von Drittanbietern.</dd></div></dl></div></section>
 
-<section id="einstieg" class="section" data-chapter="einstieg" aria-labelledby="title-einstieg"><span id="s2" class="legacy-anchor" aria-hidden="true"></span><span id="s16" class="legacy-anchor" aria-hidden="true"></span><span id="leistungen" class="legacy-anchor" aria-hidden="true"></span>
-<div class="section-inner"><span class="eyebrow">Einstieg</span><h2 id="title-einstieg">Produktvorstellung, Testbetrieb,<br><span class="accent">Einführung.</span></h2><p class="lede">Der Testbetrieb ist kostenlos. Umfang und Laufzeit vereinbaren wir mit Ihrer Einrichtung.</p>
-<ol class="steps"><li><h3>Produktvorstellung</h3><p>Wir zeigen Ihnen EFB oder SKB an Ihren Abläufen.</p></li><li><h3>Testbetrieb</h3><p>Sie erhalten eine eigene Installation und testen FAMOS kostenlos.</p></li><li><h3>Einführung</h3><p>Wir schließen den Vertrag zur Auftragsverarbeitung, richten Rollen und Grundeinstellungen ein, übernehmen Daten aus Ihrem bisherigen System und führen Ihr Team ein.</p></li></ol>
-<div class="included"><h3>Im laufenden Betrieb enthalten</h3><p>Nutzung der Anwendung · Hosting und Betrieb in Deutschland · Updates, Sicherheitspflege und Anpassung an geänderte Berichtsformate · Sicherungen und Wiederherstellung · Anwendersupport</p></div><p class="note offer-note">Leistungen und Konditionen erhalten Sie schriftlich im Angebot.</p>
-<div class="actions"><a class="btn btn-primary" href="https://cal.meetergo.com/hello-61/famos" target="_blank" rel="noopener">Produktvorstellung vereinbaren</a><a class="btn btn-secondary" href="mailto:hello@volta.codes?subject=Angebot%20FAMOS&body=Guten%20Tag%2C%0A%0Awir%20interessieren%20uns%20f%C3%BCr%20FAMOS.%0A%0AEinrichtung%3A%0AAnwendung%20(EFB%20%2F%20SKB%20%2F%20beide)%3A%0AStandorte%3A%0AAnsprechperson%3A%0A%0AMit%20freundlichen%20Gr%C3%BC%C3%9Fen">Angebot anfordern</a></div></div></section>
-
-<section id="kontakt" class="section contact" data-chapter="kontakt" aria-labelledby="title-kontakt"><span id="s17" class="legacy-anchor" aria-hidden="true"></span>
-<div class="section-inner"><div class="contact-content"><h2 id="title-kontakt">Bereit für<br><span class="accent">FAMOS?</span></h2><p class="lede">Wir zeigen Ihnen EFB oder SKB und besprechen Ihre Anforderungen an Abläufe, Berichte und Einführung.</p>
+<section id="kontakt" class="section contact" data-chapter="kontakt" aria-labelledby="title-kontakt"><span id="s2" class="legacy-anchor" aria-hidden="true"></span><span id="s16" class="legacy-anchor" aria-hidden="true"></span><span id="s17" class="legacy-anchor" aria-hidden="true"></span><span id="leistungen" class="legacy-anchor" aria-hidden="true"></span><span id="einstieg" class="legacy-anchor" aria-hidden="true"></span>
+<div class="section-inner"><div class="contact-content"><h2 id="title-kontakt">Bereit für<br><span class="accent">FAMOS?</span></h2><p class="lede">Wir zeigen Ihnen EFB oder SKB an Ihren Abläufen. Der Testbetrieb ist kostenlos.</p>
 <div class="actions"><a class="btn btn-primary" href="https://cal.meetergo.com/hello-61/famos" target="_blank" rel="noopener">Produktvorstellung vereinbaren</a><a class="btn btn-secondary" href="mailto:hello@volta.codes?subject=Angebot%20FAMOS&body=Guten%20Tag%2C%0A%0Awir%20interessieren%20uns%20f%C3%BCr%20FAMOS.%0A%0AEinrichtung%3A%0AAnwendung%20(EFB%20%2F%20SKB%20%2F%20beide)%3A%0AStandorte%3A%0AAnsprechperson%3A%0A%0AMit%20freundlichen%20Gr%C3%BC%C3%9Fen">Angebot anfordern</a></div>
 <div class="contact-brand"><p class="note">Ein Projekt von</p><a class="wordmark" href="../" aria-label="Zur Website von volta.codes">volta<span>.codes</span></a></div></div>
 <footer class="contact-bottom"><nav class="footer-links" aria-label="Weitere Informationen"><a href="../projekte.html">Weitere Projekte</a><span class="footer-separator" aria-hidden="true">·</span><a href="../#impressum">Impressum</a><span class="footer-separator" aria-hidden="true">·</span><a href="../#datenschutz">Datenschutz</a><span class="footer-separator copyright-separator" aria-hidden="true">·</span><span class="copyright">© 2026 volta.codes GmbH</span></nav></footer></div></section>
@@ -1352,7 +1225,6 @@ const sectionLabels = {
   'skb-statistik':'SKB · Statistik',
   datenschutz:'Datenschutz',
   angriffe:'Angriffe und Ausfälle',
-  einstieg:'Einstieg',
   kontakt:'Kontakt'
 };
 sections.forEach(section => {
