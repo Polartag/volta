@@ -428,25 +428,51 @@ p+p {
 .btn-secondary:hover {
     background:var(--surface)
 }
-#title-warum {
-    font-size:.8rem;
-    font-weight:750;
-    line-height:1.65;
-    max-width:none;
-    white-space:nowrap;
-    margin-bottom:2rem
+/* Two applications on one shared base; colours follow the product rule. */
+.base-diagram {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+    max-width:30rem;
+    width:100%;
+    margin:auto
 }
-.overview-list article+article {
-    border-top:1px solid var(--line);
-    margin-top:1.25rem;
-    padding-top:1.25rem
+.app-node,.base-node {
+    padding:1.25rem;
+    border:1px solid var(--line);
+    border-radius:.6rem;
+    background:var(--surface)
 }
-.overview-list h3 {
-    font-size:1.2rem;
-    margin-bottom:.5rem
+.app-node strong,.base-node strong {
+    display:block;
+    font-size:1.1rem;
+    letter-spacing:-.02em;
+    margin-bottom:.35rem
 }
-.overview-list p {
-    color:var(--muted)
+.app-node span,.base-node span {
+    color:var(--muted);
+    font-size:.85rem;
+    line-height:1.5
+}
+.app-node.efb {
+    border-color:var(--blue)
+}
+.app-node.efb strong {
+    color:var(--blue)
+}
+.app-node.skb {
+    border-color:var(--coral)
+}
+.app-node.skb strong {
+    color:var(--coral)
+}
+.base-node {
+    grid-column:1/-1;
+    border-color:var(--petrol);
+    text-align:center
+}
+.base-node strong {
+    color:var(--petrol)
 }
 .comparison-foot {
     margin-top:2rem;
@@ -677,10 +703,6 @@ p+p {
     color:var(--muted);
     font-size:.95rem
 }
-.entry-note {
-    margin-top:1.5rem;
-    max-width:100ch
-}
 .references-heading {
     margin:1.5rem 0 .5rem;
     font-size:1rem
@@ -761,11 +783,6 @@ p+p {
 }
 .contact-brand .wordmark {
     font-size:2.375rem
-}
-.contact-tagline {
-    font-size:1rem;
-    line-height:1.5;
-    color:var(--muted)
 }
 .contact-bottom {
     margin-top:auto;
@@ -881,6 +898,102 @@ p+p {
     }
     .js .shot-expanded .shot-frame {
         cursor:zoom-out
+    }
+}
+/* Tight snapping viewports (narrow desktops or heights under 880px): widen the copy column and
+   compact lists so every section still fits one screen with full sentences. */
+@media(min-width:1001px) and (max-width:1199px) and (min-height:800px) {
+    .split {
+        grid-template-columns:minmax(0,1fr) minmax(0,1fr)
+    }
+    .facts li {
+        padding:.55rem 0;
+        font-size:.9rem
+    }
+    .security-layout {
+        grid-template-columns:1fr
+    }
+    .privacy-diagram {
+        display:none
+    }
+    .security-list dd {
+        font-size:.9rem
+    }
+    .recovery-diagram {
+        max-width:40rem;
+        margin:1rem 0
+    }
+    .steps {
+        margin-top:1.5rem
+    }
+    .steps li {
+        padding:1rem 0
+    }
+    .steps p {
+        font-size:.9rem
+    }
+    .steps li::before,.steps h3 {
+        margin-bottom:.5rem
+    }
+    #einstieg .lede {
+        font-size:1rem
+    }
+    #einstieg .actions {
+        margin-top:.75rem
+    }
+    .included {
+        margin-top:.75rem;
+        padding-top:.5rem
+    }
+    .offer-note {
+        margin-top:.5rem
+    }
+}
+@media(min-width:1200px) and (min-height:800px) and (max-height:879px) {
+    .split {
+        grid-template-columns:minmax(0,1fr) minmax(0,1fr)
+    }
+    .facts li {
+        padding:.55rem 0;
+        font-size:.9rem
+    }
+    .security-layout {
+        grid-template-columns:1fr
+    }
+    .privacy-diagram {
+        display:none
+    }
+    .security-list dd {
+        font-size:.9rem
+    }
+    .recovery-diagram {
+        max-width:40rem;
+        margin:1rem 0
+    }
+    .steps {
+        margin-top:1.5rem
+    }
+    .steps li {
+        padding:1rem 0
+    }
+    .steps p {
+        font-size:.9rem
+    }
+    .steps li::before,.steps h3 {
+        margin-bottom:.5rem
+    }
+    #einstieg .lede {
+        font-size:1rem
+    }
+    #einstieg .actions {
+        margin-top:.75rem
+    }
+    .included {
+        margin-top:.75rem;
+        padding-top:.5rem
+    }
+    .offer-note {
+        margin-top:.5rem
     }
 }
 @media(min-width:721px) and (min-height:640px) {
@@ -1000,8 +1113,14 @@ p+p {
     .steps {
         gap:0
     }
-    .section-kicker,#title-warum {
+    .section-kicker {
         margin-bottom:1.5rem
+    }
+    .base-diagram {
+        grid-template-columns:1fr
+    }
+    .base-node {
+        grid-column:auto
     }
     .facts li {
         font-size:.95rem
@@ -1066,9 +1185,6 @@ p+p {
     }
     .contact-brand .wordmark {
         font-size:2.5rem
-    }
-    .contact-tagline {
-        font-size:.85rem
     }
     .footer-links .copyright-separator {
         display:none
@@ -1189,39 +1305,40 @@ p+p {
 </div></div></div></section>
 
 <section id="warum" class="section" data-chapter="" aria-labelledby="title-warum"><span id="s3" class="legacy-anchor" aria-hidden="true"></span><span id="s4" class="legacy-anchor" aria-hidden="true"></span><span id="anwendungen" class="legacy-anchor" aria-hidden="true"></span>
-<div class="section-inner"><h2 id="title-warum" class="eyebrow">Im Überblick</h2>
-<div class="split"><div class="copy overview-list">
-<article><h3>Bedienung</h3><p>Teamassistenz, Berater:innen und Leitung sehen jeweils die Ansichten und Felder, die zu ihrer Aufgabe gehören.</p></article>
-<article><h3>Datenschutz und Sicherheit</h3><p>Beratungsdaten werden verschlüsselt gespeichert.</p></article>
-<article><h3>Berichte</h3><p>Bundesstatistik, Sachbericht und Jahresstatistik entstehen aus den laufenden Daten.</p></article>
-</div><div class="col"><figure class="shot efb">
-<a class="shot-frame" href="media/efb-overview.webp?v=6e956bd2" target="_blank" rel="noopener" aria-label="EFB-Dashboard mit Fallstatus, Kinderschutzbereich und Hinweisen. Originalbild in neuem Tab öffnen."><img id="image-efb-overview" src="media/efb-overview.webp?v=6e956bd2" width="1280" height="720" loading="lazy" decoding="async" alt="EFB-Dashboard mit Fallstatus, Kinderschutzbereich und Hinweisen"></a>
-<figcaption><span>EFB · Dashboard der Leitung</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-efb-overview" hidden>Bild vergrößern</button></figcaption></figure></div></div>
-<p class="note comparison-foot">EFB und SKB lassen sich einzeln beauftragen. Sie teilen das Bedienkonzept; Datenbestände und Berechtigungen bleiben getrennt. Alle Abbildungen zeigen synthetische Beispieldaten.</p></div></section>
+<div class="section-inner"><span class="eyebrow">Im Überblick</span>
+<div class="split"><div class="copy"><h2 id="title-warum">Zwei Anwendungen<br><span class="accent">auf einer gemeinsamen Grundlage.</span></h2>
+<p class="lede">FAMOS-EFB ist für die Erziehungs- und Familienberatung gebaut, FAMOS-SKB für die Schwangerschaftskonfliktberatung. Beide teilen Bedienung, Rechtesystem, Verschlüsselung und Betrieb; ihre Datenbestände bleiben getrennt. Jede Anwendung lässt sich einzeln beauftragen.</p>
+<ul class="facts"><li><strong>Überblick je Rolle:</strong> Jede Rolle sieht beim Anmelden ihre eigenen Fälle oder Termine; die Leitung sieht alle.</li><li><strong>Einmal erfassen:</strong> Alles, was einmal erfasst ist, steht der Statistik zur Verfügung. Bundesstatistik, Sachbericht und Jahresstatistik werden nicht noch einmal zusammengetragen; eigene Auswertungen entstehen aus denselben Daten.</li><li><strong>Datensparsam und geschützt:</strong> Erfasst wird, was Beratung und Bericht brauchen. Die Daten liegen verschlüsselt in einer eigenen Datenbank je Einrichtung, auf Servern in Deutschland.</li></ul></div>
+<div class="col"><figure class="base-diagram" aria-label="FAMOS-EFB und FAMOS-SKB auf einer gemeinsamen Grundlage">
+<div class="app-node efb"><strong>FAMOS-EFB</strong><span>Erziehungs- und Familienberatung</span></div>
+<div class="app-node skb"><strong>FAMOS-SKB</strong><span>Schwangerschafts&shy;konfliktberatung</span></div>
+<div class="base-node"><strong>Gemeinsame Grundlage</strong><span>Bedienung · Rechtesystem · Verschlüsselung · Betrieb</span></div>
+</figure></div></div>
+<p class="note comparison-foot">Alle Abbildungen zeigen synthetische Beispieldaten.</p></div></section>
 
 <section id="efb" class="section product-section efb" data-chapter="efb" aria-labelledby="title-efb"><span id="s5" class="legacy-anchor" aria-hidden="true"></span><span id="s6" class="legacy-anchor" aria-hidden="true"></span><span id="s7" class="legacy-anchor" aria-hidden="true"></span><span id="s8" class="legacy-anchor" aria-hidden="true"></span><span id="s9" class="legacy-anchor" aria-hidden="true"></span><span id="s10" class="legacy-anchor" aria-hidden="true"></span><span id="s11" class="legacy-anchor" aria-hidden="true"></span><span id="efb-anmeldung" class="legacy-anchor" aria-hidden="true"></span><span id="efb-fallakte" class="legacy-anchor" aria-hidden="true"></span><span id="efb-auswertung" class="legacy-anchor" aria-hidden="true"></span><span id="efb-praevention" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><div class="section-kicker"><span class="index">FAMOS-EFB</span><span class="eyebrow">Erziehungs- und Familienberatung</span></div>
-<div class="split"><div class="copy"><h2 id="title-efb"><span class="sr-only">FAMOS-EFB: </span>Fallakte, Kinderschutz<br><span class="accent">und Bundesstatistik.</span></h2><p class="lede">FAMOS-EFB führt Anmeldung, Fallakte und Auswertung in einer Anwendung zusammen.</p><ul class="facts"><li><strong>Fallakte:</strong> Stammdaten, Eltern und Kontakt, Beratungsverlauf, Dokumente und die Angaben zur Bundesstatistik.</li><li><strong>Kinderschutz:</strong> Feststellungen nach § 8a SGB VIII und ihre Rücknahme mit der zugehörigen Dokumentation.</li><li><strong>Berichte:</strong> HZE-Prüfdatei und Importdatei für IDEV; Sachbericht mit Kennzahlen der Leitung; eigene Auswertungen als Excel oder PDF.</li><li><strong>Prävention und Vernetzung:</strong> Veranstaltungen und Anfragen mit Zeitaufwand, getrennt von den Fällen erfasst.</li></ul></div>
+<div class="split"><div class="copy"><h2 id="title-efb"><span class="sr-only">FAMOS-EFB: </span>Von der Anmeldung<br><span class="accent">bis zur Bundesstatistik.</span></h2><p class="lede">FAMOS-EFB führt Anmeldung, Fallakte und Auswertung in einer Anwendung zusammen.</p><ul class="facts"><li><strong>Überblick:</strong> Berater:innen sehen ihre eigenen Fälle und die Warteliste; Teamassistenz und Leitung sehen alle Fälle. Das Dashboard hebt hervor, was Aufmerksamkeit braucht: Kinderschutzfälle nach § 8a SGB VIII, Fälle ohne Kontakt seit mehr als sechs Monaten, fehlende Angaben.</li><li><strong>Einmal erfassen:</strong> Was in der Fallakte steht, wird für die Statistik nicht noch einmal eingegeben. HZE-Prüfdatei, IDEV-Importdatei und Sachbericht entstehen aus den Falldaten; eigene Auswertungen stellen Sie aus Kennzahlen Ihrer Wahl zusammen und speichern die Auswahl als Vorlage.</li><li><strong>Prävention und Vernetzung:</strong> Veranstaltungen, Anfragen und Vernetzungsarbeit werden mit Vorbereitung, Durchführung und Fahrtzeit erfasst, getrennt von den Fällen.</li></ul></div>
 <div class="col"><figure class="shot">
-<a class="shot-frame" href="media/efb-case.webp" target="_blank" rel="noopener" aria-label="EFB-Fallakte mit Beratungsverlauf, Terminerfassung und Kinderschutzangaben. Originalbild in neuem Tab öffnen."><img id="image-efb-case" src="media/efb-case.webp" width="1280" height="720" loading="lazy" decoding="async" alt="EFB-Fallakte mit Beratungsverlauf, Terminerfassung und Kinderschutzangaben"></a>
-<figcaption><span>EFB · Beratungsverlauf</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-efb-case" hidden>Bild vergrößern</button></figcaption></figure></div></div></div></section>
+<a class="shot-frame" href="media/efb-overview.webp?v=6e956bd2" target="_blank" rel="noopener" aria-label="EFB-Dashboard mit Fallstatus, Kinderschutzbereich und Hinweisen. Originalbild in neuem Tab öffnen."><img id="image-efb-overview" src="media/efb-overview.webp?v=6e956bd2" width="1280" height="720" loading="lazy" decoding="async" alt="EFB-Dashboard mit Fallstatus, Kinderschutzbereich und Hinweisen"></a>
+<figcaption><span>EFB · Dashboard der Leitung</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-efb-overview" hidden>Bild vergrößern</button></figcaption></figure></div></div></div></section>
 
 <section id="skb" class="section product-section skb" data-chapter="skb" aria-labelledby="title-skb"><span id="s14" class="legacy-anchor" aria-hidden="true"></span><span id="s15" class="legacy-anchor" aria-hidden="true"></span><span id="skb-erfassung" class="legacy-anchor" aria-hidden="true"></span><span id="skb-folgetermine" class="legacy-anchor" aria-hidden="true"></span><span id="skb-angebote" class="legacy-anchor" aria-hidden="true"></span><span id="skb-auswertung" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><div class="section-kicker"><span class="index">FAMOS-SKB</span><span class="eyebrow">Schwangerschafts&shy;konfliktberatung</span></div>
-<div class="split"><div class="copy"><h2 id="title-skb"><span class="sr-only">FAMOS-SKB: </span>Termine, Anonymität<br><span class="accent">und Jahresstatistik.</span></h2><p class="lede">FAMOS-SKB erfasst jede Beratung als eigenen Termin mit Terminnummer und zuständiger Person. Zusammengehörige Termine werden ausdrücklich verknüpft und in einer virtuellen Akte angezeigt.</p><ul class="facts"><li><strong>Anonymität:</strong> Die Schwangerschaftskonfliktberatung wird immer anonym erfasst, die Sozialberatung namentlich. Anonyme und namentliche Termine werden nie miteinander verknüpft.</li><li><strong>Erfassung:</strong> Beratungsarten, Begleitpersonen, Beratungsscheine, Herkunftsnachweise und Stiftungsanträge; dazu Gruppenangebote und Fortbildungen.</li><li><strong>Jahresstatistik:</strong> Berliner Sachbericht mit allen sechs Bereichen, Excel-Ausgabe im Format der Berliner Vorlage.</li><li><strong>Nachvollziehbarkeit:</strong> Wer einen Folgetermin speichert, übernimmt die Beratung.</li></ul></div>
+<div class="split"><div class="copy"><h2 id="title-skb"><span class="sr-only">FAMOS-SKB: </span>Alle Beratungstermine<br><span class="accent">im Überblick.</span></h2><p class="lede">Für die Schwangerschaftskonfliktberatung gab es bisher keine passgenaue Fachsoftware. FAMOS-SKB erfasst jeden Beratungstermin einmal, mit Terminnummer und zuständiger Person, und zeigt die Termine in einer Übersicht.</p><ul class="facts"><li><strong>Datensparsamkeit:</strong> Die Konfliktberatung wird anonym erfasst, die Sozialberatung namentlich, Begleitpersonen ohne Namen. Zugleich lassen sich Folgetermine derselben Person verknüpfen. Termine und Personen werden getrennt gezählt; die Jahresstatistik wird dadurch aussagekräftiger.</li><li><strong>Alles, was in den Bericht gehört:</strong> Beratungsscheine, Herkunftsnachweise und Stiftungsanträge werden am Termin erfasst, Gruppenangebote und Fortbildungen in eigenen Bereichen.</li><li><strong>Jahresstatistik ohne Nacharbeit:</strong> Der Berliner Sachbericht wird aus den Terminen gefüllt und als Excel im Format der Berliner Vorlage ausgegeben. Vor dem Export zeigt FAMOS fehlende oder widersprüchliche Angaben an. Eigene Auswertungen stellen Sie aus denselben Daten zusammen.</li></ul></div>
 <div class="col"><figure class="shot">
-<a class="shot-frame" href="media/skb-capture.webp" target="_blank" rel="noopener" aria-label="SKB-Erfassung mit anonymer Beratung, Folgetermin und Begleitpersonen. Originalbild in neuem Tab öffnen."><img id="image-skb-capture" src="media/skb-capture.webp" width="1280" height="720" loading="lazy" decoding="async" alt="SKB-Erfassung mit anonymer Beratung, Folgetermin und Begleitpersonen"></a>
-<figcaption><span>SKB · Beratungstermin erfassen</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-skb-capture" hidden>Bild vergrößern</button></figcaption></figure></div></div></div></section>
+<a class="shot-frame" href="media/skb-overview.webp" target="_blank" rel="noopener" aria-label="SKB-Terminübersicht mit anonymen und namentlichen Beratungsterminen. Originalbild in neuem Tab öffnen."><img id="image-skb-overview" src="media/skb-overview.webp" width="1280" height="720" loading="lazy" decoding="async" alt="SKB-Terminübersicht mit anonymen und namentlichen Beratungsterminen"></a>
+<figcaption><span>SKB · Terminübersicht</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-skb-overview" hidden>Bild vergrößern</button></figcaption></figure></div></div></div></section>
 
 <section id="datenschutz" class="section security" data-chapter="datenschutz" aria-labelledby="title-datenschutz"><span id="s12" class="legacy-anchor" aria-hidden="true"></span><span id="s13" class="legacy-anchor" aria-hidden="true"></span><span id="sicherheit" class="legacy-anchor" aria-hidden="true"></span>
-<div class="section-inner"><span class="eyebrow">Datenschutz</span><h2 id="title-datenschutz">Verschlüsselung, Zugriffsrechte,<br><span class="accent">Aufbewahrung.</span></h2><p class="lede">FAMOS verarbeitet besonders schutzbedürftige Daten.</p>
+<div class="section-inner"><span class="eyebrow">Datenschutz</span><h2 id="title-datenschutz">Verschlüsselung, Zugriffsrechte,<br><span class="accent">Aufbewahrung.</span></h2><p class="lede">FAMOS verarbeitet besonders schutzbedürftige Daten. Die folgenden Maßnahmen gelten für beide Anwendungen, soweit nicht anders angegeben.</p>
 <div class="security-layout"><figure class="privacy-diagram" aria-label="Beratungsdaten und Schlüssel werden getrennt in Deutschland gespeichert">
 <div class="data-node"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><ellipse cx="32" cy="14" rx="23" ry="8"/><path d="M9 14v34c0 11 46 11 46 0V14M9 31c0 11 46 11 46 0"/></svg><strong>Datenbank</strong><span>Beratungsdaten verschlüsselt</span></div>
 <div class="key-node"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="21" cy="22" r="13"/><circle cx="18" cy="19" r="3"/><path d="m31 31 23 23 6-6-6-6-6 2-2-7-7-2"/></svg><strong>Schlüsseldienst</strong><span>Schlüssel getrennt verwahrt</span></div>
-<figcaption>Getrennte Speicherung<br>STACKIT · Deutschland</figcaption></figure><dl class="security-list"><div><dt>Verschlüsselte Daten</dt><dd>Identitätsangaben, fachliche Angaben und Beratungsnotizen werden einzeln verschlüsselt gespeichert; EFB verschlüsselt auch hochgeladene Dokumente.</dd></div><div><dt>Eigene Datenbank</dt><dd>Jede Einrichtung und jede Anwendung arbeitet mit eigenen Berechtigungen und Schlüsseln.</dd></div><div><dt>Rechte nach Aufgabe</dt><dd>Eine reine Administrationsrolle hat keinen Zugriff auf Beratungsinhalte.</dd></div><div><dt>Zweiter Faktor</dt><dd>Administrationskonten brauchen neben dem Passwort eine Authenticator-App oder einen Passkey.</dd></div><div><dt>Zugriffsprotokoll</dt><dd>Lesezugriffe und Änderungen werden protokolliert; die Leitung kann das Protokoll einsehen.</dd></div><div><dt>Aufbewahrung und Datenauskunft (EFB)</dt><dd>Die Einrichtung legt Fristen fest; fällige Akten anonymisiert die Leitung. Datenauskunft nach Art. 15 DSGVO als Export.</dd></div></dl></div></div></section>
+<figcaption>Getrennte Speicherung<br>STACKIT · Deutschland</figcaption></figure><dl class="security-list"><div><dt>Verschlüsselte Daten</dt><dd>Identitätsangaben, fachliche Angaben und Beratungsnotizen werden einzeln verschlüsselt gespeichert; EFB verschlüsselt auch hochgeladene Dokumente. Die Schlüssel liegen getrennt von der Datenbank in einem Schlüsseldienst in Deutschland.</dd></div><div><dt>Eigene Datenbank</dt><dd>Jede Einrichtung und jede Anwendung arbeitet in einer eigenen Datenbank mit eigenen Berechtigungen und Schlüsseln. Der Betrieb läuft bei STACKIT in Deutschland.</dd></div><div><dt>Rechte nach Aufgabe</dt><dd>Teamassistenz, Berater:innen, Leitung und Einrichtungsadministration erhalten Rechte für ihre Aufgaben. Eine reine Administrationsrolle hat keinen Zugriff auf Beratungsinhalte.</dd></div><div><dt>Zweiter Faktor</dt><dd>Administrationskonten brauchen neben dem Passwort eine Authenticator-App oder einen Passkey. In FAMOS-SKB kann die Einrichtung den zweiten Faktor für alle Konten verpflichtend machen.</dd></div><div><dt>Zugriffsprotokoll</dt><dd>Lesezugriffe und Änderungen werden protokolliert; die Leitung kann das Protokoll einsehen. Technische Betriebsprotokolle enthalten keine personenbezogenen Inhalte.</dd></div><div><dt>Aufbewahrung und Datenauskunft (EFB)</dt><dd>Für jede Akte gilt eine Aufbewahrungsklasse mit Fristen, die die Einrichtung festlegt; fällige Akten anonymisiert die Leitung. Die Datenauskunft nach Art. 15 DSGVO steht als Export bereit.</dd></div></dl></div></div></section>
 
 <section id="angriffe" class="section security" data-chapter="datenschutz" aria-labelledby="title-angriffe">
-<div class="section-inner"><span class="eyebrow">Sicherheit</span><h2 id="title-angriffe">Angriffe<br><span class="accent">und Ausfälle.</span></h2><p class="lede">FAMOS begrenzt den Schaden eines Angriffs.</p>
+<div class="section-inner"><span class="eyebrow">Sicherheit</span><h2 id="title-angriffe">Angriffe<br><span class="accent">und Ausfälle.</span></h2><p class="lede">Träger sozialer Einrichtungen sind in den letzten Jahren wiederholt Ziel von Ransomware-Angriffen geworden. FAMOS begrenzt den Schaden eines solchen Angriffs.</p>
 <figure class="recovery-diagram" aria-label="Von der Installation über eine verschlüsselte Sicherung zur Wiederherstellung">
 <svg viewBox="0 0 720 100" aria-hidden="true" focusable="false">
 <g><ellipse cx="100" cy="18" rx="28" ry="9"/><path d="M72 18v52c0 12 56 12 56 0V18M72 44c0 12 56 12 56 0"/></g>
@@ -1229,26 +1346,26 @@ p+p {
 <g><rect x="332" y="18" width="56" height="62" rx="5"/><path d="M332 32h56M350 51v-5a10 10 0 0 1 20 0v5"/><rect x="346" y="51" width="28" height="21" rx="3"/></g>
 <path d="M440 45h120m-7-7 7 7-7 7"/>
 <g><ellipse cx="620" cy="18" rx="28" ry="9"/><path d="M592 18v52c0 12 56 12 56 0V18M592 44c0 12 56 12 56 0M663 20a43 43 0 0 1-5 63m0-10v10h10"/></g>
-</svg><figcaption><span>Installation</span><span>Verschlüsselte Sicherung</span><span>Wiederherstellung</span></figcaption></figure><dl class="security-list"><div><dt>Unlesbare Kopien</dt><dd>Kopierte Datenbanken oder Dateien bleiben ohne die getrennt verwahrten Schlüssel unlesbar.</dd></div><div><dt>Gesicherte Sicherungen</dt><dd>Sicherungen werden verschlüsselt gespeichert und sind gegen nachträgliche Veränderung gesperrt.</dd></div><div><dt>Begrenzte Reichweite</dt><dd>Jede Einrichtung hat eine eigene Datenbank mit eigenen Schlüsseln.</dd></div><div><dt>Geprüfte Uploads</dt><dd>Hochgeladene Dokumente werden in EFB vor dem Speichern auf Schadsoftware geprüft.</dd></div></dl></div></section>
+</svg><figcaption><span>Installation</span><span>Verschlüsselte Sicherung</span><span>Wiederherstellung</span></figcaption></figure><dl class="security-list"><div><dt>Unlesbare Kopien</dt><dd>Kopierte Datenbanken oder Dateien bleiben ohne die getrennt verwahrten Schlüssel unlesbar.</dd></div><div><dt>Gesicherte Sicherungen</dt><dd>Sicherungen werden verschlüsselt gespeichert und sind gegen nachträgliche Veränderung gesperrt. Eine Installation lässt sich daraus wiederherstellen.</dd></div><div><dt>Begrenzte Reichweite</dt><dd>Jede Einrichtung hat eine eigene Datenbank mit eigenen Schlüsseln. Ein Vorfall bei einer Installation betrifft keine andere.</dd></div><div><dt>Geprüfte Uploads, keine Fremdinhalte</dt><dd>Hochgeladene Dokumente werden in EFB vor dem Speichern auf Schadsoftware geprüft. Weder die Anwendungen noch diese Website laden Inhalte von Drittanbietern.</dd></div></dl></div></section>
 
 <section id="entwicklung" class="section" data-chapter="" aria-labelledby="title-entwicklung">
 <div class="section-inner"><span class="eyebrow">Entstehung</span><div class="split"><div class="copy"><h2 id="title-entwicklung">Entwickelt mit<br><span class="accent">Beratungsstellen.</span></h2>
-<p class="lede">FAMOS wird gemeinsam mit Beratungsstellen in Berlin entwickelt.</p>
+<p class="lede">FAMOS wird gemeinsam mit Beratungsstellen in Berlin entwickelt. Abläufe, Felder und Berichte folgen deren Arbeit.</p>
 <p class="muted">Rückmeldungen aus Produktvorstellungen und Testbetrieb fließen laufend in die Entwicklung ein. Ändern sich Vorgaben oder Berichtsvorlagen, wird die Software nachgezogen.</p>
-<h3 class="references-heading">Originalvorlagen</h3><ul class="references"><li>Bundesstatistik der Erziehungs- und Familienberatung (HZE, IDEV)</li><li>Berliner Sachbericht der Erziehungs- und Familienberatung</li><li>Berliner Jahresstatistik der Schwangerschaftskonfliktberatung</li><li>Kinderschutz nach § 8a SGB VIII</li></ul></div><div class="col"><figure class="shot skb">
+<h3 class="references-heading">Umgesetzt anhand der Originalvorlagen</h3><ul class="references"><li>Bundesstatistik der Erziehungs- und Familienberatung (HZE, IDEV)</li><li>Berliner Sachbericht der Erziehungs- und Familienberatung</li><li>Berliner Jahresstatistik der Schwangerschaftskonfliktberatung</li><li>Kinderschutz nach § 8a SGB VIII</li></ul></div><div class="col"><figure class="shot skb">
 <a class="shot-frame" href="media/skb-report.webp" target="_blank" rel="noopener" aria-label="SKB-Sachbericht mit Jahresauswahl und Excel-Export. Originalbild in neuem Tab öffnen."><img id="image-skb-report" src="media/skb-report.webp" width="1280" height="720" loading="lazy" decoding="async" alt="SKB-Sachbericht mit Jahresauswahl und Excel-Export"></a>
 <figcaption><span>SKB · Berliner Sachbericht</span><button class="zoom-button" type="button" data-zoom aria-expanded="false" aria-controls="image-skb-report" hidden>Bild vergrößern</button></figcaption></figure></div></div></div></section>
 
 <section id="einstieg" class="section" data-chapter="einstieg" aria-labelledby="title-einstieg"><span id="s2" class="legacy-anchor" aria-hidden="true"></span><span id="s16" class="legacy-anchor" aria-hidden="true"></span><span id="leistungen" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><span class="eyebrow">Einstieg</span><h2 id="title-einstieg">Produktvorstellung, Testbetrieb,<br><span class="accent">Einführung.</span></h2><p class="lede">Der Testbetrieb ist kostenlos. Umfang und Laufzeit vereinbaren wir mit Ihrer Einrichtung.</p>
-<ol class="steps"><li><h3>Produktvorstellung</h3><p>Wir zeigen Ihnen EFB oder SKB an Ihren Abläufen.</p></li><li><h3>Testbetrieb</h3><p>Sie erhalten eine eigene Installation und testen FAMOS kostenlos.</p></li><li><h3>Einführung</h3><p>Ihr Team führen wir ein und bleiben für Rückfragen erreichbar.</p></li></ol><p class="note entry-note">Vor dem Einsatz mit echten Daten schließen wir einen Vertrag zur Auftragsverarbeitung, richten Rollen und Grundeinstellungen ein und planen die Datenübernahme aus Ihrem bisherigen System.</p>
-<div class="included"><h3>Im laufenden Betrieb enthalten</h3><p>Hosting und Betrieb in Deutschland · Updates und Sicherheitspflege · Sicherungen und Wiederherstellung · Anwendersupport</p></div><p class="note offer-note">Leistungen und Konditionen erhalten Sie schriftlich im Angebot.</p>
+<ol class="steps"><li><h3>Produktvorstellung</h3><p>Wir zeigen Ihnen EFB oder SKB an Ihren Abläufen und besprechen die Aufgaben von Teamassistenz, Berater:innen und Leitung.</p></li><li><h3>Testbetrieb</h3><p>Sie erhalten eine eigene Installation und testen FAMOS kostenlos. Version, Umfang, Start und Laufzeit vereinbaren wir mit Ihnen.</p></li><li><h3>Einführung</h3><p>Vor dem Einsatz mit echten Daten schließen wir einen Vertrag zur Auftragsverarbeitung, richten Rollen und Grundeinstellungen ein und planen die Datenübernahme aus Ihrem bisherigen System. Ihr Team führen wir ein und bleiben für Rückfragen erreichbar.</p></li></ol>
+<div class="included"><h3>Im laufenden Betrieb enthalten</h3><p>Nutzung der Anwendung · Hosting und Betrieb in Deutschland · Updates, Sicherheitspflege und Anpassung an geänderte Berichtsformate · Sicherungen und Wiederherstellung · Anwendersupport</p></div><p class="note offer-note">Leistungen und Konditionen erhalten Sie schriftlich im Angebot.</p>
 <div class="actions"><a class="btn btn-primary" href="https://cal.meetergo.com/hello-61/famos" target="_blank" rel="noopener">Produktvorstellung vereinbaren</a><a class="btn btn-secondary" href="mailto:hello@volta.codes?subject=Angebot%20FAMOS&body=Guten%20Tag%2C%0A%0Awir%20interessieren%20uns%20f%C3%BCr%20FAMOS.%0A%0AEinrichtung%3A%0AAnwendung%20(EFB%20%2F%20SKB%20%2F%20beide)%3A%0AStandorte%3A%0AAnsprechperson%3A%0A%0AMit%20freundlichen%20Gr%C3%BC%C3%9Fen">Angebot anfordern</a></div></div></section>
 
 <section id="kontakt" class="section contact" data-chapter="kontakt" aria-labelledby="title-kontakt"><span id="s17" class="legacy-anchor" aria-hidden="true"></span>
 <div class="section-inner"><div class="contact-content"><h2 id="title-kontakt">Bereit für<br><span class="accent">FAMOS?</span></h2><p class="lede">Wir zeigen Ihnen EFB oder SKB und besprechen Ihre Anforderungen an Abläufe, Berichte und Einführung.</p>
 <div class="actions"><a class="btn btn-primary" href="https://cal.meetergo.com/hello-61/famos" target="_blank" rel="noopener">Produktvorstellung vereinbaren</a><a class="btn btn-secondary" href="mailto:hello@volta.codes?subject=Angebot%20FAMOS&body=Guten%20Tag%2C%0A%0Awir%20interessieren%20uns%20f%C3%BCr%20FAMOS.%0A%0AEinrichtung%3A%0AAnwendung%20(EFB%20%2F%20SKB%20%2F%20beide)%3A%0AStandorte%3A%0AAnsprechperson%3A%0A%0AMit%20freundlichen%20Gr%C3%BC%C3%9Fen">Angebot anfordern</a></div>
-<div class="contact-brand"><p class="note">Ein Projekt von</p><a class="wordmark" href="../" aria-label="Zur Website von volta.codes">volta<span>.codes</span></a><p class="contact-tagline">Maßgeschneiderte Software, entwickelt mit KI.<br>Verlässlich, smart und zukunftsfest.</p></div></div>
+<div class="contact-brand"><p class="note">Ein Projekt von</p><a class="wordmark" href="../" aria-label="Zur Website von volta.codes">volta<span>.codes</span></a></div></div>
 <footer class="contact-bottom"><nav class="footer-links" aria-label="Weitere Informationen"><a href="../projekte.html">Weitere Projekte</a><span class="footer-separator" aria-hidden="true">·</span><a href="../#impressum">Impressum</a><span class="footer-separator" aria-hidden="true">·</span><a href="../#datenschutz">Datenschutz</a><span class="footer-separator copyright-separator" aria-hidden="true">·</span><span class="copyright">© 2026 volta.codes GmbH</span></nav></footer></div></section>
 </main>
 <script>
