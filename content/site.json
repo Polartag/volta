@@ -132,7 +132,7 @@
     "items": [
       {
         "titel": "FAMOS",
-        "claim": "**Software für Erziehungs-, Familien- und Schwangerschafts­konfliktberatung.** FAMOS-EFB führt ==Fallakte, Kinderschutz und Bundesstatistik== zusammen, FAMOS-SKB ==Beratungstermine, Anonymität und Jahresstatistik==. Beide Anwendungen werden gemeinsam mit Berliner Beratungsstellen entwickelt und ==auf Servern in Deutschland== betrieben.",
+        "claim": "**FAMOS steht für Fallmanagement- und Organisationssoftware.** Sie hilft, in komplexen Beratungssituationen und unter verschiedenen rechtlichen Anforderungen ==von der Anmeldung über die Prozesssteuerung bis zur statistischen Auswertung== alles effizient und intuitiv abzubilden. Besonderen Herausforderungen bei ==Kinderschutz und anonymer Beratung== trägt sie eigens Rechnung. Datenschutz steht dabei an oberster Stelle.",
         "tags": ["Soziale Träger", "Fallmanagement", "DSGVO", "Webanwendung"],
         "bild": "famos/media/efb-overview.webp?v=6e956bd2",
         "alt": "Aktuelles FAMOS-EFB-Dashboard mit synthetischen Beispieldaten: Fallstatus, Kinderschutzbereich und Hinweise",
