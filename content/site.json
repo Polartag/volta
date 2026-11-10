@@ -105,6 +105,13 @@
     ],
     "mitglieder": [
       {
+        "name": "Benjamin Ehring",
+        "rolle": "Technischer Leiter",
+        "foto": "team-benjamin-ehring.webp",
+        "fotoAlt": "Porträt von Benjamin Ehring, Technischer Leiter bei volta.codes",
+        "text": "Benjamin Ehring verantwortet die technische Konzeption und Qualität unserer Software. Er hat Informatik und Maschinenbau studiert und bei einem Flugzeughersteller über viele Jahre an der Entwicklung komplexer technischer Systeme und eigener Softwarewerkzeuge gearbeitet. Bei volta.codes legt er die Softwarearchitektur fest und begleitet die Umsetzung mit Blick auf Datenschutz, Wartbarkeit und einen zuverlässigen Betrieb."
+      },
+      {
         "name": "Nicolas Huart",
         "rolle": "Software-Ingenieur",
         "foto": "team-nicolas-huart.png",
